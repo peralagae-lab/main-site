@@ -25,18 +25,7 @@
   ]
   external_node_modules = ["@prisma/client", ".prisma"]
 
-# ── API Routing ───────────────────────────────────────────────────────────────
-# Routes all /api/* requests directly into our serverless Express API function
-[[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/api/:splat"
-  status = 200
-  force = true
-
-# ── Uploads Routing ───────────────────────────────────────────────────────────
-# Serves uploaded media files through the serverless function
-[[redirects]]
-  from = "/uploads/*"
-  to = "/.netlify/functions/api/uploads/:splat"
-  status = 200
-  force = true
+# ── API & Uploads Routing ─────────────────────────────────────────────────────
+# Note: Forced redirects for /api/* and /uploads/* to /.netlify/functions/api have been
+# removed so that requests are seamlessly handled by Next.js rewrites in apps/frontend/next.config.ts,
+# proxying directly to the external backend (Hostinger VPS / Cloudflare Tunnel) via NEXT_PUBLIC_BACKEND_URL.
