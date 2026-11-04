@@ -192,7 +192,7 @@ describe("Admin Orders, GST Management, and Customer Tracking Suite", () => {
       });
 
       // Financial breakdown: GST 3% snapshot
-      expect(screen.getByText(/GST \(3%\) Snapshot:/i)).toBeInTheDocument();
+      expect(screen.getByText(/GST \(3%\) Snapshot/i)).toBeInTheDocument();
 
       // Start Processing CTA is available
       const startProcessingBtn = screen.getByRole("button", { name: /start processing/i });

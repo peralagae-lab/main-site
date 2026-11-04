@@ -71,13 +71,14 @@ export function createApp(env: EnvConfig): Application {
           return callback(null, true);
         }
 
-        // Automatically allow any Netlify or Render deployment domain (*.netlify.app, *.onrender.com)
+        // Automatically allow any Netlify, Render, or Vercel deployment domain (*.netlify.app, *.onrender.com, *.vercel.app)
         let isCloudDomain = false;
         try {
           const parsed = new URL(origin);
           if (
             parsed.hostname.endsWith(".netlify.app") ||
-            parsed.hostname.endsWith(".onrender.com")
+            parsed.hostname.endsWith(".onrender.com") ||
+            parsed.hostname.endsWith(".vercel.app")
           ) {
             isCloudDomain = true;
           }
