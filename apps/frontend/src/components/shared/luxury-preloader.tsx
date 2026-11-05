@@ -1,34 +1,47 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { MorphingText } from "@/components/ui/morphing-text";
 
 export interface LuxuryPreloaderProps {
   /**
-   * Words to morph through in order.
-   * Defaults to ["Peralagae", "Jewellery"] matching the bold sans-serif design.
+   * Source for the animated intro preloader GIF.
+   * Defaults to "/images/preloader/peralagae-intro.gif".
+   */
+  gifSrc?: string;
+  /**
+   * Presentation variant:
+   * - "gif" (default): High-definition animated brand intro GIF ("PERALAGE ontro gif (1).gif").
+   * - "morphing": Liquid morphing text.
+   */
+  variant?: "gif" | "morphing";
+  /**
+   * Time in seconds to display the preloader GIF before starting dissolve exit.
+   * Defaults to 3.5s (giving full view of the animated calligraphy flourish settling).
+   */
+  duration?: number;
+  /**
+   * Words to morph through in order when using variant="morphing".
    */
   texts?: string[];
   /**
    * Visual theme for the preloader.
-   * - "dark" (default): Pitch black #000000 background with crisp white #FFFFFF text (matches screenshot).
-   * - "light": Pure white #FFFFFF background with solid black #000000 text.
+   * - "light" (default): Pure white #FFFFFF matching the intro GIF seamlessly.
+   * - "dark": Pitch black #000000.
    */
   theme?: "dark" | "light";
   /**
-   * Time in seconds for the liquid morph between words.
-   * Defaults to 0.75s.
+   * Time in seconds for the liquid morph between words (morphing variant).
    */
   morphTime?: number;
   /**
-   * Time in seconds to hold the final word ("Jewellery") before starting the exit fade.
-   * Defaults to 0.6s.
+   * Time in seconds to hold the final word (morphing variant).
    */
   cooldownTime?: number;
   /**
-   * Time in seconds to hold the initial word ("Peralagae") before morphing begins.
-   * Defaults to 0.5s.
+   * Time in seconds to hold the initial word (morphing variant).
    */
   initialCooldown?: number;
   /**
@@ -38,17 +51,18 @@ export interface LuxuryPreloaderProps {
 }
 
 const PRELOADER_TEXTS = ["Peralagae", "Jewellery"];
+const DEFAULT_GIF_SRC = "/images/preloader/peralagae-intro.gif";
 
 /**
- * Luxury Liquid Morphing Preloader for PERALAGAE.
+ * Luxury Preloader for PERALAGAE.
  *
- * Sequence:
- * 1. Initial appearance: "Peralagae" appears in bold neo-grotesque sans-serif typography (Inter Bold).
- * 2. Liquid morphing: "Peralagae" smoothly melts and morphs into "Jewellery" using the SVG threshold matrix.
- * 3. Final appreciation hold: "Jewellery" settles into razor-sharp focus.
- * 4. Smooth dissolve exit: overlay fades out smoothly (opacity 1 -> 0), revealing the website.
+ * Displays the high-definition animated brand calligraphy intro GIF ("PERALAGE ontro gif (1).gif")
+ * seamlessly centered on a luxury pure white canvas, dissolving smoothly into the storefront.
  */
 export function LuxuryPreloader({
+  gifSrc = DEFAULT_GIF_SRC,
+  variant = "gif",
+  duration = 3.5,
   texts = PRELOADER_TEXTS,
   theme = "light",
   morphTime = 0.75,
@@ -64,7 +78,6 @@ export function LuxuryPreloader({
   const bgColor = isDark ? "#000000" : "#FFFFFF";
   const textColor = isDark ? "#FFFFFF" : "#000000";
 
-  // Timer ensuring preloader completes (dedicated brief hold for reduced-motion, safety fallback for standard motion)
   useEffect(() => {
     if (prefersReduced) {
       const reducedMotionTimer = setTimeout(() => {
@@ -73,6 +86,14 @@ export function LuxuryPreloader({
       return () => clearTimeout(reducedMotionTimer);
     }
 
+    if (variant === "gif") {
+      const gifTimer = setTimeout(() => {
+        setIsVisible(false);
+      }, duration * 1000);
+      return () => clearTimeout(gifTimer);
+    }
+
+    // Morphing fallback safety timer
     const safetyTimeoutMs = (initialCooldown + morphTime + cooldownTime + 2.5) * 1000;
     const safetyTimer = setTimeout(() => {
       setIsVisible(false);
@@ -81,7 +102,7 @@ export function LuxuryPreloader({
     return () => {
       clearTimeout(safetyTimer);
     };
-  }, [prefersReduced, initialCooldown, morphTime, cooldownTime]);
+  }, [prefersReduced, variant, duration, initialCooldown, morphTime, cooldownTime]);
 
   if (isFinished) {
     return null;
@@ -100,7 +121,7 @@ export function LuxuryPreloader({
     >
       {isVisible && (
         <motion.div
-          key="peralagae-liquid-preloader-overlay"
+          key="peralagae-preloader-overlay"
           role="status"
           aria-label="PERALAGAE"
           aria-live="polite"
@@ -108,7 +129,7 @@ export function LuxuryPreloader({
           exit={{
             opacity: 0,
             transition: {
-              duration: prefersReduced ? 0.25 : 0.4,
+              duration: prefersReduced ? 0.25 : 0.45,
               ease: [0.22, 1, 0.36, 1],
             },
           }}
@@ -133,6 +154,20 @@ export function LuxuryPreloader({
               }}
             >
               PERALAGAE
+            </div>
+          ) : variant === "gif" ? (
+            <div className="relative flex items-center justify-center w-full max-w-[340px] sm:max-w-[480px] md:max-w-[620px] lg:max-w-[720px] px-4 pointer-events-none">
+              <Image
+                src={gifSrc}
+                alt="PERALAGAE"
+                width={1920}
+                height={1080}
+                priority
+                unoptimized
+                data-testid="peralagae-intro-gif"
+                className="w-full h-auto object-contain select-none pointer-events-none drop-shadow-none"
+              />
+              <span className="sr-only">PERALAGAE</span>
             </div>
           ) : (
             <MorphingText

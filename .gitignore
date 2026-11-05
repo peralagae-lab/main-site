@@ -76,4 +76,6 @@ data/
 scratch/
 backups/
 apps/backend/backups/
+/*.gif
+*copy*.json
 

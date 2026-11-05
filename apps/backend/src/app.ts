@@ -30,6 +30,7 @@ import { createStoreDetailsRouter } from "./routes/store-details.js";
 import { createGstRouter } from "./routes/gst.js";
 import { createCartRouter } from "./routes/cart.js";
 import { createEmailRouter } from "./routes/email.js";
+import { createNewsletterRouter } from "./routes/newsletter.js";
 import { ShippingMediaService } from "./services/shipping-media-service.js";
 import fs from "node:fs";
 
@@ -82,7 +83,7 @@ export function createApp(env: EnvConfig): Application {
           ) {
             isCloudDomain = true;
           }
-        } catch {}
+        } catch { }
 
         const isAllowed =
           env.CORS_ORIGINS.includes(origin) ||
@@ -425,6 +426,11 @@ export function createApp(env: EnvConfig): Application {
   const emailRouter = createEmailRouter(env);
   app.use("/api/emails", emailRouter);
   app.use("/api/v1/emails", emailRouter);
+
+  // Newsletter Subscriber endpoints (storefront public & admin protected)
+  const newsletterRouter = createNewsletterRouter(env);
+  app.use("/api/newsletter", newsletterRouter);
+  app.use("/api/v1/newsletter", newsletterRouter);
 
   // API v1 namespace
   app.use("/api/v1", v1Router);

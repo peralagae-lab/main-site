@@ -340,6 +340,9 @@ export default function AdminInstagramPage() {
       });
       queryClient.invalidateQueries({ queryKey: INSTAGRAM_SECTION_QUERY_KEY });
       if (typeof window !== "undefined") {
+        try {
+          localStorage.setItem("peralagae:instagram_updated_at", String(Date.now()));
+        } catch {}
         window.dispatchEvent(new CustomEvent(INSTAGRAM_SECTION_UPDATED_EVENT));
       }
     } catch (err: unknown) {
@@ -372,6 +375,9 @@ export default function AdminInstagramPage() {
       });
       queryClient.invalidateQueries({ queryKey: INSTAGRAM_SECTION_QUERY_KEY });
       if (typeof window !== "undefined") {
+        try {
+          localStorage.setItem("peralagae:instagram_updated_at", String(Date.now()));
+        } catch {}
         window.dispatchEvent(new CustomEvent(INSTAGRAM_SECTION_UPDATED_EVENT));
       }
     } catch (err: unknown) {

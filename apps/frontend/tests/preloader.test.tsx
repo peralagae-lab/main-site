@@ -20,6 +20,14 @@ describe("LuxuryPreloader Component", () => {
     expect(preloader).toHaveAttribute("aria-label", "PERALAGAE");
   });
 
+  it("renders the animated brand calligraphy intro GIF by default", () => {
+    render(<LuxuryPreloader />);
+    const gifImage = screen.getByTestId("peralagae-intro-gif");
+    expect(gifImage).toBeInTheDocument();
+    expect(gifImage.getAttribute("src")).toContain("peralagae-intro.gif");
+    expect(gifImage.getAttribute("alt")).toBe("PERALAGAE");
+  });
+
   it("defaults to pure white background with black text and supports dark theme", () => {
     const { unmount } = render(<LuxuryPreloader />);
     const lightPreloader = screen.getByRole("status");
@@ -31,15 +39,12 @@ describe("LuxuryPreloader Component", () => {
     expect(darkPreloader).toHaveStyle({ backgroundColor: "#000000" });
   });
 
-  it("initializes with Peralagae text in the morphing element", () => {
-    const { container } = render(<LuxuryPreloader />);
+  it("supports morphing variant with Peralagae text and threshold SVG filter", () => {
+    const { container } = render(<LuxuryPreloader variant="morphing" />);
     const spans = container.querySelectorAll("span");
     const spanTexts = Array.from(spans).map((s) => s.textContent);
     expect(spanTexts).toContain("Peralagae");
-  });
 
-  it("includes the threshold SVG filter for liquid morphing", () => {
-    const { container } = render(<LuxuryPreloader />);
     const filter = container.querySelector("#threshold");
     expect(filter).toBeInTheDocument();
     const feColorMatrix = container.querySelector("feColorMatrix");
@@ -47,7 +52,7 @@ describe("LuxuryPreloader Component", () => {
   });
 
   it("triggers safety timeout gracefully", () => {
-    render(<LuxuryPreloader initialCooldown={0.1} morphTime={0.2} cooldownTime={0.1} />);
+    render(<LuxuryPreloader duration={0.5} />);
     expect(screen.getByRole("status")).toBeInTheDocument();
 
     act(() => {

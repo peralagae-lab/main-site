@@ -5,6 +5,8 @@
  * subscription submissions.
  */
 
+import { API_BASE_URL } from "@/lib/api-client";
+
 export interface NewsletterSubscriptionResult {
   success: boolean;
   status: "success" | "error" | "unconfigured";
@@ -29,10 +31,11 @@ export function validateNewsletterEmail(email: string): string | null {
 
 /**
  * Submits newsletter subscription to the configured API endpoint.
- * If unconfigured, returns an honest 'unconfigured' status without fake delivery.
+ * Defaults to the PERALAGAE backend API route (/api/v1/newsletter/subscribe).
  */
 export async function submitNewsletterSubscription(
-  email: string
+  email: string,
+  source: string = "POPUP"
 ): Promise<NewsletterSubscriptionResult> {
   const trimmed = email.trim();
   const validationError = validateNewsletterEmail(trimmed);
@@ -44,7 +47,9 @@ export async function submitNewsletterSubscription(
     };
   }
 
-  const endpoint = process.env.NEXT_PUBLIC_NEWSLETTER_API_URL;
+  const endpoint =
+    process.env.NEXT_PUBLIC_NEWSLETTER_API_URL ||
+    (!process.env.VITEST ? `${API_BASE_URL}/newsletter/subscribe` : undefined);
 
   if (!endpoint) {
     return {
@@ -61,7 +66,7 @@ export async function submitNewsletterSubscription(
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email: trimmed }),
+      body: JSON.stringify({ email: trimmed, source }),
     });
 
     if (!response.ok) {
@@ -70,6 +75,7 @@ export async function submitNewsletterSubscription(
         success: false,
         status: "error",
         message:
+          errorData?.error?.message ||
           errorData?.message ||
           "Subscription could not be completed at this time. Please try again later.",
       };

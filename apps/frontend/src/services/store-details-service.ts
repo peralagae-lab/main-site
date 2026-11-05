@@ -94,6 +94,12 @@ export async function updateAdminStoreDetails(
 
   if (typeof window !== "undefined") {
     window.dispatchEvent(new CustomEvent(STORE_DETAILS_UPDATED_EVENT));
+    window.dispatchEvent(new CustomEvent("peralagae:navbar-settings-updated"));
+    try {
+      localStorage.setItem("peralagae:navbar_updated_at", String(Date.now()));
+    } catch {
+      // ignore
+    }
   }
 
   return json.data;

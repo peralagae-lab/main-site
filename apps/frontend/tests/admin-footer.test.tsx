@@ -139,6 +139,28 @@ describe("Admin Footer Management Page (/admin/footer)", () => {
     expect(screen.getByText(/Store details updated successfully/i)).toBeInTheDocument();
   });
 
+  it("dispatches NAVBAR_SETTINGS_UPDATED_EVENT when phone is saved so top nav bar updates immediately", async () => {
+    const dispatchSpy = vi.spyOn(window, "dispatchEvent");
+
+    renderWithClient(<AdminFooterPage />);
+
+    await waitFor(() => {
+      expect(screen.getByText("Store Contact Information")).toBeInTheDocument();
+    });
+
+    const phoneInput = screen.getByLabelText(/phone number/i);
+    const saveBtn = screen.getByRole("button", { name: /save changes/i });
+
+    fireEvent.change(phoneInput, { target: { value: "+91 99887 76655" } });
+    fireEvent.click(saveBtn);
+
+    await waitFor(() => {
+      expect(dispatchSpy).toHaveBeenCalledWith(
+        expect.objectContaining({ type: "peralagae:navbar-settings-updated" })
+      );
+    });
+  });
+
   it("discards uncommitted edits when Cancel is clicked", async () => {
     renderWithClient(<AdminFooterPage />);
 

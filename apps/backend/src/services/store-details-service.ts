@@ -1,5 +1,6 @@
 import { prisma } from "../database/prisma.js";
 import { logger } from "../utils/logger.js";
+import { NavbarService } from "./navbar-service.js";
 
 export interface StoreDetailsInput {
   phone: string;
@@ -73,6 +74,15 @@ export class StoreDetailsService {
           updatedBy,
         },
       });
+
+      // Synchronize contact phone number with top navbar settings
+      const phoneDigits = trimmedPhone.replace(/[^+\d]/g, "");
+      const phoneHref = `tel:${phoneDigits || trimmedPhone.replace(/\s+/g, "")}`;
+      try {
+        await NavbarService.syncPhoneFromStoreDetails(trimmedPhone, phoneHref, updatedBy);
+      } catch (navErr) {
+        logger.warn({ navErr }, "[StoreDetailsService] Could not sync phone to NavbarService");
+      }
 
       logger.info(
         { phone: updated.phone, email: updated.email, updatedBy },

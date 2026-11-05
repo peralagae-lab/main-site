@@ -227,17 +227,16 @@ export function NewsletterPopup({
               <X className="h-4 w-4" aria-hidden="true" />
             </button>
 
-            {/* Top Visual Banner */}
-            <div className="relative w-full h-[150px] sm:h-[160px] flex-none overflow-hidden bg-neutral-100">
+            {/* Top Visual Banner — Full 4:3 Aspect Ratio Displaying Complete Model & Floral Diamond Earring */}
+            <div className="relative w-full aspect-[4/3] max-h-[290px] sm:max-h-[330px] flex-none overflow-hidden bg-neutral-100">
               <Image
-                src="/images/editorial/garden-variety.jpg"
+                src="/images/editorial/newsletter-banner.jpg"
                 alt="PERALAGAE Fine Jewellery Collection"
                 fill
                 priority
                 sizes="(max-width: 640px) 100vw, 440px"
-                className="object-cover object-center select-none"
+                className="object-cover object-center select-none transition-all duration-300"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
             </div>
 
             {/* Content Panel — Clean & Simple */}

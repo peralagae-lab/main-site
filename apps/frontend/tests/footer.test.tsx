@@ -9,6 +9,7 @@ import {
 } from "@/components/layout/footer";
 import { defaultFooterConfig } from "@/config/footer";
 import * as storeDetailsService from "@/services/store-details-service";
+import * as instagramService from "@/services/instagram-service";
 
 describe("PERALAGAE Footer Unit Test Suite", () => {
   beforeEach(() => {
@@ -116,22 +117,97 @@ describe("PERALAGAE Footer Unit Test Suite", () => {
       const followHeading = screen.getByText("Follow Us");
       expect(followHeading).toBeInTheDocument();
 
-      expect(screen.getByRole("link", { name: "Facebook" })).toHaveAttribute(
-        "href",
-        "https://facebook.com"
-      );
-      expect(screen.getByRole("link", { name: "X (Twitter)" })).toHaveAttribute(
-        "href",
-        "https://x.com"
-      );
-      expect(screen.getByRole("link", { name: "Instagram" })).toHaveAttribute(
-        "href",
-        "https://instagram.com"
-      );
+      expect(screen.getByRole("link", { name: "Instagram" })).toBeInTheDocument();
+      expect(screen.queryByRole("link", { name: "Facebook" })).not.toBeInTheDocument();
+      expect(screen.queryByRole("link", { name: "X (Twitter)" })).not.toBeInTheDocument();
       expect(screen.queryByRole("link", { name: "Pinterest" })).not.toBeInTheDocument();
     });
 
-    it("renders left copyright notice and right developer attribution without payment icons", () => {
+    it("dynamically synchronizes the Instagram link to the admin-configured profile URL", async () => {
+      vi.spyOn(instagramService, "fetchPublicInstagramSection").mockResolvedValue({
+        id: "current",
+        heading: "Follow Us",
+        handle: "@peralagae_fine_jewels",
+        profileUrl: "https://instagram.com/peralagae_fine_jewels",
+        isActive: true,
+        version: 1,
+        images: [],
+      });
+
+      render(<SiteFooter />);
+
+      await waitFor(() => {
+        expect(screen.getByRole("link", { name: "Instagram" })).toHaveAttribute(
+          "href",
+          "https://instagram.com/peralagae_fine_jewels"
+        );
+      });
+    });
+
+    it("dynamically falls back to handle URL when admin profileUrl is empty", async () => {
+      vi.spyOn(instagramService, "fetchPublicInstagramSection").mockResolvedValue({
+        id: "current",
+        heading: "Follow Us",
+        handle: "@peralagaeofficial",
+        profileUrl: null,
+        isActive: true,
+        version: 1,
+        images: [],
+      });
+
+      render(<SiteFooter />);
+
+      await waitFor(() => {
+        expect(screen.getByRole("link", { name: "Instagram" })).toHaveAttribute(
+          "href",
+          "https://www.instagram.com/peralagaeofficial/"
+        );
+      });
+    });
+
+    it("reactively updates Instagram link when INSTAGRAM_SECTION_UPDATED_EVENT fires", async () => {
+      const fetchSpy = vi.spyOn(instagramService, "fetchPublicInstagramSection").mockResolvedValueOnce({
+        id: "current",
+        heading: "Follow Us",
+        handle: "@initial_handle",
+        profileUrl: "https://instagram.com/initial_handle",
+        isActive: true,
+        version: 1,
+        images: [],
+      });
+
+      render(<SiteFooter />);
+
+      await waitFor(() => {
+        expect(screen.getByRole("link", { name: "Instagram" })).toHaveAttribute(
+          "href",
+          "https://instagram.com/initial_handle"
+        );
+      });
+
+      fetchSpy.mockResolvedValueOnce({
+        id: "current",
+        heading: "Follow Us",
+        handle: "@updated_handle",
+        profileUrl: "https://instagram.com/new_admin_link",
+        isActive: true,
+        version: 2,
+        images: [],
+      });
+
+      act(() => {
+        window.dispatchEvent(new CustomEvent(instagramService.INSTAGRAM_SECTION_UPDATED_EVENT));
+      });
+
+      await waitFor(() => {
+        expect(screen.getByRole("link", { name: "Instagram" })).toHaveAttribute(
+          "href",
+          "https://instagram.com/new_admin_link"
+        );
+      });
+    });
+
+    it("renders centered copyright notice without developer attribution or payment icons", () => {
       render(<SiteFooter />);
 
       const copyright = screen.getByTestId("footer-copyright");
@@ -139,13 +215,9 @@ describe("PERALAGAE Footer Unit Test Suite", () => {
       expect(copyright).toHaveTextContent(
         "© 2026 PERALAGAE. All Rights Reserved."
       );
+      expect(copyright).toHaveClass("text-center");
 
-      const developer = screen.getByTestId("footer-developer");
-      expect(developer).toBeInTheDocument();
-      expect(developer).toHaveTextContent("Design and Developed by Javix");
-      const devLink = screen.getByRole("link", { name: "Javix" });
-      expect(devLink).toHaveAttribute("href", "https://javixtechnologies.com/");
-
+      expect(screen.queryByTestId("footer-developer")).not.toBeInTheDocument();
       expect(screen.queryByTestId("footer-payment-methods")).not.toBeInTheDocument();
     });
 

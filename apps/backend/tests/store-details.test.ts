@@ -145,6 +145,11 @@ describe("Store Details (Contact) Management API Test Suite", () => {
       expect(publicRes.body.data.phone).toBe(newDetails.phone);
       expect(publicRes.body.data.address).toBe(newDetails.address);
       expect(publicRes.body.data.email).toBe(newDetails.email);
+
+      // Verify top navbar settings endpoint also immediately returns the synchronized phone number
+      const navbarRes = await request(app).get("/api/v1/navbar");
+      expect(navbarRes.status).toBe(200);
+      expect(navbarRes.body.data.secondNavbar.phone).toBe(newDetails.phone);
     });
 
     it("restores original baseline settings cleanly", async () => {

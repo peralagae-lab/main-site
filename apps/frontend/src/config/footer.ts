@@ -131,8 +131,6 @@ export const defaultFooterConfig: FooterConfig = {
   followUs: {
     title: "Follow Us",
     links: [
-      { id: "facebook", platform: "facebook", label: "Facebook", href: "https://facebook.com" },
-      { id: "twitter", platform: "twitter", label: "X (Twitter)", href: "https://x.com" },
       { id: "instagram", platform: "instagram", label: "Instagram", href: "https://instagram.com" },
     ],
   },
@@ -140,11 +138,6 @@ export const defaultFooterConfig: FooterConfig = {
     year: 2026,
     brandName: "PERALAGAE",
     rightsText: "All Rights Reserved.",
-  },
-  developer: {
-    text: "Design and Developed by",
-    label: "Javix",
-    href: "https://javixtechnologies.com/",
   },
   backToTop: {
     enabled: false,

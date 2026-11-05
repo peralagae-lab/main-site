@@ -70,11 +70,13 @@ export function useNavbarSettings(initialData?: NavbarSettingsData | null) {
 
     window.addEventListener("focus", handleSync);
     window.addEventListener(NAVBAR_SETTINGS_UPDATED_EVENT, handleSync);
+    window.addEventListener("storage", handleSync);
 
     return () => {
       isMounted = false;
       window.removeEventListener("focus", handleSync);
       window.removeEventListener(NAVBAR_SETTINGS_UPDATED_EVENT, handleSync);
+      window.removeEventListener("storage", handleSync);
     };
   }, []);
 

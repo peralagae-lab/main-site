@@ -71,25 +71,20 @@ test.describe("PERALAGAE Footer Comprehensive E2E & QA Suite", () => {
     // Column 5: Follow Us
     const followCol = footer.getByTestId("footer-column-follow-us");
     await expect(followCol.getByText("Follow Us", { exact: true })).toBeVisible();
-    await expect(followCol.getByRole("link", { name: "Facebook", exact: true })).toBeVisible();
-    await expect(followCol.getByRole("link", { name: "X (Twitter)", exact: true })).toBeVisible();
     await expect(followCol.getByRole("link", { name: "Instagram", exact: true })).toBeVisible();
+    await expect(followCol.getByRole("link", { name: "Facebook", exact: true })).toHaveCount(0);
+    await expect(followCol.getByRole("link", { name: "X (Twitter)", exact: true })).toHaveCount(0);
     await expect(followCol.getByRole("link", { name: "Pinterest", exact: true })).toHaveCount(0);
 
     // Payment Methods Row removed per user request
     await expect(footer.getByTestId("footer-payment-methods")).toHaveCount(0);
 
-    // Bottom Row: Left: Copyright Notice, Right: Design and Developed by Javix
+    // Bottom Row: Copyright Notice only (no developer attribution or payment icons)
     const copyright = footer.getByTestId("footer-copyright");
     await expect(copyright).toBeVisible();
     await expect(copyright).toHaveText("© 2026 PERALAGAE. All Rights Reserved.");
 
-    const developer = footer.getByTestId("footer-developer");
-    await expect(developer).toBeVisible();
-    await expect(developer).toContainText("Design and Developed by");
-    const devLink = developer.getByRole("link", { name: "Javix" });
-    await expect(devLink).toBeVisible();
-    await expect(devLink).toHaveAttribute("href", "https://javixtechnologies.com/");
+    await expect(footer.getByTestId("footer-developer")).toHaveCount(0);
 
     // Zero horizontal overflow
     const footerOverflow = await page.evaluate(() => {

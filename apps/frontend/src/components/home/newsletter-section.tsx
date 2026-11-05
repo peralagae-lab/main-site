@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import type { NewsletterSectionConfig } from "@/config/newsletter";
 import { defaultNewsletterConfig } from "@/config/newsletter";
 import { scrollToSectionId } from "@/lib/navigation";
+import { submitNewsletterSubscription } from "@/services/newsletter-service";
 
 /* -------------------------------------------------------------------------
  * Types & Service Interface
@@ -227,6 +228,11 @@ export function NewsletterSignupSection({
     };
   }, []);
 
+  const handleDefaultSubscribe = async (email: string): Promise<NewsletterSubscribeResult> => {
+    const res = await submitNewsletterSubscription(email, "FOOTER");
+    return { success: res.success, message: res.message };
+  };
+
   return (
     <section
       id="newsletter-section"
@@ -257,7 +263,7 @@ export function NewsletterSignupSection({
         <NewsletterSignupForm
           placeholder={inputPlaceholder}
           buttonLabel={buttonLabel}
-          onSubscribe={onSubscribe}
+          onSubscribe={onSubscribe || handleDefaultSubscribe}
         />
       </div>
     </section>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback, useSyncExternalStore } from "react";
+import React, { useState, useEffect, useCallback, useRef, useSyncExternalStore } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -10,6 +10,10 @@ import {
   fetchPublicStoreDetails,
   STORE_DETAILS_UPDATED_EVENT,
 } from "@/services/store-details-service";
+import {
+  fetchPublicInstagramSection,
+  INSTAGRAM_SECTION_UPDATED_EVENT,
+} from "@/services/instagram-service";
 import type { StoreDetailsData } from "@/types/store-details";
 import type {
   FooterConfig,
@@ -311,27 +315,31 @@ export function FooterStoreDetails({
   const [storeData, setStoreData] = useState<StoreDetailsData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
+  const isMountedRef = useRef(true);
 
   const title = details?.title || "Store Details";
   const helpLabel = details?.helpLabel || "Need Any Help?";
 
   const loadData = useCallback(async () => {
     try {
+      if (!isMountedRef.current) return;
       setHasError(false);
       const data = await fetchPublicStoreDetails();
+      if (!isMountedRef.current) return;
       if (data) {
         setStoreData(data);
       } else {
         setHasError(true);
       }
     } catch {
-      setHasError(true);
+      if (isMountedRef.current) setHasError(true);
     } finally {
-      setIsLoading(false);
+      if (isMountedRef.current) setIsLoading(false);
     }
   }, []);
 
   useEffect(() => {
+    isMountedRef.current = true;
     loadData();
 
     const handleUpdate = () => {
@@ -340,6 +348,7 @@ export function FooterStoreDetails({
 
     window.addEventListener(STORE_DETAILS_UPDATED_EVENT, handleUpdate);
     return () => {
+      isMountedRef.current = false;
       window.removeEventListener(STORE_DETAILS_UPDATED_EVENT, handleUpdate);
     };
   }, [loadData]);
@@ -493,26 +502,76 @@ export function FooterFollowUs({
   followUs,
   className = "",
 }: FooterFollowUsProps) {
+  const [instagramUrl, setInstagramUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const loadInstagramUrl = async () => {
+      try {
+        const section = await fetchPublicInstagramSection();
+        if (!isMounted) return;
+        if (section) {
+          const resolved =
+            section.profileUrl?.trim() ||
+            (section.handle
+              ? `https://www.instagram.com/${section.handle.replace(/^@/, "").trim()}/`
+              : null);
+          if (resolved && isMounted) {
+            setInstagramUrl(resolved);
+          }
+        }
+      } catch {
+        // Maintain default configuration on failure
+      }
+    };
+
+    loadInstagramUrl();
+
+    const handleUpdate = () => {
+      loadInstagramUrl();
+    };
+
+    const handleStorage = (e: StorageEvent) => {
+      if (e.key === "peralagae:instagram_updated_at") {
+        loadInstagramUrl();
+      }
+    };
+
+    window.addEventListener(INSTAGRAM_SECTION_UPDATED_EVENT, handleUpdate);
+    window.addEventListener("storage", handleStorage);
+
+    return () => {
+      isMounted = false;
+      window.removeEventListener(INSTAGRAM_SECTION_UPDATED_EVENT, handleUpdate);
+      window.removeEventListener("storage", handleStorage);
+    };
+  }, []);
+
   return (
     <FooterAccordionSection
       id="follow-us"
       title={followUs.title}
-      className={className}
+      className={`w-full lg:w-fit ${className}`}
       testId="footer-column-follow-us"
     >
-      <div className="flex items-center gap-5 sm:gap-6 text-[#222222]">
-        {followUs.links.map((social) => (
-          <a
-            key={social.id}
-            href={social.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={social.label}
-            className="hover:text-[#C5A572] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-black p-1 hover:scale-110 transition-transform"
-          >
-            <SocialIcon platform={social.platform} />
-          </a>
-        ))}
+      <div className="w-full flex items-center justify-center text-[#222222]">
+        {followUs.links.map((social) => {
+          const href =
+            social.platform === "instagram" && instagramUrl ? instagramUrl : social.href;
+          return (
+            <a
+              key={social.id}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={social.label}
+              className="hover:text-[#C5A572] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-black p-1 hover:scale-110 transition-transform"
+            >
+              <SocialIcon platform={social.platform} />
+            </a>
+          );
+        })}
       </div>
     </FooterAccordionSection>
   );
@@ -614,11 +673,7 @@ export interface FooterBottomProps {
 
 export function FooterBottom({
   copyright,
-  developer = {
-    text: "Design and Developed by",
-    label: "Javix",
-    href: "https://javixtechnologies.com/",
-  },
+  developer,
   paymentMethods,
   className = "",
 }: FooterBottomProps) {
@@ -641,12 +696,16 @@ export function FooterBottom({
           </div>
         )}
 
-        {/* Bottom Bar: Left: Copyright, Right: Design and Developed by Javix */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 text-center sm:text-left">
-          {/* Left: Copyright */}
+        {/* Bottom Bar: Centered copyright notice (or space-between if developer exists) */}
+        <div
+          className={`flex flex-col sm:flex-row items-center ${
+            developer ? "justify-between sm:text-left" : "justify-center text-center"
+          } gap-3 sm:gap-4`}
+        >
+          {/* Copyright */}
           <p
             data-testid="footer-copyright"
-            className="text-xs text-[#777777] tracking-[0.02em] font-normal"
+            className="text-xs text-[#777777] tracking-[0.02em] font-normal text-center"
           >
             © {copyright.year} {copyright.brandName}. {copyright.rightsText}
           </p>

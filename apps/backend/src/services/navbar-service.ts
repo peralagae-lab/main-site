@@ -628,6 +628,108 @@ export class NavbarService {
   }
 
   /**
+   * Synchronizes contact phone number from store details (footer settings) to the second navbar.
+   * Concurrency-safe: serialized via lock and atomic transaction.
+   */
+  static async syncPhoneFromStoreDetails(
+    phone: string,
+    phoneHref: string,
+    adminEmail = "admin@peralagae.com"
+  ): Promise<NavbarSettings> {
+    return runWithLock(() => secondNavbarLock, (p) => { secondNavbarLock = p; }, async () => {
+      const cleanPhone = phone.trim();
+      const cleanHref = phoneHref.trim();
+
+      const current = await this.getSettings();
+      const currentSecondVersion = await getLatestSecondNavbarVersion();
+      const newSecondNavbarVersion = currentSecondVersion + 1;
+
+      const newSecondNavbar: SecondNavbarSettings = {
+        ...current.secondNavbar,
+        phone: cleanPhone,
+        phoneHref: cleanHref,
+      };
+
+      const newSettings: NavbarSettings = {
+        ...current,
+        secondNavbar: newSecondNavbar,
+        secondNavbarVersion: newSecondNavbarVersion,
+        version: Math.max(current.topBarVersion, newSecondNavbarVersion),
+        updatedAt: new Date().toISOString(),
+        updatedBy: adminEmail,
+      };
+
+      const snapshotToSave: NavbarSettings = JSON.parse(JSON.stringify(newSettings));
+      const historyId = `hist_sn_${Date.now()}_${crypto.randomBytes(4).toString("hex")}`;
+      const desc = `Synchronized contact phone number from store details: "${cleanPhone}"`;
+
+      await tryPrisma(() =>
+        prisma.$transaction([
+          prisma.navbarHistory.create({
+            data: {
+              id: historyId,
+              section: "SECOND_NAVBAR",
+              snapshot: snapshotToSave as unknown as object,
+              description: desc,
+              version: newSecondNavbarVersion,
+              createdBy: adminEmail,
+            },
+          }),
+          prisma.navbarSetting.upsert({
+            where: { id: "current" },
+            create: {
+              id: "current",
+              topBarText: current.topBar.text,
+              topBarBgColor: current.topBar.backgroundColor,
+              topBarTextColor: current.topBar.textColor,
+              topBarVisible: current.topBar.visible,
+              topBarDismissible: current.topBar.dismissible,
+              secondPhone: cleanPhone,
+              secondPhoneHref: cleanHref,
+              secondPromoText: current.secondNavbar.promoText,
+              secondCtaText: current.secondNavbar.ctaText,
+              secondCtaHref: current.secondNavbar.ctaHref,
+              secondLinks: current.secondNavbar.links as unknown as object,
+              secondPhoneVisible: current.secondNavbar.showPhone,
+              secondPromoVisible: current.secondNavbar.showPromotion,
+              secondLinksVisible: current.secondNavbar.showLinks,
+              version: Math.max(current.topBarVersion, newSecondNavbarVersion),
+              topBarVersion: current.topBarVersion,
+              secondNavbarVersion: newSecondNavbarVersion,
+              updatedBy: adminEmail,
+            },
+            update: {
+              secondPhone: cleanPhone,
+              secondPhoneHref: cleanHref,
+              version: Math.max(current.topBarVersion, newSecondNavbarVersion),
+              secondNavbarVersion: newSecondNavbarVersion,
+              updatedBy: adminEmail,
+            },
+          }),
+        ])
+      );
+
+      // Update in-memory Second Navbar history only
+      const newRecord: NavbarHistoryRecord = {
+        id: historyId,
+        section: "SECOND_NAVBAR",
+        snapshot: snapshotToSave,
+        description: desc,
+        version: newSecondNavbarVersion,
+        createdAt: new Date().toISOString(),
+        createdBy: adminEmail,
+      };
+      memorySecondNavbarHistory.unshift(newRecord);
+      if (memorySecondNavbarHistory.length > 100) {
+        memorySecondNavbarHistory = memorySecondNavbarHistory.slice(0, 100);
+      }
+
+      memorySettings = newSettings;
+      return newSettings;
+    });
+  }
+
+  /**
    * Retrieves historical version snapshots filtered by section.
    * If section is specified ("top_bar" or "second_navbar"), returns only snapshots for that section.
    */

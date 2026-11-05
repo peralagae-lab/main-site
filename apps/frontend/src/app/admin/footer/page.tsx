@@ -22,6 +22,10 @@ import {
   STORE_DETAILS_QUERY_KEY,
   STORE_DETAILS_UPDATED_EVENT,
 } from "@/services/store-details-service";
+import {
+  NAVBAR_SETTINGS_QUERY_KEY,
+  NAVBAR_SETTINGS_UPDATED_EVENT,
+} from "@/services/navbar-settings-service";
 import type { StoreDetailsData } from "@/types/store-details";
 
 export default function AdminFooterPage() {
@@ -193,14 +197,21 @@ export default function AdminFooterPage() {
 
       setStatusMessage({
         type: "success",
-        text: "Store details updated successfully! Changes are live on the storefront footer.",
+        text: "Store details updated successfully! Contact number updated in the top navbar and storefront footer.",
       });
 
-      // Invalidate queries & broadcast event
+      // Invalidate queries & broadcast events for footer and top navbar
       queryClient.invalidateQueries({ queryKey: STORE_DETAILS_QUERY_KEY });
+      queryClient.invalidateQueries({ queryKey: NAVBAR_SETTINGS_QUERY_KEY });
 
       if (typeof window !== "undefined") {
         window.dispatchEvent(new CustomEvent(STORE_DETAILS_UPDATED_EVENT));
+        window.dispatchEvent(new CustomEvent(NAVBAR_SETTINGS_UPDATED_EVENT));
+        try {
+          localStorage.setItem("peralagae:navbar_updated_at", String(Date.now()));
+        } catch {
+          // ignore localStorage error in private browsing
+        }
       }
     } catch (err: unknown) {
       setStatusMessage({
