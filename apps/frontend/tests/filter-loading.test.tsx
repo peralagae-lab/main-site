@@ -42,12 +42,11 @@ describe("PERALAGAE Filter Loading Animation Suite", () => {
     it("renders updating badge in sidebar header when isLoading is true", () => {
       render(
         <ShopSidebar
-          filters={{ category: null, minPrice: null, maxPrice: null, materials: [], sizes: [] }}
+          filters={{ category: null, minPrice: null, maxPrice: null, materials: [] }}
           onFilterChange={vi.fn()}
           onClearAll={vi.fn()}
           categoryCounts={defaultCategoryCounts}
           materialCounts={{}}
-          sizeCounts={{}}
           minCataloguePrice={10000}
           maxCataloguePrice={70000}
           isLoading={true}
@@ -62,12 +61,11 @@ describe("PERALAGAE Filter Loading Animation Suite", () => {
     it("does not render updating badge in sidebar when isLoading is false", () => {
       render(
         <ShopSidebar
-          filters={{ category: null, minPrice: null, maxPrice: null, materials: [], sizes: [] }}
+          filters={{ category: null, minPrice: null, maxPrice: null, materials: [] }}
           onFilterChange={vi.fn()}
           onClearAll={vi.fn()}
           categoryCounts={defaultCategoryCounts}
           materialCounts={{}}
-          sizeCounts={{}}
           minCataloguePrice={10000}
           maxCataloguePrice={70000}
           isLoading={false}
@@ -83,12 +81,11 @@ describe("PERALAGAE Filter Loading Animation Suite", () => {
           isOpen={true}
           onClose={vi.fn()}
           activeFilterCount={1}
-          filters={{ category: "rings", minPrice: null, maxPrice: null, materials: [], sizes: [] }}
+          filters={{ category: "rings", minPrice: null, maxPrice: null, materials: [] }}
           onFilterChange={vi.fn()}
           onClearAll={vi.fn()}
           categoryCounts={defaultCategoryCounts}
           materialCounts={{}}
-          sizeCounts={{}}
           minCataloguePrice={10000}
           maxCataloguePrice={70000}
           isLoading={true}

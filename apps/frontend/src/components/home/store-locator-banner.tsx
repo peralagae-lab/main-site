@@ -71,9 +71,10 @@ export function StoreLocatorBanner({
       id="store-locator"
       aria-labelledby="store-locator-heading"
       data-testid="store-locator-section"
+      suppressHydrationWarning
       className={`w-full bg-white pb-14 sm:pb-20 lg:pb-24 scroll-mt-28 lg:scroll-mt-32 ${className}`}
     >
-      <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl 2xl:max-w-[1536px] 3xl:max-w-[1720px] px-3 sm:px-6 lg:px-8 2xl:px-12">
         <div
           data-testid="store-locator-banner"
           className="w-full py-8 sm:py-10 md:py-12 lg:py-14 px-6 sm:px-10 lg:px-16 transition-colors"
@@ -91,6 +92,7 @@ export function StoreLocatorBanner({
               />
               <h2
                 id="store-locator-heading"
+                suppressHydrationWarning
                 className="text-lg sm:text-xl md:text-2xl lg:text-[26px] font-normal tracking-[-0.01em] leading-tight"
                 style={{ color: config.textColor }}
               >
@@ -99,20 +101,42 @@ export function StoreLocatorBanner({
             </div>
 
             {/* Rectangular Outline CTA Button */}
-            <Link
-              href={config.buttonHref}
-              onClick={onButtonClick}
-              data-testid="store-locator-cta"
-              className="inline-flex items-center justify-center border border-[#111111] bg-transparent px-6 py-2.5 sm:px-7 sm:py-3 text-xs sm:text-[13px] font-medium tracking-[0.06em] uppercase whitespace-nowrap text-[#111111] transition-colors duration-200 hover:bg-[#111111] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
-              title={
-                config.isImplemented
-                  ? config.buttonLabel
-                  : `${config.buttonLabel} (Pending Catalogue Integration)`
-              }
-              aria-label={`${config.buttonLabel}: ${config.heading}`}
-            >
-              {config.buttonLabel}
-            </Link>
+            {config.buttonHref.startsWith("http") ? (
+              <a
+                href={config.buttonHref}
+                onClick={onButtonClick}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-testid="store-locator-cta"
+                suppressHydrationWarning
+                className="inline-flex items-center justify-center border border-[#111111] bg-transparent px-6 py-2.5 sm:px-7 sm:py-3 text-xs sm:text-[13px] font-medium tracking-[0.06em] uppercase whitespace-nowrap text-[#111111] transition-all duration-250 hover:border-[#C5A572] hover:bg-[#C5A572] hover:text-white active:bg-[#B3935F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] focus-visible:ring-offset-2 cursor-pointer"
+                title={
+                  config.isImplemented
+                    ? config.buttonLabel
+                    : `${config.buttonLabel} (Pending Catalogue Integration)`
+                }
+                aria-label={`${config.buttonLabel}: ${config.heading}`}
+              >
+                {config.buttonLabel}
+              </a>
+            ) : (
+              <Link
+                href={config.buttonHref}
+                onClick={onButtonClick}
+                data-testid="store-locator-cta"
+                prefetch={false}
+                suppressHydrationWarning
+                className="inline-flex items-center justify-center border border-[#111111] bg-transparent px-6 py-2.5 sm:px-7 sm:py-3 text-xs sm:text-[13px] font-medium tracking-[0.06em] uppercase whitespace-nowrap text-[#111111] transition-all duration-250 hover:border-[#C5A572] hover:bg-[#C5A572] hover:text-white active:bg-[#B3935F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] focus-visible:ring-offset-2 cursor-pointer"
+                title={
+                  config.isImplemented
+                    ? config.buttonLabel
+                    : `${config.buttonLabel} (Pending Catalogue Integration)`
+                }
+                aria-label={`${config.buttonLabel}: ${config.heading}`}
+              >
+                {config.buttonLabel}
+              </Link>
+            )}
           </div>
         </div>
       </div>

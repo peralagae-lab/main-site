@@ -101,7 +101,7 @@ export function BackToTopButton({
       aria-label={label}
       data-testid="back-to-top-button"
       suppressHydrationWarning
-      className={`fixed bottom-20 right-4 sm:right-6 lg:bottom-8 lg:right-8 z-30 flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-none bg-[#111111] text-white transition-all duration-300 hover:bg-[#C5A572] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black shadow-sm ${className}`}
+      className={`fixed bottom-20 right-4 sm:right-6 lg:bottom-8 lg:right-8 z-30 flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-none bg-[#111111] text-white transition-all duration-300 hover:bg-[#C5A572] active:bg-[#B3935F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] shadow-sm cursor-pointer ${className}`}
     >
       <ArrowUp className="h-4 w-4 sm:h-4.5 sm:w-4.5 stroke-[2]" aria-hidden="true" />
     </button>
@@ -172,6 +172,7 @@ export interface FooterAccordionSectionProps {
   children: React.ReactNode;
   className?: string;
   testId?: string;
+  align?: "left" | "center";
 }
 
 export function FooterAccordionSection({
@@ -180,6 +181,7 @@ export function FooterAccordionSection({
   children,
   className = "",
   testId,
+  align = "left",
 }: FooterAccordionSectionProps) {
   const [isOpen, setIsOpen] = useState(false);
   const reducedMotion = useSyncExternalStore(
@@ -188,8 +190,10 @@ export function FooterAccordionSection({
     getReducedMotionServerSnapshot
   );
 
+  const isCenter = align === "center";
+
   return (
-    <div className={`flex flex-col ${className}`} data-testid={testId}>
+    <div className={`flex flex-col ${isCenter ? "items-center text-center" : ""} ${className}`} data-testid={testId}>
       {/* Accordion Trigger on mobile (< lg), Static Heading on Desktop (lg+) */}
       <button
         type="button"
@@ -198,15 +202,21 @@ export function FooterAccordionSection({
         aria-controls={`footer-accordion-${id}`}
         data-testid={`accordion-trigger-${id}`}
         suppressHydrationWarning
-        className="w-full flex items-center justify-between text-left py-2 sm:py-2.5 lg:py-0 lg:cursor-default lg:pointer-events-none mb-0 lg:mb-4 sm:lg:mb-5 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-black transition-colors group"
+        className={`w-full relative flex items-center ${
+          isCenter ? "justify-center text-center" : "justify-between text-left"
+        } py-2 sm:py-2.5 lg:py-0 lg:cursor-default lg:pointer-events-none mb-0 lg:mb-4 sm:lg:mb-5 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-black transition-colors group`}
       >
-        <span className="text-[15px] sm:text-base lg:text-xs lg:sm:text-[13px] font-semibold tracking-[0.02em] lg:tracking-[0.08em] uppercase text-[#111111] group-hover:text-black">
+        <span className={`text-[15px] sm:text-base lg:text-xs lg:sm:text-[13px] font-semibold tracking-[0.02em] lg:tracking-[0.08em] uppercase text-[#111111] group-hover:text-black ${
+          isCenter ? "text-center mx-auto" : ""
+        }`}>
           {title}
         </span>
         <ChevronDown
           className={`h-4 w-4 text-[#444444] transition-transform ${
             reducedMotion ? "duration-0" : "duration-300 ease-in-out"
-          } lg:hidden ${isOpen ? "rotate-180" : "rotate-0"}`}
+          } lg:hidden ${isOpen ? "rotate-180" : "rotate-0"} ${
+            isCenter ? "absolute right-0" : ""
+          }`}
           aria-hidden="true"
         />
       </button>
@@ -215,14 +225,14 @@ export function FooterAccordionSection({
       <div
         id={`footer-accordion-${id}`}
         data-testid={`accordion-content-${id}`}
-        className={`grid transition-[grid-template-rows,opacity] ${
+        className={`w-full grid transition-[grid-template-rows,opacity] ${
           reducedMotion ? "duration-0" : "duration-300 ease-in-out"
         } ${
           isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
         } lg:grid-rows-[1fr] lg:opacity-100`}
       >
         <div className="overflow-hidden">
-          <div className="pt-2 pb-3.5 lg:p-0">
+          <div className={`pt-2 pb-3.5 lg:p-0 ${isCenter ? "flex flex-col items-center justify-center text-center" : "w-full text-left"}`}>
             {children}
           </div>
         </div>
@@ -279,7 +289,7 @@ export function FooterLinkGroup({ column, className = "" }: FooterLinkGroupProps
             {link.isExternal ? (
               <a
                 href={link.href}
-                className="text-xs sm:text-[13px] text-[#666666] hover:text-[#111111] transition-colors duration-200 block focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-black"
+                className="text-xs sm:text-[13px] text-[#666666] hover:text-[#C5A572] transition-colors duration-200 block focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#C5A572]"
               >
                 {link.label}
               </a>
@@ -287,7 +297,7 @@ export function FooterLinkGroup({ column, className = "" }: FooterLinkGroupProps
               <Link
                 href={link.href}
                 onClick={(e) => handleAnchorClick(e, link.href)}
-                className="text-xs sm:text-[13px] text-[#666666] hover:text-[#111111] transition-colors duration-200 block focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-black"
+                className="text-xs sm:text-[13px] text-[#666666] hover:text-[#C5A572] transition-colors duration-200 block focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#C5A572]"
               >
                 {link.label}
               </Link>
@@ -419,38 +429,40 @@ export function FooterStoreDetails({
       className={className}
       testId="footer-column-store-details"
     >
-      {/* Headset Icon & Help Callout */}
-      <div className="flex items-center gap-3.5 mb-4 sm:mb-5">
-        <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#EAEAEA] text-[#777777] shrink-0">
-          <Headphones className="h-5 w-5 stroke-[1.75]" aria-hidden="true" />
+      <div className="w-full text-left space-y-3 sm:space-y-4">
+        {/* Headset Icon & Help Callout */}
+        <div className="flex items-center gap-3.5">
+          <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#EAEAEA] text-[#777777] shrink-0">
+            <Headphones className="h-5 w-5 stroke-[1.75]" aria-hidden="true" />
+          </div>
+          <div className="min-w-0">
+            <span className="block text-xs text-[#777777] font-normal leading-tight">
+              {helpLabel}
+            </span>
+            <a
+              href={phoneHref}
+              className="text-sm sm:text-base font-semibold text-[#111111] hover:text-[#C5A572] transition-colors tracking-tight focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#C5A572] whitespace-nowrap block"
+            >
+              {phone}
+            </a>
+          </div>
         </div>
-        <div>
-          <span className="block text-xs text-[#777777] font-normal leading-tight">
-            {helpLabel}
-          </span>
-          <a
-            href={phoneHref}
-            className="text-sm sm:text-base font-semibold text-[#111111] hover:text-[#C5A572] transition-colors tracking-tight focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-black"
-          >
-            {phone}
-          </a>
-        </div>
-      </div>
 
-      {/* Address & Email */}
-      <div className="space-y-1.5 sm:space-y-2 text-xs sm:text-[13px] text-[#666666] leading-relaxed">
-        <p>
-          <span className="font-medium text-[#222222]">Address:</span> {address}
-        </p>
-        <p>
-          <span className="font-medium text-[#222222]">Email:</span>{" "}
-          <a
-            href={`mailto:${email}`}
-            className="hover:text-[#111111] transition-colors underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-black"
-          >
-            {email}
-          </a>
-        </p>
+        {/* Address & Email */}
+        <div className="space-y-1.5 sm:space-y-2 text-xs sm:text-[13px] text-[#666666] leading-relaxed">
+          <p className="break-words">
+            <span className="font-medium text-[#222222]">Address:</span> {address}
+          </p>
+          <p className="break-words">
+            <span className="font-medium text-[#222222]">Email:</span>{" "}
+            <a
+              href={`mailto:${email}`}
+              className="hover:text-[#C5A572] transition-colors underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#C5A572] break-all"
+            >
+              {email}
+            </a>
+          </p>
+        </div>
       </div>
     </FooterAccordionSection>
   );
@@ -552,7 +564,8 @@ export function FooterFollowUs({
     <FooterAccordionSection
       id="follow-us"
       title={followUs.title}
-      className={`w-full lg:w-fit ${className}`}
+      align="center"
+      className={`w-full flex flex-col items-center justify-center text-center ${className}`}
       testId="footer-column-follow-us"
     >
       <div className="w-full flex items-center justify-center text-[#222222]">
@@ -566,7 +579,7 @@ export function FooterFollowUs({
               target="_blank"
               rel="noopener noreferrer"
               aria-label={social.label}
-              className="hover:text-[#C5A572] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-black p-1 hover:scale-110 transition-transform"
+              className="hover:text-[#C5A572] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#C5A572] p-1 hover:scale-110 transition-transform flex items-center justify-center"
             >
               <SocialIcon platform={social.platform} />
             </a>
@@ -681,7 +694,7 @@ export function FooterBottom({
 
   return (
     <div className={`border-t border-[#EAE6DF] pt-4 sm:pt-5 pb-20 sm:pb-7 ${className}`}>
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl 2xl:max-w-[1536px] 3xl:max-w-[1720px] px-4 sm:px-6 lg:px-8 2xl:px-12">
         {/* Payment Methods Row (Rendered only if methods are provided) */}
         {hasPaymentMethods && (
           <div
@@ -796,8 +809,8 @@ export function SiteFooter({
       className={`w-full bg-[#FAF8F5] text-black ${className}`}
     >
       {/* Main Grid: 5-column on desktop, smooth collapsible accordions on mobile */}
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-8 sm:pt-10 lg:pt-12 pb-5 sm:pb-6 lg:pb-7">
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-3 sm:gap-4 lg:gap-12 items-start">
+      <div className="mx-auto max-w-7xl 2xl:max-w-[1536px] 3xl:max-w-[1720px] px-4 sm:px-6 lg:px-8 2xl:px-12 pt-8 sm:pt-10 lg:pt-12 pb-5 sm:pb-6 lg:pb-7">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.25fr_1fr_1fr_1.45fr_0.8fr] gap-3 sm:gap-4 lg:gap-6 xl:gap-8 2xl:gap-12 items-start">
           {/* Column 1: PERALAGAE Brand */}
           <FooterBrand
             name={brand.name}
@@ -819,7 +832,7 @@ export function SiteFooter({
           <FooterStoreDetails details={storeDetails} />
 
           {/* Column 5: Follow Us */}
-          <FooterFollowUs followUs={followUs} />
+          <FooterFollowUs followUs={followUs} className="w-full" />
         </div>
       </div>
 

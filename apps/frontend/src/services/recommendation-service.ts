@@ -14,7 +14,6 @@
 
 import type { Product } from "@/types/product";
 import type { CartItem } from "@/providers/storefront-provider";
-import { SHOP_PRODUCTS } from "./product-service";
 
 /**
  * Related category mapping based on classic fine jewellery pairings.
@@ -56,7 +55,7 @@ export function getRecommendedProducts(
   cartItems: CartItem[],
   options: RecommendationOptions = {}
 ): Product[] {
-  const { limit = 4, catalogue = SHOP_PRODUCTS } = options;
+  const { limit = 4, catalogue = [] } = options;
 
   // 1. Build exclusion set from active cart item IDs
   const cartProductIds = new Set(cartItems.map((item) => item.product.id));
@@ -194,11 +193,15 @@ export function getRelatedProducts(
   currentProduct: Product,
   options: RelatedProductsOptions = {}
 ): Product[] {
-  const { limit = 4, catalogue = SHOP_PRODUCTS } = options;
+  const { limit = 4, catalogue = [] } = options;
 
   // 1. Exclude the current product and unavailable items
   const eligibleCandidates = catalogue.filter(
-    (product) => product.id !== currentProduct.id && product.inStock !== false
+    (product) =>
+      product.id !== currentProduct.id &&
+      product.inStock !== false &&
+      product.stockCount !== 0 &&
+      Boolean(product.image?.src)
   );
 
   if (eligibleCandidates.length === 0) {

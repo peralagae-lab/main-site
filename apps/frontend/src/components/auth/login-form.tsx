@@ -208,7 +208,7 @@ export function LoginForm({
             <button
               type="button"
               onClick={onSwitchToForgotPassword}
-              className="text-xs text-[#666666] hover:text-[#111111] hover:underline underline-offset-2 transition-colors font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-black"
+              className="text-xs text-[#666666] hover:text-[#C5A572] hover:underline underline-offset-2 transition-colors font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#C5A572] cursor-pointer"
             >
               Forgot Password?
             </button>
@@ -222,7 +222,7 @@ export function LoginForm({
           type="submit"
           disabled={isSubmitting}
           data-testid="login-submit-button"
-          className="w-full h-11 sm:h-12 bg-[#111111] hover:bg-black active:bg-[#222222] text-white text-xs sm:text-[13px] font-semibold uppercase tracking-[0.08em] transition-colors duration-200 flex items-center justify-center gap-2 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black disabled:opacity-60 disabled:cursor-not-allowed mt-2"
+          className="w-full h-11 sm:h-12 bg-[#111111] hover:bg-[#C5A572] active:bg-[#B3935F] text-white text-xs sm:text-[13px] font-semibold uppercase tracking-[0.08em] transition-all duration-250 flex items-center justify-center gap-2 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] disabled:opacity-60 disabled:cursor-not-allowed mt-2 cursor-pointer"
         >
           {isSubmitting ? (
             <>

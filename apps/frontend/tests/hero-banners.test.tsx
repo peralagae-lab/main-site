@@ -13,7 +13,7 @@ describe("PERALAGAE Hero & Promotional Banners Component Suite", () => {
       expect(link).toBeInTheDocument();
       expect(link).toHaveAttribute("href", "/shop?category=necklaces");
       expect(link.className).toContain("border");
-      expect(link.className).toContain("hover:bg-[#111111]");
+      expect(link.className).toContain("hover:bg-[#C5A572]");
     });
   });
 

@@ -45,7 +45,7 @@ export function WishlistEmptyState({
       {/* Continue Shopping CTA */}
       <Link
         href={ctaHref}
-        className="inline-flex items-center justify-center bg-[#111111] text-white px-8 py-3.5 text-xs font-medium tracking-[0.15em] uppercase transition-colors hover:bg-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black"
+        className="inline-flex items-center justify-center bg-[#111111] text-white px-8 py-3.5 text-xs font-medium tracking-[0.15em] uppercase transition-all duration-250 hover:bg-[#C5A572] active:bg-[#B3935F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] cursor-pointer"
       >
         {ctaText}
       </Link>

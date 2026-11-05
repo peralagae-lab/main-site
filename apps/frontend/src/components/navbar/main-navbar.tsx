@@ -36,8 +36,8 @@ export function MainNavbar({ config, onSearchClick }: MainNavbarProps) {
 
   return (
     <>
-      <nav aria-label="Main Storefront Header" className="w-full bg-white transition-colors">
-        <div className="mx-auto flex h-16 sm:h-20 lg:h-24 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+      <nav aria-label="Main Storefront Header" className="w-full bg-white transition-colors border-b border-[#F0EBE1]/60">
+        <div className="mx-auto flex h-16 sm:h-20 lg:h-24 max-w-7xl 2xl:max-w-[1536px] 3xl:max-w-[1720px] items-center justify-between px-4 sm:px-6 lg:px-8 2xl:px-12">
           {/* Mobile Left: Hamburger trigger (visible strictly on screens < lg) */}
           <div className="flex w-10 items-center justify-start lg:hidden">
             <button
@@ -45,7 +45,7 @@ export function MainNavbar({ config, onSearchClick }: MainNavbarProps) {
               onClick={() => setMobileMenuOpen(true)}
               aria-label="Open navigation menu"
               aria-expanded={mobileMenuOpen}
-              className="flex h-10 w-10 items-center justify-center rounded-full text-[#222222] transition-colors hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black"
+              className="flex h-10 w-10 items-center justify-center rounded-full text-[#222222] transition-colors hover:text-[#C5A572] active:text-[#B3935F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] cursor-pointer"
             >
               <Menu className="h-6 w-6 stroke-[1.4]" aria-hidden="true" />
             </button>

@@ -14,9 +14,7 @@
  */
 
 import type { Product } from "@/types/product";
-import { SHOP_PRODUCTS, BLUE_STRIPES_PRODUCT, fetchPublicProducts } from "@/services/product-service";
-
-const ALL_SEARCH_PRODUCTS = [BLUE_STRIPES_PRODUCT, ...SHOP_PRODUCTS];
+import { fetchPublicProducts } from "@/services/product-service";
 
 export interface SearchResult {
   products: Product[];
@@ -130,7 +128,7 @@ function computeProductScore(product: Product, rawQuery: string, tokens: string[
  */
 export function searchCatalogue(
   query: string,
-  catalogue: Product[] = ALL_SEARCH_PRODUCTS,
+  catalogue: Product[] = [],
   limit = 6
 ): SearchResult {
   const trimmed = query.trim();
@@ -216,9 +214,9 @@ export async function searchProducts(
         query: trimmed,
       };
     }
-  } catch {
-    // fallback
+  } catch (err) {
+    console.warn("[searchProducts] Database search error:", err);
   }
 
-  return searchCatalogue(query, ALL_SEARCH_PRODUCTS, limit);
+  return { products: [], totalMatches: 0, query: trimmed };
 }

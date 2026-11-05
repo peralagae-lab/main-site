@@ -694,7 +694,7 @@ export default function AdminMaterialsPage() {
               <button
                 type="button"
                 onClick={handleOpenAddModal}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-black text-white hover:bg-neutral-800 rounded-md text-xs sm:text-sm font-medium tracking-wider uppercase transition-colors shadow-sm min-h-[40px]"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-black text-white hover:bg-[#C5A572] active:bg-[#B3935F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] rounded-md text-xs sm:text-sm font-medium tracking-wider uppercase transition-colors shadow-sm min-h-[40px]"
               >
                 <Plus className="w-4 h-4" />
                 <span>Add Material</span>
@@ -857,7 +857,7 @@ export default function AdminMaterialsPage() {
                       type="button"
                       disabled={isPublishingSection}
                       onClick={handlePublishSection}
-                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-black text-white hover:bg-neutral-800 disabled:opacity-50 rounded-md text-xs sm:text-sm font-medium tracking-wider uppercase transition-colors shadow-sm min-h-[42px]"
+                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-black text-white hover:bg-[#C5A572] active:bg-[#B3935F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] disabled:opacity-50 rounded-md text-xs sm:text-sm font-medium tracking-wider uppercase transition-colors shadow-sm min-h-[42px]"
                     >
                       {isPublishingSection ? (
                         <>
@@ -905,7 +905,7 @@ export default function AdminMaterialsPage() {
                     <button
                       type="button"
                       onClick={handleOpenAddCardModal}
-                      className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-3.5 py-2 bg-black text-white hover:bg-neutral-800 rounded text-xs font-medium uppercase tracking-wider transition-colors shadow-sm min-h-[38px]"
+                      className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-3.5 py-2 bg-black text-white hover:bg-[#C5A572] active:bg-[#B3935F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] rounded text-xs font-medium uppercase tracking-wider transition-colors shadow-sm min-h-[38px]"
                     >
                       <Plus className="w-3.5 h-3.5" />
                       <span>Add Card</span>
@@ -1071,7 +1071,7 @@ export default function AdminMaterialsPage() {
                 {historyList.map((item) => (
                   <div
                     key={item.id}
-                    className="bg-white border border-[#E5E7EB] rounded-lg p-5 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-black/30 transition-all"
+                    className="bg-white border border-[#E5E7EB] rounded-lg p-5 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-[#C5A572]/60 transition-all"
                   >
                     <div className="space-y-1.5">
                       <div className="flex items-center gap-2.5">
@@ -1109,7 +1109,7 @@ export default function AdminMaterialsPage() {
                     <button
                       type="button"
                       onClick={() => setConfirmRestoreItem(item)}
-                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 border border-[#CCCCCC] hover:border-black hover:bg-black hover:text-white rounded-md text-xs font-medium tracking-wider uppercase transition-colors min-h-[38px]"
+                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 border border-[#CCCCCC] hover:border-[#C5A572] hover:bg-[#C5A572] active:bg-[#B3935F] hover:text-white rounded-md text-xs font-medium tracking-wider uppercase transition-colors min-h-[38px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572]"
                     >
                       <RotateCcw className="w-3.5 h-3.5" />
                       <span>Restore v{item.version}</span>
@@ -1199,7 +1199,7 @@ export default function AdminMaterialsPage() {
                 <button
                   type="submit"
                   disabled={isSubmittingAdd}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-black text-white hover:bg-neutral-800 rounded-md text-xs font-medium uppercase tracking-wider transition-colors disabled:opacity-50 min-h-[40px]"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-black text-white hover:bg-[#C5A572] active:bg-[#B3935F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] rounded-md text-xs font-medium uppercase tracking-wider transition-colors disabled:opacity-50 min-h-[40px]"
                 >
                   {isSubmittingAdd ? (
                     <>
@@ -1287,7 +1287,7 @@ export default function AdminMaterialsPage() {
                 <button
                   type="submit"
                   disabled={isSubmittingEdit}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-black text-white hover:bg-neutral-800 rounded-md text-xs font-medium uppercase tracking-wider transition-colors disabled:opacity-50 min-h-[40px]"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-black text-white hover:bg-[#C5A572] active:bg-[#B3935F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] rounded-md text-xs font-medium uppercase tracking-wider transition-colors disabled:opacity-50 min-h-[40px]"
                 >
                   {isSubmittingEdit ? (
                     <>
@@ -1433,7 +1433,7 @@ export default function AdminMaterialsPage() {
                       type="button"
                       disabled={isUploadingCardImage}
                       onClick={() => cardFileInputRef.current?.click()}
-                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-3.5 py-2.5 border border-[#CCCCCC] hover:border-black rounded text-xs font-medium uppercase tracking-wider text-[#111111] transition-colors min-h-[38px]"
+                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-3.5 py-2.5 border border-[#CCCCCC] hover:border-[#C5A572] hover:text-[#C5A572] rounded text-xs font-medium uppercase tracking-wider text-[#111111] transition-colors min-h-[38px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572]"
                     >
                       {isUploadingCardImage ? (
                         <>
@@ -1543,7 +1543,7 @@ export default function AdminMaterialsPage() {
                 </button>
                 <button
                   type="submit"
-                  className="w-full sm:w-auto inline-flex items-center justify-center px-5 py-2.5 bg-black text-white hover:bg-neutral-800 rounded-md text-xs font-medium uppercase tracking-wider transition-colors shadow-sm min-h-[40px]"
+                  className="w-full sm:w-auto inline-flex items-center justify-center px-5 py-2.5 bg-black text-white hover:bg-[#C5A572] active:bg-[#B3935F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] rounded-md text-xs font-medium uppercase tracking-wider transition-colors shadow-sm min-h-[40px]"
                 >
                   Save Card
                 </button>
@@ -1597,7 +1597,7 @@ export default function AdminMaterialsPage() {
                 type="button"
                 disabled={Boolean(restoringVersionId)}
                 onClick={() => handleRestoreVersion(confirmRestoreItem)}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-black text-white hover:bg-neutral-800 rounded-md text-xs font-medium uppercase tracking-wider transition-colors disabled:opacity-50 min-h-[40px]"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-black text-white hover:bg-[#C5A572] active:bg-[#B3935F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] rounded-md text-xs font-medium uppercase tracking-wider transition-colors disabled:opacity-50 min-h-[40px]"
               >
                 {restoringVersionId ? (
                   <>

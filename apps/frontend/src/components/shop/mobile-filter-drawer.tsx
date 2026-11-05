@@ -122,7 +122,7 @@ export function MobileFilterDrawer({
             type="button"
             onClick={onClose}
             suppressHydrationWarning
-            className="w-full py-3 bg-[#111111] hover:bg-black text-white text-xs font-semibold tracking-widest uppercase transition-colors flex items-center justify-center gap-2"
+            className="w-full py-3 bg-[#111111] hover:bg-[#C5A572] active:bg-[#B3935F] text-white text-xs font-semibold tracking-widest uppercase transition-colors flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572]"
           >
             {sidebarProps.isLoading ? (
               <>

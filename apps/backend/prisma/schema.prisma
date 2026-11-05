@@ -153,7 +153,6 @@ model Product {
   materialRef           Material?   @relation(fields: [materialId], references: [id], onDelete: SetNull)
   material              String?
   materials             Json?       @default("[]")
-  sizes                 Json?       @default("[]")
   images                Json?       @default("[]")
   description           String?     // 1. Short Description (single concise line)
   productOverview       String?     // 2. Product Overview (primary description paragraph)
@@ -584,5 +583,44 @@ model EmailLog {
   @@index([createdAt])
   @@map("email_logs")
 }
+
+// ──────────────────────────────────────────────────────────────────────────
+// Frequently Asked Questions (FAQ)
+// ──────────────────────────────────────────────────────────────────────────
+
+model Faq {
+  id        String   @id @default(cuid()) @map("_id")
+  question  String
+  answer    String
+  order     Int      @default(0)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([order])
+  @@index([isActive])
+  @@map("faqs")
+}
+
+// ──────────────────────────────────────────────────────────────────────────
+// Customer Contact Enquiries
+// ──────────────────────────────────────────────────────────────────────────
+
+model ContactEnquiry {
+  id        String   @id @default(cuid()) @map("_id")
+  name      String
+  email     String
+  phone     String?
+  message   String
+  status    String   @default("non-contact")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status])
+  @@index([createdAt])
+  @@map("contact_enquiries")
+}
+
+
 
 

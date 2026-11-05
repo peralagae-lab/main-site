@@ -122,7 +122,7 @@ export const defaultNavigationConfig: NavigationConfig = {
         href: "/#store-locator",
         isImplemented: true,
       },
-      { id: "faqs", label: "FAQs", isImplemented: false },
+      { id: "faqs", label: "FAQs", href: "/faq", isImplemented: true },
       { id: "subscribe", label: "Subscribe", href: "/#newsletter-section", isImplemented: true },
     ],
   },

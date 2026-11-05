@@ -107,7 +107,7 @@ export function DeliveryReturnsModal({ isOpen, onClose }: DeliveryReturnsModalPr
         <div className="mt-7 pt-4 border-t border-[#EEEEEE] flex justify-end">
           <button
             onClick={onClose}
-            className="bg-[#111111] text-white px-6 py-2.5 text-xs font-semibold tracking-wider uppercase hover:bg-black transition"
+            className="bg-[#111111] text-white px-6 py-2.5 text-xs font-semibold tracking-wider uppercase hover:bg-[#C5A572] active:bg-[#B3935F] transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572]"
           >
             Got It
           </button>

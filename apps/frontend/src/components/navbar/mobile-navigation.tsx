@@ -8,6 +8,8 @@ import { X, ChevronDown, Check, User, LogOut, Package } from "lucide-react";
 import type { NavigationConfig } from "@/config/navigation";
 import { scrollToSectionId, scrollToTop } from "@/lib/navigation";
 import { useStorefront } from "@/providers/storefront-provider";
+import { fetchPublicCategories, CATEGORIES_UPDATED_EVENT } from "@/services/category-public-service";
+import type { CategoryItem } from "@/types/category";
 
 export interface MobileNavigationProps {
   isOpen: boolean;
@@ -39,6 +41,41 @@ export function MobileNavigation({ isOpen, onClose, config }: MobileNavigationPr
   const [selectedCurrency, setSelectedCurrency] = useState<string>("$ Dollar (US)");
   const [isLangOpen, setIsLangOpen] = useState(false);
   const [isCurrencyOpen, setIsCurrencyOpen] = useState(false);
+
+  // Dynamic Categories from MongoDB
+  const [dbCategories, setDbCategories] = useState<CategoryItem[]>([]);
+  const [isLoadingCategories, setIsLoadingCategories] = useState(false);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    let isMounted = true;
+    setIsLoadingCategories(true);
+    fetchPublicCategories()
+      .then((cats) => {
+        if (isMounted) {
+          setDbCategories(cats || []);
+          setIsLoadingCategories(false);
+        }
+      })
+      .catch((err) => {
+        console.warn("[MobileNavigation] Failed to fetch public categories:", err);
+        if (isMounted) {
+          setIsLoadingCategories(false);
+        }
+      });
+
+    const handleCategoryUpdate = () => {
+      fetchPublicCategories().then((cats) => {
+        if (isMounted) setDbCategories(cats || []);
+      });
+    };
+
+    window.addEventListener(CATEGORIES_UPDATED_EVENT, handleCategoryUpdate);
+    return () => {
+      isMounted = false;
+      window.removeEventListener(CATEGORIES_UPDATED_EVENT, handleCategoryUpdate);
+    };
+  }, [isOpen]);
 
   const langRef = useRef<HTMLDivElement>(null);
   const currencyRef = useRef<HTMLDivElement>(null);
@@ -199,19 +236,6 @@ export function MobileNavigation({ isOpen, onClose, config }: MobileNavigationPr
   }, [isLangOpen, isCurrencyOpen]);
 
   if (!isVisible) return null;
-
-  const categories = config.categories ?? [
-    { id: "new-products", label: "New Products", href: "/shop?filter=new" },
-    { id: "today-on-sale", label: "Today On Sale", href: "/shop?filter=sale" },
-    { id: "special-offer", label: "Special Offer!", href: "/shop?filter=special" },
-    { id: "necklaces", label: "Necklaces", href: "/shop?category=necklaces" },
-    { id: "rings", label: "Rings", href: "/shop?category=rings" },
-    { id: "bracelets", label: "Bracelets", href: "/shop?category=bracelets" },
-    { id: "earrings", label: "Earnings", href: "/shop?category=earrings" },
-    { id: "charm-dangles", label: "Charm & Dangles", href: "/shop?category=charms-bangles" },
-    { id: "watches", label: "Watches", href: "/shop" },
-    { id: "gift-ideas", label: "Gift Ideas", href: "/shop?category=gift-ideas" },
-  ];
 
   return (
     <div
@@ -390,7 +414,7 @@ export function MobileNavigation({ isOpen, onClose, config }: MobileNavigationPr
                         handleClose();
                         openAuthModal("login");
                       }}
-                      className="w-full flex items-center gap-2.5 py-2 text-sm font-medium text-[#222222] hover:text-black cursor-pointer text-left transition-colors"
+                      className="w-full flex items-center gap-2.5 py-2 text-sm font-medium text-[#222222] hover:text-[#C5A572] active:text-[#B3935F] cursor-pointer text-left transition-colors"
                     >
                       <User className="h-4 w-4 text-[#666666]" />
                       <span>Sign In / Register</span>
@@ -401,19 +425,34 @@ export function MobileNavigation({ isOpen, onClose, config }: MobileNavigationPr
             </nav>
           ) : (
             <nav aria-label="Mobile Categories Navigation">
-              <ul className="space-y-1" role="list">
-                {categories.map((cat) => (
-                  <li key={cat.id}>
-                    <Link
-                      href={cat.href}
-                      onClick={handleClose}
-                      className="block py-2.5 text-[15px] font-medium tracking-wide text-[#111111] transition-colors hover:text-black"
-                    >
-                      {cat.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+              {isLoadingCategories ? (
+                <div className="space-y-3 py-2">
+                  {[1, 2, 3, 4, 5].map((i) => (
+                    <div
+                      key={i}
+                      className="h-8 bg-neutral-100 rounded animate-pulse w-3/4"
+                    />
+                  ))}
+                </div>
+              ) : dbCategories.length === 0 ? (
+                <div className="py-8 text-center text-xs text-[#888888] italic">
+                  No categories found.
+                </div>
+              ) : (
+                <ul className="space-y-1" role="list">
+                  {dbCategories.map((cat) => (
+                    <li key={cat.id || cat.slug}>
+                      <Link
+                        href={`/shop?category=${encodeURIComponent(cat.slug || cat.id)}`}
+                        onClick={handleClose}
+                        className="block py-2.5 text-[15px] font-medium tracking-wide text-[#111111] transition-colors hover:text-[#C5A572] active:text-[#B3935F]"
+                      >
+                        {cat.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </nav>
           )}
         </div>
@@ -431,7 +470,7 @@ export function MobileNavigation({ isOpen, onClose, config }: MobileNavigationPr
                 }}
                 aria-expanded={isLangOpen}
                 aria-haspopup="listbox"
-                className="flex items-center gap-1.5 py-1 text-sm font-normal text-[#222222] transition-colors hover:text-black focus-visible:outline-none"
+                className="flex items-center gap-1.5 py-1 text-sm font-normal text-[#222222] transition-colors hover:text-[#C5A572] active:text-[#B3935F] focus-visible:outline-none"
               >
                 <span>{selectedLanguage}</span>
                 <ChevronDown
@@ -479,7 +518,7 @@ export function MobileNavigation({ isOpen, onClose, config }: MobileNavigationPr
                 }}
                 aria-expanded={isCurrencyOpen}
                 aria-haspopup="listbox"
-                className="flex items-center gap-1.5 py-1 text-sm font-normal text-[#222222] transition-colors hover:text-black focus-visible:outline-none"
+                className="flex items-center gap-1.5 py-1 text-sm font-normal text-[#222222] transition-colors hover:text-[#C5A572] active:text-[#B3935F] focus-visible:outline-none"
               >
                 <span>{selectedCurrency}</span>
                 <ChevronDown

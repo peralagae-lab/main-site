@@ -91,22 +91,6 @@ describe("Materials & Storefront Filter Synchronization Integration Test Suite",
         }
       }
     });
-
-    it("Dynamic size counts match actual product size occurrences in MongoDB", async () => {
-      const storeRes = await request(app).get("/api/v1/products?pageSize=200");
-      expect(storeRes.status).toBe(200);
-
-      const { availableSizes, sizeCounts, products } = storeRes.body.data;
-      expect(Array.isArray(availableSizes)).toBe(true);
-
-      for (const sz of availableSizes) {
-        const expectedCount = products.filter((p: any) =>
-          Array.isArray(p.sizes) && p.sizes.includes(sz)
-        ).length;
-
-        expect(sizeCounts[sz]).toBe(expectedCount);
-      }
-    });
   });
 
   describe("2. Material Lifecycle, Product Association & Deletion Protection", () => {

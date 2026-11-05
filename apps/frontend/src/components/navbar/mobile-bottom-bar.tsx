@@ -50,7 +50,7 @@ export function MobileBottomBar({
         <Link
           href="/"
           aria-label="Home"
-          className="flex flex-col items-center justify-center py-1 text-[#222222] transition-colors hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black"
+          className="flex flex-col items-center justify-center py-1 text-[#222222] transition-colors hover:text-[#C5A572] active:text-[#B3935F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572]"
         >
           <Home className="h-5 w-5" strokeWidth={ICON_STROKE_WIDTH} aria-hidden="true" />
           <span className="mt-1 text-[10px] font-medium tracking-[0.05em] uppercase text-[#222222]">
@@ -63,7 +63,7 @@ export function MobileBottomBar({
           type="button"
           onClick={onSearchClick ?? storefront.openSearch}
           aria-label="Search"
-          className="flex flex-col items-center justify-center py-1 text-[#222222] transition-colors hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black"
+          className="flex flex-col items-center justify-center py-1 text-[#222222] transition-colors hover:text-[#C5A572] active:text-[#B3935F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572]"
         >
           <Search className="h-5 w-5" strokeWidth={ICON_STROKE_WIDTH} aria-hidden="true" />
           <span className="mt-1 text-[10px] font-medium tracking-[0.05em] uppercase text-[#222222]">
@@ -76,7 +76,7 @@ export function MobileBottomBar({
           <Link
             href={wishlistAction.href}
             aria-label="Wishlist"
-            className="flex flex-col items-center justify-center py-1 text-[#222222] transition-colors hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black"
+            className="flex flex-col items-center justify-center py-1 text-[#222222] transition-colors hover:text-[#C5A572] active:text-[#B3935F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572]"
           >
             <div className="relative">
               <Heart className="h-5 w-5" strokeWidth={ICON_STROKE_WIDTH} aria-hidden="true" />
@@ -96,7 +96,7 @@ export function MobileBottomBar({
             type="button"
             onClick={onWishlistClick}
             aria-label="Wishlist"
-            className="flex flex-col items-center justify-center py-1 text-[#222222] transition-colors hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black"
+            className="flex flex-col items-center justify-center py-1 text-[#222222] transition-colors hover:text-[#C5A572] active:text-[#B3935F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572]"
           >
             <div className="relative">
               <Heart className="h-5 w-5" strokeWidth={ICON_STROKE_WIDTH} aria-hidden="true" />
@@ -118,7 +118,7 @@ export function MobileBottomBar({
           <Link
             href={accountAction.href}
             aria-label="Account"
-            className="flex flex-col items-center justify-center py-1 text-[#222222] transition-colors hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black"
+            className="flex flex-col items-center justify-center py-1 text-[#222222] transition-colors hover:text-[#C5A572] active:text-[#B3935F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572]"
           >
             <User className="h-5 w-5" strokeWidth={ICON_STROKE_WIDTH} aria-hidden="true" />
             <span className="mt-1 text-[10px] font-medium tracking-[0.05em] uppercase text-[#222222]">
@@ -130,7 +130,7 @@ export function MobileBottomBar({
             type="button"
             onClick={onAccountClick ?? (() => storefront.openAuthModal("login"))}
             aria-label="Account"
-            className="flex flex-col items-center justify-center py-1 text-[#222222] transition-colors hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black"
+            className="flex flex-col items-center justify-center py-1 text-[#222222] transition-colors hover:text-[#C5A572] active:text-[#B3935F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572]"
           >
             <User className="h-5 w-5" strokeWidth={ICON_STROKE_WIDTH} aria-hidden="true" />
             <span className="mt-1 text-[10px] font-medium tracking-[0.05em] uppercase text-[#222222]">

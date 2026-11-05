@@ -59,7 +59,6 @@ export interface FormattedProduct {
   } | null | undefined;
   material?: string | undefined;
   materials?: string[] | undefined;
-  sizes?: string[] | undefined;
   specs?: ProductSpec[] | undefined;
   rating?: number | undefined;
   reviewCount?: number | undefined;
@@ -92,7 +91,6 @@ export interface CreateProductInput {
   materialId?: string | null | undefined;
   material?: string | undefined;
   materials?: string[] | undefined;
-  sizes?: string[] | undefined;
   isHot?: boolean | undefined;
   isNew?: boolean | undefined;
 }
@@ -121,7 +119,6 @@ export interface UpdateProductInput {
   materialId?: string | null | undefined;
   material?: string | undefined;
   materials?: string[] | undefined;
-  sizes?: string[] | undefined;
   isHot?: boolean | undefined;
   isNew?: boolean | undefined;
 }
@@ -133,7 +130,6 @@ export interface ProductFilterInput {
   maxPrice?: number | null | undefined;
   material?: string | null | undefined;
   materials?: string[] | undefined;
-  sizes?: string[] | undefined;
   sort?: string | undefined;
   page?: number | undefined;
   pageSize?: number | undefined;
@@ -155,17 +151,11 @@ export interface ProductListResult {
   maxCataloguePrice: number;
   categoryCounts: Record<string, number>;
   materialCounts: Record<string, number>;
-  sizeCounts: Record<string, number>;
   availableMaterials: string[];
-  availableSizes: string[];
 }
 
 export function normalizeMaterialName(mat: string): string {
   return mat.trim();
-}
-
-export function normalizeSizeValue(size: string): string {
-  return size.trim();
 }
 
 function getProductMaterials(p: FormattedProduct): string[] {
@@ -189,60 +179,15 @@ function getProductMaterials(p: FormattedProduct): string[] {
   return Array.from(set);
 }
 
-function compareSizes(a: string, b: string): number {
-  const numA = parseFloat(a.replace(/[^\d.]/g, ""));
-  const numB = parseFloat(b.replace(/[^\d.]/g, ""));
-  if (!isNaN(numA) && !isNaN(numB) && numA !== numB) {
-    return numA - numB;
-  }
-  return a.localeCompare(b, undefined, { numeric: true });
-}
-
 function enrichProductDetails(raw: any): FormattedProduct {
   const cat = (raw.category?.name || raw.categoryKey || "").toUpperCase();
   const rawImages = Array.isArray(raw.images) && raw.images.length > 0
     ? raw.images.map((img: any) => typeof img === "string" ? { src: img, alt: raw.name } : img)
-    : [
-        { src: raw.imageUrl, alt: raw.imageAlt || raw.name },
-        ...(cat.includes("NECKLACE")
-          ? [
-              { src: "/images/hero/banner-necklaces.jpg", alt: `${raw.name} - Model Editorial View` },
-              { src: "/images/collections/collection-necklaces.jpg", alt: `${raw.name} - Fine Jewellery Collection View` },
-              { src: "/images/instagram/insta-3-layered-necklaces.jpg", alt: `${raw.name} - Layered Detail View` },
-            ]
-          : cat.includes("RING")
-          ? [
-              { src: "/images/hero/banner-statement-rings.jpg", alt: `${raw.name} - Hand Lifestyle View` },
-              { src: "/images/collections/collection-rings.jpg", alt: `${raw.name} - Studio Ring Profile` },
-              { src: "/images/instagram/insta-4-solitaire-ring.jpg", alt: `${raw.name} - Detail Macro Silhouette` },
-            ]
-          : cat.includes("BRACELET")
-          ? [
-              { src: "/images/editorial/tennis-bracelets.jpg", alt: `${raw.name} - Wrist Silhouette` },
-              { src: "/images/collections/collection-bracelets.jpg", alt: `${raw.name} - Studio Collection View` },
-              { src: "/images/hero/banner-charm-bracelets.jpg", alt: `${raw.name} - Editorial Detail View` },
-            ]
-          : cat.includes("EARRING")
-          ? [
-              { src: "/images/instagram/insta-2-diamond-earrings.jpg", alt: `${raw.name} - Editorial Portrait View` },
-              { src: "/images/collections/collection-earrings.jpg", alt: `${raw.name} - Coordinated Pair Presentation` },
-              { src: "/images/instagram/insta-5-gold-earrings.jpg", alt: `${raw.name} - Earring Profile Silhouette` },
-            ]
-          : cat.includes("CHARM") || cat.includes("BANGLE")
-          ? [
-              { src: "/images/collections/collection-charms-bangles.jpg", alt: `${raw.name} - Charm Collection Flatlay` },
-              { src: "/images/hero/banner-charm-bracelets.jpg", alt: `${raw.name} - Stacked Lifestyle View` },
-              { src: "/images/instagram/insta-1-rings-bracelet.jpg", alt: `${raw.name} - Wrist Detail View` },
-            ]
-          : [
-              { src: "/images/collections/collection-gift-ideas.jpg", alt: `${raw.name} - Curated Gift Box Presentation` },
-              { src: "/images/editorial/lab-grown-diamonds.jpg", alt: `${raw.name} - Luxury Editorial View` },
-              { src: "/images/instagram/insta-6-fashion-editorial.jpg", alt: `${raw.name} - High Fashion Styling` },
-            ]),
-      ];
+    : raw.imageUrl
+    ? [{ src: raw.imageUrl, alt: raw.imageAlt || raw.name }]
+    : [];
 
   const materials = Array.isArray(raw.materials) ? raw.materials : [];
-  const sizes = Array.isArray(raw.sizes) ? raw.sizes : [];
 
   const defaultSpecs: ProductSpec[] = [
     { label: "Precious Metal", value: raw.material || "18k Solid Yellow Gold (750 Purity)" },
@@ -255,18 +200,6 @@ function enrichProductDetails(raw: any): FormattedProduct {
         : "Certified Pure Natural Gemstone Setting",
     },
     { label: "Purity & Hallmarking", value: "BIS Hallmarked 750 (18 Karat) with Laser Assay Inscription" },
-    {
-      label: "Dimensions / Sizing",
-      value: cat.includes("RING")
-        ? "Available in standard Indian & International ring sizes 6 to 10"
-        : cat.includes("NECKLACE")
-        ? "16 to 18 inch adjustable fine trace chain with lobster clasp"
-        : cat.includes("BRACELET")
-        ? "Standard 7-inch circumference with concealed safety clasp"
-        : cat.includes("EARRING")
-        ? "Length: 16mm | Width: 6mm | Secure click-in huggie closure"
-        : "Standard luxury proportion with custom sizing available on request",
-    },
     { label: "Approximate Metal Weight", value: "3.80 – 5.40 grams solid gold" },
     { label: "Certification", value: "IGI / SGL Authenticity Certificate included with tamper-evident seal" },
     {
@@ -377,7 +310,6 @@ function enrichProductDetails(raw: any): FormattedProduct {
       : null,
     material: raw.materialRef?.name || raw.material || undefined,
     materials,
-    sizes,
     specs,
     rating: 5.0,
     reviewCount: reviews.length,
@@ -431,12 +363,17 @@ export class ProductService {
 
     const allFormatted = allDbProducts.map(enrichProductDetails);
 
-    // Filter eligible products matching visibility rules (isAvailable)
+    // Filter eligible products matching visibility rules (published, in-stock, stockCount > 0, valid image)
     const eligibleProducts = allFormatted.filter((product) => {
-      if (filters.isAvailable !== undefined) {
-        return Boolean(product.isAvailable) === filters.isAvailable;
-      }
-      return product.isAvailable !== false;
+      const isPublished =
+        filters.isAvailable !== undefined
+          ? Boolean(product.isAvailable) === filters.isAvailable
+          : product.isAvailable !== false;
+      const isInStock =
+        product.inStock !== false &&
+        (typeof product.stockCount === "number" ? product.stockCount > 0 : true);
+      const hasImage = Boolean(product.image?.src && product.image.src.trim());
+      return isPublished && isInStock && hasImage;
     });
 
     // Compute overall catalogue price bounds dynamically from valid prices of eligible products
@@ -455,6 +392,13 @@ export class ProductService {
         // Public storefront only displays active/published products
         if (product.isAvailable === false) return false;
       }
+
+      // Stock-based visibility: zero stock or out-of-stock products must not appear
+      if (product.inStock === false) return false;
+      if (typeof product.stockCount === "number" && product.stockCount <= 0) return false;
+
+      // Must have valid database image
+      if (!product.image?.src || !product.image.src.trim()) return false;
 
       // New Arrival filter
       if (filters.isNew !== undefined) {
@@ -523,16 +467,6 @@ export class ProductService {
           });
         });
         if (!hasMaterial) return false;
-      }
-
-      // Size filter: multi-select
-      if (filters.sizes && filters.sizes.length > 0) {
-        const prodSizes = (product.sizes || []).map((s) => normalizeSizeValue(String(s)).toLowerCase());
-        const hasSize = filters.sizes.some((s) => {
-          const target = normalizeSizeValue(s).toLowerCase();
-          return prodSizes.includes(target);
-        });
-        if (!hasSize) return false;
       }
 
       // Search query
@@ -662,23 +596,6 @@ export class ProductService {
       materialCounts[dbMat.name.toLowerCase()] = count;
     }
 
-    // Dynamic size counts from eligible products in MongoDB (natural numeric sort, no double-counting)
-    const sizeCountMap = new Map<string, number>();
-    for (const p of eligibleProducts) {
-      if (Array.isArray(p.sizes)) {
-        const uniqueSizes = new Set(
-          p.sizes
-            .filter((s): s is string => typeof s === "string" && s.trim().length > 0)
-            .map(normalizeSizeValue)
-        );
-        for (const sz of uniqueSizes) {
-          sizeCountMap.set(sz, (sizeCountMap.get(sz) || 0) + 1);
-        }
-      }
-    }
-    const availableSizes = Array.from(sizeCountMap.keys()).sort(compareSizes);
-    const sizeCounts: Record<string, number> = Object.fromEntries(sizeCountMap.entries());
-
     return {
       products: paginatedProducts,
       total,
@@ -692,9 +609,7 @@ export class ProductService {
       maxCataloguePrice,
       categoryCounts,
       materialCounts,
-      sizeCounts,
       availableMaterials,
-      availableSizes,
     };
   }
 
@@ -766,6 +681,49 @@ export class ProductService {
       prev,
       next,
     };
+  }
+
+  /**
+   * Retrieves strictly related products from MongoDB by category or material relevance.
+   * Excludes current product, out-of-stock products, and unlisted products.
+   * Never displays random or mock products.
+   */
+  static async getRelatedProducts(slugOrId: string, limit = 4): Promise<FormattedProduct[]> {
+    if (!slugOrId) return [];
+    const current = await this.getProductBySlugOrId(slugOrId);
+    if (!current) return [];
+
+    const conditions: any[] = [];
+    if (current.categoryId) {
+      conditions.push({ categoryId: current.categoryId });
+    }
+    if (current.materialId) {
+      conditions.push({ materialId: current.materialId });
+    }
+
+    if (conditions.length === 0) {
+      return [];
+    }
+
+    const records = await prisma.product.findMany({
+      where: {
+        id: { not: current.id },
+        isAvailable: true,
+        inStock: true,
+        stockCount: { gt: 0 },
+        OR: conditions,
+      },
+      take: limit,
+      orderBy: { createdAt: "desc" },
+      include: {
+        category: true,
+        materialRef: true,
+      },
+    });
+
+    return records
+      .map(enrichProductDetails)
+      .filter((p) => p.inStock !== false && (p.stockCount ?? 0) > 0 && Boolean(p.image?.src));
   }
 
   /**
@@ -875,7 +833,7 @@ export class ProductService {
       : [];
 
     const primaryImageUrl =
-      input.imageUrl || (rawImages.length > 0 ? rawImages[0]?.src : "") || "/images/collections/collection-necklaces.jpg";
+      input.imageUrl || (rawImages.length > 0 ? rawImages[0]?.src : "") || "";
     const primaryImageAlt = input.imageAlt || input.name;
 
     // Process specs
@@ -930,7 +888,6 @@ export class ProductService {
         materialId: validMaterialId,
         material: materialName,
         materials: Array.isArray(input.materials) ? (input.materials as any) : [],
-        sizes: Array.isArray(input.sizes) ? (input.sizes as any) : [],
         isHot: Boolean(input.isHot),
         isNew: input.isNew !== undefined ? Boolean(input.isNew) : false,
       },
@@ -1091,9 +1048,6 @@ export class ProductService {
     }
     if (input.materials !== undefined) {
       dataToUpdate.materials = Array.isArray(input.materials) ? input.materials : [];
-    }
-    if (input.sizes !== undefined) {
-      dataToUpdate.sizes = Array.isArray(input.sizes) ? input.sizes : [];
     }
     if (input.isHot !== undefined) {
       dataToUpdate.isHot = Boolean(input.isHot);

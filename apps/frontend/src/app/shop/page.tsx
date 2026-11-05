@@ -50,7 +50,6 @@ async function DynamicShopPage({ searchParams }: ShopPageProps) {
   const category = typeof resolvedParams.category === "string" ? resolvedParams.category : null;
   const material = typeof resolvedParams.material === "string" ? resolvedParams.material : null;
   const materials = typeof resolvedParams.materials === "string" ? resolvedParams.materials.split(",") : material ? [material] : [];
-  const sizes = typeof resolvedParams.sizes === "string" ? resolvedParams.sizes.split(",") : [];
   const minPrice = typeof resolvedParams.minPrice === "string" ? Number(resolvedParams.minPrice) : null;
   const maxPrice = typeof resolvedParams.maxPrice === "string" ? Number(resolvedParams.maxPrice) : null;
   const search = typeof resolvedParams.search === "string" ? resolvedParams.search : undefined;
@@ -61,7 +60,6 @@ async function DynamicShopPage({ searchParams }: ShopPageProps) {
     category,
     material,
     materials,
-    sizes,
     minPrice,
     maxPrice,
     search,

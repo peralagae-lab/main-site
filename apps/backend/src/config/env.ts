@@ -48,7 +48,7 @@ const baseEnvSchema = z.object({
   // ── Admin Authentication (Phase 1) ──────────────────────────────────────────
   ADMIN_EMAIL: z
     .string()
-    .default("admin@peralagae.com")
+    .default("peralagae@gmail.com")
     .transform((val) => val.trim().replace(/^["']|["']$/g, "").toLowerCase())
     .refine((val) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val), {
       message: "ADMIN_EMAIL must be a valid email",

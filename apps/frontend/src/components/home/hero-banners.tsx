@@ -32,7 +32,7 @@ export function OutlineButton({
     <Link
       href={href}
       aria-label={ariaLabel || label}
-      className={`inline-flex items-center justify-center border border-[#222222] bg-transparent px-5 py-2 sm:px-6 sm:py-2.5 text-xs sm:text-[13px] font-normal text-[#111111] transition-colors duration-200 hover:bg-[#111111] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 ${className}`}
+      className={`inline-flex items-center justify-center border border-[#222222] bg-transparent px-5 py-2 sm:px-6 sm:py-2.5 text-xs sm:text-[13px] font-normal text-[#111111] transition-all duration-250 hover:border-[#C5A572] hover:bg-[#C5A572] hover:text-white active:bg-[#B3935F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] focus-visible:ring-offset-2 cursor-pointer ${className}`}
     >
       {label}
     </Link>
@@ -57,8 +57,8 @@ export function BannerCard({ item, isFeatured = false, className = "" }: BannerC
       data-testid={`banner-${item.id}`}
       className={`group relative overflow-hidden bg-[#ECECEC] ${
         isFeatured
-          ? "h-full min-h-[500px] sm:min-h-[580px] lg:min-h-[660px]"
-          : "h-full min-h-[275px] sm:min-h-[300px] lg:min-h-[314px]"
+          ? "h-full min-h-[500px] sm:min-h-[580px] lg:min-h-[660px] 2xl:min-h-[720px] 3xl:min-h-[780px]"
+          : "h-full min-h-[275px] sm:min-h-[300px] lg:min-h-[314px] 2xl:min-h-[345px] 3xl:min-h-[375px]"
       } ${className}`}
     >
       {/* Background Image with Focal Point Alignment */}
@@ -68,7 +68,7 @@ export function BannerCard({ item, isFeatured = false, className = "" }: BannerC
           alt={item.image.alt}
           fill
           priority={item.priority}
-          sizes={isFeatured ? "(max-width: 1024px) 100vw, 50vw" : "(max-width: 1024px) 100vw, 50vw"}
+          sizes={isFeatured ? "(max-width: 1024px) 100vw, (max-width: 1920px) 50vw, 960px" : "(max-width: 1024px) 100vw, (max-width: 1920px) 50vw, 960px"}
           className="object-cover origin-top-right transition-transform duration-700 ease-out group-hover:scale-105"
           style={{ objectPosition: item.image.objectPosition || "right top" }}
         />
@@ -175,7 +175,7 @@ export function HeroBanners({
         <p className="text-sm font-medium">Failed to load promotional hero banners from database.</p>
         <button
           onClick={() => window.location.reload()}
-          className="mt-3 px-4 py-1.5 text-xs uppercase tracking-wider bg-black text-white hover:bg-neutral-800 transition-colors"
+          className="mt-3 px-4 py-1.5 text-xs uppercase tracking-wider bg-[#111111] text-white hover:bg-[#C5A572] active:bg-[#B3935F] transition-colors cursor-pointer"
         >
           Retry Connection
         </button>
@@ -188,8 +188,8 @@ export function HeroBanners({
       aria-label="Promotional Collections"
       className={`w-full bg-white pt-1 sm:pt-1.5 lg:pt-2 pb-6 sm:pb-8 lg:pb-10 ${className}`}
     >
-      <div className="mx-auto max-w-7xl px-3 sm:px-4 lg:px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5 lg:gap-6 items-stretch">
+      <div className="mx-auto max-w-7xl 2xl:max-w-[1536px] 3xl:max-w-[1720px] px-3 sm:px-4 lg:px-6 2xl:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5 lg:gap-6 2xl:gap-8 items-stretch">
           {/* Left Column: Vertically Oriented Featured Banner */}
           <div className="h-full">
             <BannerCard item={activeConfig.featuredBanner} isFeatured />

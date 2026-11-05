@@ -19,7 +19,7 @@ import {
   calculateDiscount,
   VALID_COUPONS,
 } from "@/services/coupon-service";
-import { SHOP_PRODUCTS } from "@/services/product-service";
+import { SHOP_PRODUCTS } from "./fixtures/products";
 import type { Product } from "@/types/product";
 
 const mockProductA: Product = {
@@ -31,7 +31,6 @@ const mockProductA: Product = {
   compareAtPriceInr: 52000,
   image: { src: "/images/products/ring-1.jpg", alt: "Solitaire Diamond Ring" },
   materials: ["Gold", "Diamond"],
-  sizes: ["6", "7", "8"],
   inStock: true,
 };
 
@@ -43,7 +42,6 @@ const mockProductB: Product = {
   priceInr: 32000,
   image: { src: "/images/products/necklace-1.jpg", alt: "Emerald Cascade Necklace" },
   materials: ["Gold", "Emerald"],
-  sizes: ["18\""],
   inStock: true,
 };
 

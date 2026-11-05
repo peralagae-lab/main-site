@@ -87,14 +87,6 @@ export function ContactForm() {
           phone: "",
           message: "",
         });
-      } else if (result.status === "unconfigured") {
-        setSubmissionFeedback({
-          type: "unconfigured",
-          message: result.message,
-        });
-        notify.info("Service notice", {
-          description: result.message,
-        });
       } else {
         setSubmissionFeedback({
           type: "error",
@@ -146,42 +138,6 @@ export function ContactForm() {
         >
           <CheckCircle2 className="h-5 w-5 flex-shrink-0 mt-0.5" aria-hidden="true" />
           <p className="leading-relaxed">{submissionFeedback.message}</p>
-        </div>
-      )}
-
-      {submissionFeedback.type === "unconfigured" && (
-        <div
-          role="alert"
-          aria-live="polite"
-          className="mb-6 p-4 border border-[#C5A572]/40 bg-[#FAF9F5] rounded-sm flex flex-col gap-2 text-xs sm:text-sm text-[#444444]"
-        >
-          <div className="flex items-start gap-2.5 text-[#111111] font-medium">
-            <Info className="h-4 w-4 text-[#C5A572] flex-shrink-0 mt-0.5" aria-hidden="true" />
-            <span>Enquiry Captured</span>
-          </div>
-          <p className="text-[#666666] text-xs leading-relaxed pl-6">
-            Online form integration is awaiting active backend configuration (`NEXT_PUBLIC_CONTACT_API_URL`).
-            For immediate service, please contact our concierge team directly:
-          </p>
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 pl-6 pt-1 text-xs">
-            <a
-              href={`mailto:${email}?subject=Jewellery%20Enquiry%20from%20${encodeURIComponent(
-                formData.fullName || "Website"
-              )}`}
-              className="font-medium text-[#111111] hover:text-[#C5A572] underline transition-colors"
-            >
-              Email: {email}
-            </a>
-            <span className="text-[#CCCCCC]" aria-hidden="true">
-              |
-            </span>
-            <a
-              href={telHref}
-              className="font-medium text-[#111111] hover:text-[#C5A572] underline transition-colors"
-            >
-              Call: {phone}
-            </a>
-          </div>
         </div>
       )}
 

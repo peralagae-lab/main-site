@@ -52,7 +52,6 @@ export function ShopPageContent({
     minPrice: null,
     maxPrice: null,
     materials: initialMaterial ? [initialMaterial] : [],
-    sizes: [],
   });
 
   const [sort, setSort] = useState<SortOption>(initialSort);
@@ -204,9 +203,7 @@ export function ShopPageContent({
       maxCataloguePrice: 0,
       categoryCounts: {},
       materialCounts: {},
-      sizeCounts: {},
       availableMaterials: [],
-      availableSizes: [],
     }),
     []
   );
@@ -264,9 +261,6 @@ export function ShopPageContent({
     if (filters.materials && filters.materials.length > 0 && !filters.material) {
       count += filters.materials.length;
     }
-    if (filters.sizes && filters.sizes.length > 0) {
-      count += filters.sizes.length;
-    }
     return count;
   }, [filters, catalogueResult.minCataloguePrice, catalogueResult.maxCataloguePrice]);
 
@@ -286,7 +280,6 @@ export function ShopPageContent({
       minPrice: null,
       maxPrice: null,
       materials: [],
-      sizes: [],
     });
     setCurrentPage(1);
   }, []);
@@ -346,8 +339,6 @@ export function ShopPageContent({
                 totalProductsCount={totalCatalogueProductsCount}
                 availableMaterials={catalogueResult.availableMaterials}
                 materialCounts={catalogueResult.materialCounts}
-                availableSizes={catalogueResult.availableSizes}
-                sizeCounts={catalogueResult.sizeCounts}
                 minCataloguePrice={catalogueResult.minCataloguePrice}
                 maxCataloguePrice={catalogueResult.maxCataloguePrice}
                 isLoading={isLoading}
@@ -432,7 +423,7 @@ export function ShopPageContent({
                         .catch(() => setLoadError("Failed to load products from database."))
                         .finally(() => setIsLoading(false));
                     }}
-                    className="mt-4 px-5 py-2.5 bg-black hover:bg-neutral-800 text-white text-xs font-semibold uppercase tracking-wider rounded transition-colors cursor-pointer"
+                    className="mt-4 px-5 py-2.5 bg-black hover:bg-[#C5A572] active:bg-[#B3935F] text-white text-xs font-semibold uppercase tracking-wider rounded transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572]"
                   >
                     Retry Connection
                   </button>
@@ -460,7 +451,6 @@ export function ShopPageContent({
                       isCategoryOnly={Boolean(
                         filters.category &&
                           !filters.materials?.length &&
-                          !filters.sizes?.length &&
                           filters.minPrice == null &&
                           filters.maxPrice == null &&
                           !filters.search
@@ -508,8 +498,6 @@ export function ShopPageContent({
         totalProductsCount={totalCatalogueProductsCount}
         availableMaterials={catalogueResult.availableMaterials}
         materialCounts={catalogueResult.materialCounts}
-        availableSizes={catalogueResult.availableSizes}
-        sizeCounts={catalogueResult.sizeCounts}
         minCataloguePrice={catalogueResult.minCataloguePrice}
         maxCataloguePrice={catalogueResult.maxCataloguePrice}
         activeFilterCount={activeFilterCount}

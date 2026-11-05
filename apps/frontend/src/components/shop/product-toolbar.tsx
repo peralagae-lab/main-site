@@ -56,7 +56,7 @@ export function ProductToolbar({
           onClick={onOpenMobileFilters}
           suppressHydrationWarning
           aria-label="Open product filters"
-          className="lg:hidden flex items-center gap-2 px-3.5 py-2 border border-[#111111] text-[#111111] text-xs font-semibold tracking-wider uppercase transition-colors hover:bg-black hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-black"
+          className="lg:hidden flex items-center gap-2 px-3.5 py-2 border border-[#111111] text-[#111111] text-xs font-semibold tracking-wider uppercase transition-colors hover:border-[#C5A572] hover:bg-[#C5A572] active:bg-[#B3935F] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572]"
         >
           <SlidersHorizontal className="h-3.5 w-3.5" />
           <span>Filters</span>
@@ -106,7 +106,7 @@ export function ProductToolbar({
               value={sort}
               onChange={(e) => onSortChange(e.target.value as SortOption)}
               suppressHydrationWarning
-              className="appearance-none bg-transparent border border-[#CCCCCC] hover:border-black focus:border-black py-1.5 pl-3 pr-8 text-xs sm:text-[13px] text-[#111111] font-medium tracking-wide outline-none cursor-pointer transition-colors"
+              className="appearance-none bg-transparent border border-[#CCCCCC] hover:border-[#C5A572] focus:border-[#C5A572] py-1.5 pl-3 pr-8 text-xs sm:text-[13px] text-[#111111] font-medium tracking-wide outline-none cursor-pointer transition-colors focus-visible:ring-1 focus-visible:ring-[#C5A572]"
             >
               <option value="default">Default Sorting</option>
               <option value="price-low-to-high">Price: Low to High</option>

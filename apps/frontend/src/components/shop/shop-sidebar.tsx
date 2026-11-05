@@ -16,8 +16,6 @@ export interface ShopSidebarProps {
   totalProductsCount?: number;
   availableMaterials?: string[];
   materialCounts: Record<string, number>;
-  availableSizes?: string[];
-  sizeCounts: Record<string, number>;
   minCataloguePrice: number;
   maxCataloguePrice: number;
   isLoading?: boolean;
@@ -33,8 +31,6 @@ export function ShopSidebar({
   totalProductsCount,
   availableMaterials,
   materialCounts,
-  availableSizes,
-  sizeCounts,
   minCataloguePrice,
   maxCataloguePrice,
   isLoading = false,
@@ -45,7 +41,6 @@ export function ShopSidebar({
     categories: true,
     price: true,
     materials: true,
-    sizes: true,
   });
 
   const toggleSection = (section: keyof typeof openSections) => {
@@ -59,14 +54,6 @@ export function ShopSidebar({
     }
     return Object.keys(materialCounts || {}).filter((m) => (materialCounts[m] ?? 0) > 0);
   }, [availableMaterials, materialCounts]);
-
-  // Dynamic sizes derived exclusively from database product data
-  const effectiveSizes = useMemo(() => {
-    if (availableSizes && availableSizes.length > 0) {
-      return availableSizes;
-    }
-    return Object.keys(sizeCounts || {}).filter((s) => (sizeCounts[s] ?? 0) > 0);
-  }, [availableSizes, sizeCounts]);
 
   // Dynamic categories: use prop if available, or derive from categoryCounts if provided
   const effectiveCategories: CategoryItem[] = useMemo(() => {
@@ -94,8 +81,7 @@ export function ShopSidebar({
     filters.category ||
       (filters.minPrice != null && filters.minPrice > minCataloguePrice) ||
       (filters.maxPrice != null && filters.maxPrice < maxCataloguePrice) ||
-      (filters.materials && filters.materials.length > 0) ||
-      (filters.sizes && filters.sizes.length > 0)
+      (filters.materials && filters.materials.length > 0)
   );
 
   // Category selection handler
@@ -137,16 +123,6 @@ export function ShopSidebar({
       ? current.filter((m) => m.toLowerCase() !== material.toLowerCase())
       : [...current, material];
     onFilterChange({ ...filters, materials: updated });
-  };
-
-  // Size selection handler
-  const handleSizeToggle = (size: string) => {
-    const current = filters.sizes ?? [];
-    const exists = current.some((s) => s.toLowerCase() === size.toLowerCase());
-    const updated = exists
-      ? current.filter((s) => s.toLowerCase() !== size.toLowerCase())
-      : [...current, size];
-    onFilterChange({ ...filters, sizes: updated });
   };
 
   return (
@@ -379,7 +355,7 @@ export function ShopSidebar({
                         className={`flex h-4 w-4 items-center justify-center border transition-colors ${
                           isChecked
                             ? "bg-black border-black text-white"
-                            : "border-[#CCCCCC] bg-white hover:border-black"
+                            : "border-[#CCCCCC] bg-white hover:border-[#C5A572]"
                         }`}
                       >
                         {isChecked && <Check className="h-3 w-3 stroke-[2.5]" />}
@@ -408,75 +384,6 @@ export function ShopSidebar({
               </div>
             ) : (
               <div className="text-xs text-[#888888] italic py-1">No materials available</div>
-            )}
-          </div>
-        )}
-      </div>
-
-      {/* 4. SIZE FILTER SECTION */}
-      <div className="border-b border-[#E5E5E5] pb-5">
-        <button
-          type="button"
-          onClick={() => toggleSection("sizes")}
-          aria-expanded={openSections.sizes}
-          aria-controls="filter-section-sizes"
-          suppressHydrationWarning
-          className="w-full flex items-center justify-between py-1 text-left font-medium text-sm tracking-wider uppercase text-[#111111] group focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-black"
-        >
-          <span>Size</span>
-          <ChevronDown
-            className={`h-4 w-4 text-[#666666] transition-transform duration-200 group-hover:text-black ${
-              openSections.sizes ? "rotate-180" : ""
-            }`}
-          />
-        </button>
-
-        {openSections.sizes && (
-          <div id="filter-section-sizes" className="mt-3.5 flex flex-col gap-2">
-            {effectiveSizes.length > 0 ? (
-              effectiveSizes.map((sz) => {
-                const isChecked = filters.sizes?.some((s) => s.toLowerCase() === sz.toLowerCase()) ?? false;
-                const count = sizeCounts[sz] ?? 0;
-                const displayLabel = sz.includes('"') || isNaN(Number(sz)) ? sz : `Size ${sz}`;
-                return (
-                  <label
-                    key={sz}
-                    className="flex items-center justify-between text-xs sm:text-[13px] text-[#555555] hover:text-black cursor-pointer py-1 select-none"
-                  >
-                    <div className="flex items-center gap-2.5">
-                      <div
-                        className={`flex h-4 w-4 items-center justify-center border transition-colors ${
-                          isChecked
-                            ? "bg-black border-black text-white"
-                            : "border-[#CCCCCC] bg-white hover:border-black"
-                        }`}
-                      >
-                        {isChecked && <Check className="h-3 w-3 stroke-[2.5]" />}
-                      </div>
-                      <input
-                        type="checkbox"
-                        checked={isChecked}
-                        onChange={() => handleSizeToggle(sz)}
-                        className="sr-only"
-                        aria-label={`Filter by size ${sz}`}
-                        suppressHydrationWarning
-                      />
-                      <span className={isChecked ? "font-semibold text-black" : ""}>
-                        {displayLabel}
-                      </span>
-                    </div>
-                    <span className="text-[11px] text-[#888888]">({count})</span>
-                  </label>
-                );
-              })
-            ) : isLoading ? (
-              <div className="space-y-2 py-1">
-                {[1, 2, 3].map((i) => (
-                  <div key={i} className="h-4 bg-[#F0EFEA] rounded animate-pulse w-2/3" />
-                ))}
-              </div>
-            ) : (
-              <div className="text-xs text-[#888888] italic py-1">No sizes available</div>
             )}
           </div>
         )}

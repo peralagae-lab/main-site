@@ -117,10 +117,10 @@ export function SearchProductCard({
             disabled={justAdded}
             aria-label={justAdded ? `Added ${product.name} to cart` : `Add ${product.name} to cart`}
             data-testid={`search-add-to-cart-${product.id}`}
-            className={`flex items-center gap-1 rounded-md px-2.5 sm:px-3 py-1.5 text-[10px] sm:text-[11px] font-medium tracking-wider uppercase transition-all duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#C5A572] ${
+            className={`flex items-center gap-1 rounded-md px-2.5 sm:px-3 py-1.5 text-[10px] sm:text-[11px] font-medium tracking-wider uppercase transition-all duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#C5A572] cursor-pointer ${
               justAdded
                 ? "bg-[#C5A572] text-white"
-                : "bg-[#111111] text-white hover:bg-[#C5A572]"
+                : "bg-[#111111] text-white hover:bg-[#C5A572] active:bg-[#B3935F]"
             }`}
           >
             {justAdded ? (

@@ -11,10 +11,18 @@ import { ShopEmptyState } from "@/components/shop/shop-empty-state";
 import { ShopPageContent } from "@/components/shop/shop-page-content";
 import { DualRangeSlider } from "@/components/shop/dual-range-slider";
 import {
-  getShopCatalogue,
-  SHOP_PRODUCTS,
+  getShopCatalogue as baseGetShopCatalogue,
   type ShopFilters,
 } from "@/services/product-service";
+import { SHOP_PRODUCTS } from "./fixtures/products";
+
+const getShopCatalogue = (
+  filters: any = {},
+  sort: any = "default",
+  page = 1,
+  pageSize = 24,
+  categories?: any
+) => baseGetShopCatalogue(filters, sort, page, pageSize, categories, SHOP_PRODUCTS);
 
 // Mock next/navigation
 vi.mock("next/navigation", () => ({
@@ -68,21 +76,12 @@ describe("PERALAGAE Shop Page Suite", () => {
       });
     });
 
-    it("filters by size multi-selection", () => {
-      const result = getShopCatalogue({ sizes: ["7"] });
-      expect(result.total).toBeGreaterThan(0);
-      result.products.forEach((prod) => {
-        expect(prod.sizes).toContain("7");
-      });
-    });
-
-    it("combines category, price range, material, and size filters simultaneously", () => {
+    it("combines category, price range, and material filters simultaneously", () => {
       const result = getShopCatalogue({
         category: "rings",
         minPrice: 15000,
         maxPrice: 50000,
         materials: ["Gold"],
-        sizes: ["8"],
       });
       expect(result.total).toBeGreaterThan(0);
       result.products.forEach((prod) => {
@@ -90,7 +89,6 @@ describe("PERALAGAE Shop Page Suite", () => {
         expect(prod.priceInr).toBeGreaterThanOrEqual(15000);
         expect(prod.priceInr).toBeLessThanOrEqual(50000);
         expect(prod.materials).toContain("Gold");
-        expect(prod.sizes).toContain("8");
       });
     });
 
@@ -140,13 +138,11 @@ describe("PERALAGAE Shop Page Suite", () => {
       minPrice: null,
       maxPrice: null,
       materials: [],
-      sizes: [],
     };
     const mockCounts = { necklaces: 4, rings: 5, bracelets: 4, earrings: 4, "charms-bangles": 3, "gift-ideas": 4 };
     const mockMaterialCounts = { Gold: 15, Silver: 3, "Rose Gold": 4, Diamond: 12, Platinum: 6 };
-    const mockSizeCounts = { "6": 5, "7": 7, "8": 7, "9": 4, "10": 2, "6.5\"": 3, "7\"": 4, "7.5\"": 3, "16\"": 3, "18\"": 4, "20\"": 2 };
 
-    it("renders 4 collapsible sections in exact required order: Categories, Price Filter, Materials, Size", () => {
+    it("renders 3 collapsible sections in exact required order: Categories, Price Filter, Materials", () => {
       render(
         <ShopSidebar
           filters={mockFilters}
@@ -154,7 +150,6 @@ describe("PERALAGAE Shop Page Suite", () => {
           onClearAll={vi.fn()}
           categoryCounts={mockCounts}
           materialCounts={mockMaterialCounts}
-          sizeCounts={mockSizeCounts}
           minCataloguePrice={12500}
           maxCataloguePrice={68000}
         />
@@ -164,7 +159,6 @@ describe("PERALAGAE Shop Page Suite", () => {
       expect(sectionHeadings[0]).toHaveTextContent(/Categories/i);
       expect(sectionHeadings[1]).toHaveTextContent(/Price Filter/i);
       expect(sectionHeadings[2]).toHaveTextContent(/Materials/i);
-      expect(sectionHeadings[3]).toHaveTextContent(/Size/i);
     });
 
     it("triggers onFilterChange when category is clicked", () => {
@@ -176,7 +170,6 @@ describe("PERALAGAE Shop Page Suite", () => {
           onClearAll={vi.fn()}
           categoryCounts={mockCounts}
           materialCounts={mockMaterialCounts}
-          sizeCounts={mockSizeCounts}
           minCataloguePrice={12500}
           maxCataloguePrice={68000}
         />
@@ -197,7 +190,6 @@ describe("PERALAGAE Shop Page Suite", () => {
           onClearAll={onClearAll}
           categoryCounts={mockCounts}
           materialCounts={mockMaterialCounts}
-          sizeCounts={mockSizeCounts}
           minCataloguePrice={12500}
           maxCataloguePrice={68000}
         />
@@ -217,7 +209,6 @@ describe("PERALAGAE Shop Page Suite", () => {
           onClearAll={vi.fn()}
           categoryCounts={mockCounts}
           materialCounts={mockMaterialCounts}
-          sizeCounts={mockSizeCounts}
           minCataloguePrice={12500}
           maxCataloguePrice={68000}
         />
@@ -246,7 +237,6 @@ describe("PERALAGAE Shop Page Suite", () => {
           onClearAll={vi.fn()}
           categoryCounts={mockCounts}
           materialCounts={mockMaterialCounts}
-          sizeCounts={mockSizeCounts}
           minCataloguePrice={12500}
           maxCataloguePrice={68000}
         />
@@ -543,7 +533,7 @@ describe("PERALAGAE Shop Page Suite", () => {
     it("renders full integrated shop layout with hero, toolbar, product cards, and pagination", () => {
       render(
         <StorefrontProvider>
-          <ShopPageContent pageSize={8} />
+          <ShopPageContent pageSize={8} initialCatalogue={getShopCatalogue({}, "default", 1, 8)} />
         </StorefrontProvider>
       );
 

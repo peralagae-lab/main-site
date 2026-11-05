@@ -71,8 +71,8 @@ export const defaultNavbarSettingsData: NavbarSettingsData = {
       {
         id: "faqs",
         label: "FAQs",
-        href: "/#faqs",
-        isImplemented: false,
+        href: "/faq",
+        isImplemented: true,
       },
       {
         id: "subscribe",

@@ -134,7 +134,6 @@ const createProductSchema = z.object({
   materialId: z.string().trim().nullable().optional(),
   material: z.string().trim().optional(),
   materials: z.array(z.string()).optional(),
-  sizes: z.array(z.string()).optional(),
   isHot: z.boolean().optional(),
   isNew: z.boolean().optional(),
 });
@@ -494,7 +493,6 @@ export function createProductRouter(env: EnvConfig): Router {
         maxPrice,
         material,
         materials,
-        sizes,
         sort,
         page,
         pageSize,
@@ -513,11 +511,6 @@ export function createProductRouter(env: EnvConfig): Router {
           ? (materials as string[])
           : typeof materials === "string"
           ? materials.split(",")
-          : undefined,
-        sizes: Array.isArray(sizes)
-          ? (sizes as string[])
-          : typeof sizes === "string"
-          ? sizes.split(",")
           : undefined,
         sort: typeof sort === "string" ? sort : undefined,
         page: page ? Number(page) : undefined,
@@ -629,6 +622,42 @@ export function createProductRouter(env: EnvConfig): Router {
         error: {
           code: "DATABASE_ERROR",
           message: "Failed to retrieve adjacent products from database",
+        },
+      });
+    }
+  });
+
+  /**
+   * GET /api/v1/products/:slugOrId/related
+   * Retrieves dynamically related active in-stock products based on category/material.
+   */
+  router.get("/:slugOrId/related", async (req: Request, res: Response) => {
+    try {
+      const slugParam = req.params["slugOrId"];
+      const slugOrId = Array.isArray(slugParam) ? slugParam[0] : slugParam;
+      if (typeof slugOrId !== "string" || !slugOrId) {
+        return res.status(400).json({
+          success: false,
+          error: {
+            code: "INVALID_PARAM",
+            message: "Product slug or ID parameter is required",
+          },
+        });
+      }
+
+      const limit = Number(req.query["limit"]) || 4;
+      const related = await ProductService.getRelatedProducts(slugOrId, limit);
+      return res.status(200).json({
+        success: true,
+        data: related,
+      });
+    } catch (err) {
+      logger.error({ err }, "Failed to fetch related products from database");
+      return res.status(500).json({
+        success: false,
+        error: {
+          code: "DATABASE_ERROR",
+          message: "Failed to retrieve related products",
         },
       });
     }

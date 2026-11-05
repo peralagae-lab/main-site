@@ -6,7 +6,7 @@ import { StorefrontProvider } from "@/providers/storefront-provider";
 import { SiteHeader } from "@/components/navbar/site-header";
 import { SearchOverlay } from "@/components/search/search-overlay";
 import { searchCatalogue } from "@/services/search-service";
-import { SHOP_PRODUCTS } from "@/services/product-service";
+import { SHOP_PRODUCTS } from "./fixtures/products";
 
 describe("PERALAGAE Premium Glass Search Overlay Suite", () => {
   beforeEach(() => {
@@ -26,17 +26,17 @@ describe("PERALAGAE Premium Glass Search Overlay Suite", () => {
     });
 
     it("matches products by category in case-insensitive manner (e.g. 'ring' and 'RINGS')", () => {
-      const resRings = searchCatalogue("ring");
+      const resRings = searchCatalogue("ring", SHOP_PRODUCTS);
       expect(resRings.products.length).toBeGreaterThan(0);
       expect(resRings.products.some((p) => p.category === "RINGS")).toBe(true);
 
-      const resNecklaces = searchCatalogue("NECKLACES");
+      const resNecklaces = searchCatalogue("NECKLACES", SHOP_PRODUCTS);
       expect(resNecklaces.products.length).toBeGreaterThan(0);
       expect(resNecklaces.products.some((p) => p.category === "NECKLACES")).toBe(true);
     });
 
     it("matches products by precious material (e.g. 'gold', 'platinum', 'diamond')", () => {
-      const resGold = searchCatalogue("gold");
+      const resGold = searchCatalogue("gold", SHOP_PRODUCTS);
       expect(resGold.products.length).toBeGreaterThan(0);
       resGold.products.forEach((p) => {
         const hasGold =
@@ -47,7 +47,7 @@ describe("PERALAGAE Premium Glass Search Overlay Suite", () => {
     });
 
     it("ranks exact or prefix name matches above general description matches", () => {
-      const res = searchCatalogue("Solitaire Diamond Pendant Necklace");
+      const res = searchCatalogue("Solitaire Diamond Pendant Necklace", SHOP_PRODUCTS);
       expect(res.products.length).toBeGreaterThan(0);
       expect(res.products[0].name).toBe("Solitaire Diamond Pendant Necklace");
     });

@@ -90,8 +90,6 @@ export interface Product {
   material?: string;
   /** Categorized material tags (e.g. ["Gold", "Diamond", "Platinum", "Silver", "Rose Gold"]) */
   materials?: string[];
-  /** Available sizes (e.g. ["6", "7", "8", "9", "10"] for rings, ["16\"", "18\""] for necklaces) */
-  sizes?: string[];
   /** Structured specifications (Metal & Purity, Gemstone, Certification, Weight, Dimensions, Care) */
   specs?: ProductSpec[];
   /** Aggregate customer rating (1.0 to 5.0) */

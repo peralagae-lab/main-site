@@ -193,7 +193,7 @@ function UnsubscribeContent() {
                 type="button"
                 onClick={() => handleUpdatePreferences(true)}
                 disabled={isUpdating}
-                className="w-full h-11 bg-[#111111] hover:bg-black text-white text-xs font-semibold uppercase tracking-wider rounded-lg transition-colors flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                className="w-full h-11 bg-[#111111] hover:bg-[#C5A572] active:bg-[#B3935F] text-white text-xs font-semibold uppercase tracking-wider rounded-lg transition-colors flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572]"
               >
                 {isUpdating ? (
                   <Loader2 className="w-4 h-4 animate-spin text-[#C5A572]" />

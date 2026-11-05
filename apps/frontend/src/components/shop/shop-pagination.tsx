@@ -36,7 +36,7 @@ export function ShopPagination({
         disabled={currentPage <= 1}
         aria-label="Previous page"
         suppressHydrationWarning
-        className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-none border border-[#E0E0E0] text-[#111111] transition-colors hover:border-black hover:bg-neutral-50 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:border-[#E0E0E0] disabled:hover:bg-transparent focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-black"
+        className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-none border border-[#E0E0E0] text-[#111111] transition-colors hover:border-[#C5A572] hover:text-[#C5A572] active:bg-[#B3935F]/10 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:border-[#E0E0E0] disabled:hover:bg-transparent focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-black"
       >
         <ChevronLeft className="h-4 w-4 stroke-[1.75]" />
       </button>
@@ -55,7 +55,7 @@ export function ShopPagination({
             className={`flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-none text-xs sm:text-sm font-semibold tracking-wider transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-black ${
               isCurrent
                 ? "bg-black text-white border border-black"
-                : "border border-[#E0E0E0] text-[#111111] hover:border-black hover:bg-neutral-50"
+                : "border border-[#E0E0E0] text-[#111111] hover:border-[#C5A572] hover:text-[#C5A572] active:bg-[#B3935F]/10"
             }`}
           >
             {pageNum}
@@ -70,7 +70,7 @@ export function ShopPagination({
         disabled={currentPage >= totalPages}
         aria-label="Next page"
         suppressHydrationWarning
-        className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-none border border-[#E0E0E0] text-[#111111] transition-colors hover:border-black hover:bg-neutral-50 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:border-[#E0E0E0] disabled:hover:bg-transparent focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-black"
+        className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-none border border-[#E0E0E0] text-[#111111] transition-colors hover:border-[#C5A572] hover:text-[#C5A572] active:bg-[#B3935F]/10 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:border-[#E0E0E0] disabled:hover:bg-transparent focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-black"
       >
         <ChevronRight className="h-4 w-4 stroke-[1.75]" />
       </button>

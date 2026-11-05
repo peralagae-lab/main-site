@@ -53,11 +53,11 @@ export function CollectionCard({ item, className = "" }: CollectionCardProps) {
 
       {/* Uppercase Category Label directly underneath with subtle hover underline */}
       <div className="mt-3 sm:mt-3.5 lg:mt-4">
-        <span className="inline-block relative pb-0.5 text-xs sm:text-[13px] font-medium tracking-[0.08em] uppercase text-[#111111] transition-colors duration-200">
+        <span className="inline-block relative pb-0.5 text-xs sm:text-[13px] font-medium tracking-[0.08em] uppercase text-[#111111] transition-colors duration-200 group-hover:text-[#C5A572]">
           {item.title}
           {/* Subtle underline transition on hover */}
           <span
-            className="absolute bottom-0 left-0 h-[1px] w-0 bg-[#111111] transition-all duration-300 ease-out group-hover:w-full"
+            className="absolute bottom-0 left-0 h-[1.5px] w-0 bg-[#C5A572] transition-all duration-300 ease-out group-hover:w-full"
             aria-hidden="true"
           />
         </span>
@@ -70,7 +70,7 @@ export function CollectionCard({ item, className = "" }: CollectionCardProps) {
     return (
       <Link
         href={item.href}
-        className="block w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+        className="block w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] focus-visible:ring-offset-2"
         aria-label={`Shop ${item.title} Collection`}
       >
         {content}
@@ -84,7 +84,7 @@ export function CollectionCard({ item, className = "" }: CollectionCardProps) {
       role="region"
       aria-label={`${item.title} Collection`}
       title={`${item.title} (Coming Soon)`}
-      className="block w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+      className="block w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] focus-visible:ring-offset-2"
     >
       {content}
     </div>
@@ -281,7 +281,7 @@ export function ShopOurCollections({
       aria-labelledby="shop-our-collections-heading"
       className={`w-full overflow-hidden bg-white pt-8 sm:pt-10 lg:pt-14 pb-12 sm:pb-16 lg:pb-20 scroll-mt-28 lg:scroll-mt-32 ${className}`}
     >
-      <div className="mx-auto max-w-7xl px-3 sm:px-4 lg:px-6">
+      <div className="mx-auto max-w-7xl 2xl:max-w-[1536px] 3xl:max-w-[1720px] px-3 sm:px-4 lg:px-6 2xl:px-8">
         {/* Centred Heading */}
         <h2
           id="shop-our-collections-heading"
@@ -300,7 +300,7 @@ export function ShopOurCollections({
               onClick={() => scroll("left")}
               aria-label="Previous categories"
               disabled={!canScrollLeft}
-              className={`hidden lg:flex absolute -left-4 xl:-left-6 top-1/2 -translate-y-1/2 z-20 h-10 w-10 items-center justify-center rounded-full bg-white text-[#222222] shadow-md border border-neutral-100 transition-all duration-200 hover:bg-black hover:text-white hover:border-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black ${
+              className={`hidden lg:flex absolute -left-4 xl:-left-6 top-1/2 -translate-y-1/2 z-20 h-10 w-10 items-center justify-center rounded-full bg-white text-[#222222] shadow-md border border-neutral-100 transition-all duration-250 hover:bg-[#C5A572] hover:text-white hover:border-[#C5A572] active:bg-[#B3935F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] ${
                 !canScrollLeft ? "opacity-30 cursor-not-allowed pointer-events-none" : "opacity-100 cursor-pointer"
               }`}
             >
@@ -314,7 +314,7 @@ export function ShopOurCollections({
               role="region"
               aria-label="Collections carousel"
               onKeyDown={handleKeyDown}
-              className="flex gap-4 sm:gap-5 lg:gap-6 overflow-x-auto scroll-smooth pb-2 focus:outline-none [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+              className="flex gap-4 sm:gap-5 lg:gap-6 2xl:gap-8 overflow-x-auto scroll-smooth pb-2 focus:outline-none [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
             >
               {activeItems.map((item) => (
                 <div
@@ -332,7 +332,7 @@ export function ShopOurCollections({
               onClick={() => scroll("right")}
               aria-label="Next categories"
               disabled={!canScrollRight}
-              className={`hidden lg:flex absolute -right-4 xl:-right-6 top-1/2 -translate-y-1/2 z-20 h-10 w-10 items-center justify-center rounded-full bg-white text-[#222222] shadow-md border border-neutral-100 transition-all duration-200 hover:bg-black hover:text-white hover:border-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black ${
+              className={`hidden lg:flex absolute -right-4 xl:-right-6 top-1/2 -translate-y-1/2 z-20 h-10 w-10 items-center justify-center rounded-full bg-white text-[#222222] shadow-md border border-neutral-100 transition-all duration-250 hover:bg-[#C5A572] hover:text-white hover:border-[#C5A572] active:bg-[#B3935F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] ${
                 !canScrollRight ? "opacity-30 cursor-not-allowed pointer-events-none" : "opacity-100 cursor-pointer"
               }`}
             >
@@ -341,7 +341,7 @@ export function ShopOurCollections({
           </div>
         ) : (
           /* Standard 6-category responsive grid */
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-5 lg:gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-5 lg:gap-6 2xl:gap-8">
             {activeItems.map((item) => (
               <CollectionCard key={item.id} item={item} />
             ))}

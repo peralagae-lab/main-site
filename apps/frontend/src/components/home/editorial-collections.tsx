@@ -50,7 +50,7 @@ export function EditorialCollectionCard({
       <Link
         href={item.href}
         aria-label={`View ${item.title} Collection`}
-        className="block w-full overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+        className="block w-full overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] focus-visible:ring-offset-2"
       >
         <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#F2F2F2]">
           <Image
@@ -80,7 +80,7 @@ export function EditorialCollectionCard({
           href={item.href}
           onClick={handleClick}
           data-testid={`editorial-cta-${item.id}`}
-          className="inline-block text-xs sm:text-[13px] font-medium tracking-[0.08em] uppercase text-[#111111] underline underline-offset-4 decoration-[#111111] transition-opacity duration-200 hover:opacity-75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+          className="inline-block text-xs sm:text-[13px] font-medium tracking-[0.08em] uppercase text-[#111111] underline underline-offset-4 decoration-[#C5A572] transition-colors duration-200 hover:text-[#C5A572] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] focus-visible:ring-offset-2 cursor-pointer"
           title={
             item.isImplemented
               ? item.ctaText
@@ -259,7 +259,7 @@ export function EditorialCollectionsSection({
           <button
             type="button"
             onClick={loadSection}
-            className="mt-4 inline-flex items-center gap-1.5 px-4 py-2 bg-black hover:bg-neutral-800 text-white text-xs font-semibold tracking-wider uppercase transition-colors"
+            className="mt-4 inline-flex items-center gap-1.5 px-4 py-2 bg-black hover:bg-[#C5A572] active:bg-[#B3935F] text-white text-xs font-semibold tracking-wider uppercase transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572]"
           >
             <RotateCcw className="w-3.5 h-3.5" />
             <span>Retry Loading</span>
@@ -304,7 +304,7 @@ export function EditorialCollectionsSection({
       data-testid="editorial-collections-section"
       className={`w-full bg-white pt-2 sm:pt-4 lg:pt-6 pb-16 sm:pb-20 lg:pb-24 ${className}`}
     >
-      <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl 2xl:max-w-[1536px] 3xl:max-w-[1720px] px-3 sm:px-6 lg:px-8 2xl:px-12">
         {/* Top Brand Heading configured by Admin */}
         <h2
           id="editorial-collections-tagline"
@@ -315,7 +315,7 @@ export function EditorialCollectionsSection({
         </h2>
 
         {/* Database-Driven Editorial Material Collection Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10 md:gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10 md:gap-6 lg:gap-8 2xl:gap-12">
           {activeCards.map((card: MaterialCardConfig) => {
             // Destination URL dynamically resolved from database Material assignment
             const destinationHref = card.material?.slug

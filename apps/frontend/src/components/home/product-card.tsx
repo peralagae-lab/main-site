@@ -85,7 +85,7 @@ export function ProductCard({ product, className = "", dataTestId }: ProductCard
         {/* Product Image */}
         <Link
           href={`/product/${product.slug}`}
-          className="relative block w-full h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black"
+          className="relative block w-full h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572]"
           aria-label={product.name}
         >
           <Image
@@ -106,8 +106,8 @@ export function ProductCard({ product, className = "", dataTestId }: ProductCard
             aria-label={isFavorite ? `Remove ${product.name} from wishlist` : `Add ${product.name} to wishlist`}
             aria-pressed={isFavorite}
             suppressHydrationWarning
-            className={`flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-white shadow-sm border border-[#EAEAEA] transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black ${
-              isFavorite ? "text-[#D9383A]" : "text-[#222222] hover:text-[#D9383A]"
+            className={`flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-white shadow-sm border border-[#EAEAEA] transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] cursor-pointer ${
+              isFavorite ? "text-[#D9383A]" : "text-[#222222] hover:text-[#C5A572]"
             }`}
           >
             <Heart
@@ -126,12 +126,12 @@ export function ProductCard({ product, className = "", dataTestId }: ProductCard
             disabled={isOutOfStock}
             aria-label={isOutOfStock ? `${product.name} is out of stock` : `Add ${product.name} to cart`}
             suppressHydrationWarning
-            className={`w-full py-2 sm:py-2.5 px-3 sm:px-4 text-[11px] sm:text-xs font-semibold tracking-[0.08em] uppercase transition-colors duration-200 flex items-center justify-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black ${
+            className={`w-full py-2 sm:py-2.5 px-3 sm:px-4 text-[11px] sm:text-xs font-semibold tracking-[0.08em] uppercase transition-all duration-200 flex items-center justify-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] cursor-pointer ${
               isOutOfStock
                 ? "bg-[#E5E7EB] text-[#9CA3AF] cursor-not-allowed border-t border-[#E5E7EB]"
                 : justAdded
-                ? "bg-[#111111] text-white"
-                : "bg-white/95 text-[#111111] hover:bg-[#111111] hover:text-white border-t border-[#E5E7EB]"
+                ? "bg-[#C5A572] text-white"
+                : "bg-white/95 text-[#111111] hover:bg-[#C5A572] hover:text-white active:bg-[#B3935F] border-t border-[#E5E7EB]"
             }`}
           >
             {isOutOfStock ? (
@@ -159,7 +159,7 @@ export function ProductCard({ product, className = "", dataTestId }: ProductCard
         <h3 className="text-xs sm:text-[13.5px] font-medium text-[#111111] leading-snug line-clamp-1 truncate mb-1 w-full text-left">
           <Link
             href={`/product/${product.slug}`}
-            className="hover:underline transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-black"
+            className="hover:text-[#C5A572] hover:underline transition-colors duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#C5A572]"
           >
             {product.name}
           </Link>

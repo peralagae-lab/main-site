@@ -103,13 +103,13 @@ export function CouponForm({
               }}
               placeholder="Coupon code (e.g. SUMMER15)"
               aria-label="Promotional coupon code"
-              className="w-full h-11 px-4 border border-[#CCCCCC] bg-white text-xs text-[#111111] placeholder-[#888888] tracking-wider uppercase focus:border-black focus:outline-none transition-colors"
+              className="w-full h-11 px-4 border border-[#CCCCCC] bg-white text-xs text-[#111111] placeholder-[#888888] tracking-wider uppercase focus:border-[#C5A572] focus:outline-none transition-colors"
             />
           </div>
           <button
             type="submit"
             aria-label="Apply Coupon"
-            className="h-11 px-6 bg-[#111111] hover:bg-black text-white text-xs font-semibold uppercase tracking-widest whitespace-nowrap transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black"
+            className="h-11 px-6 bg-[#111111] hover:bg-[#C5A572] active:bg-[#B3935F] text-white text-xs font-semibold uppercase tracking-widest whitespace-nowrap transition-all duration-250 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] cursor-pointer"
           >
             Apply Coupon
           </button>

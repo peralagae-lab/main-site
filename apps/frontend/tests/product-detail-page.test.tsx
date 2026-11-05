@@ -3,12 +3,17 @@ import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { StorefrontProvider } from "@/providers/storefront-provider";
 import {
-  getProductBySlug,
-  getProductById,
-  getAllProducts,
-  getAdjacentProducts,
-  SHOP_PRODUCTS,
+  getProductBySlug as baseGetProductBySlug,
+  getProductById as baseGetProductById,
+  getAllProducts as baseGetAllProducts,
+  getAdjacentProducts as baseGetAdjacentProducts,
 } from "@/services/product-service";
+import { SHOP_PRODUCTS } from "./fixtures/products";
+
+const getProductBySlug = (slug: string) => baseGetProductBySlug(slug, SHOP_PRODUCTS);
+const getProductById = (id: string) => baseGetProductById(id, SHOP_PRODUCTS);
+const getAllProducts = () => baseGetAllProducts(SHOP_PRODUCTS);
+const getAdjacentProducts = (slugOrProd: any) => baseGetAdjacentProducts(slugOrProd, SHOP_PRODUCTS);
 import { getRelatedProducts } from "@/services/recommendation-service";
 import { ProductBreadcrumb } from "@/components/product/product-breadcrumb";
 import { ProductGallery } from "@/components/product/product-gallery";
@@ -70,19 +75,19 @@ describe("PERALAGAE Product Detail Page (PDP) Suite", () => {
       const last = SHOP_PRODUCTS[SHOP_PRODUCTS.length - 1];
 
       const firstAdjacent = getAdjacentProducts(first.slug);
-      expect(firstAdjacent.prev.id).toBe(last.id); // wrap-around
-      expect(firstAdjacent.next.id).toBe(SHOP_PRODUCTS[1].id);
+      expect(firstAdjacent.prev?.id).toBe(last.id); // wrap-around
+      expect(firstAdjacent.next?.id).toBe(SHOP_PRODUCTS[1].id);
 
       const lastAdjacent = getAdjacentProducts(last.slug);
-      expect(lastAdjacent.prev.id).toBe(SHOP_PRODUCTS[SHOP_PRODUCTS.length - 2].id);
-      expect(lastAdjacent.next.id).toBe(first.id); // wrap-around
+      expect(lastAdjacent.prev?.id).toBe(SHOP_PRODUCTS[SHOP_PRODUCTS.length - 2].id);
+      expect(lastAdjacent.next?.id).toBe(first.id); // wrap-around
     });
   });
 
   describe("2. Recommendation Service (Category-Aware Algorithm)", () => {
     it("returns up to 4 recommendations and strictly excludes the current product", () => {
       const current = getProductBySlug("solitaire-diamond-pendant-necklace")!;
-      const related = getRelatedProducts(current, { limit: 4 });
+      const related = getRelatedProducts(current, { limit: 4, catalogue: SHOP_PRODUCTS });
 
       expect(related.length).toBeLessThanOrEqual(4);
       expect(related.some((p) => p.id === current.id)).toBe(false);
@@ -94,7 +99,7 @@ describe("PERALAGAE Product Detail Page (PDP) Suite", () => {
 
     it("prioritizes products from the same category and shared attributes", () => {
       const currentEarring = getProductBySlug("pave-diamond-teardrop-earrings")!;
-      const related = getRelatedProducts(currentEarring, { limit: 4 });
+      const related = getRelatedProducts(currentEarring, { limit: 4, catalogue: SHOP_PRODUCTS });
 
       // Earring recommendations should prioritize other earrings
       const sameCategoryCount = related.filter((p) => p.category === currentEarring.category).length;
@@ -132,8 +137,8 @@ describe("PERALAGAE Product Detail Page (PDP) Suite", () => {
       // Prev and next navigation links
       const prevLink = screen.getByRole("link", { name: /previous product/i });
       const nextLink = screen.getByRole("link", { name: /next product/i });
-      expect(prevLink).toHaveAttribute("href", `/product/${adjacent.prev.slug}`);
-      expect(nextLink).toHaveAttribute("href", `/product/${adjacent.next.slug}`);
+      expect(prevLink).toHaveAttribute("href", `/product/${adjacent.prev?.slug}`);
+      expect(nextLink).toHaveAttribute("href", `/product/${adjacent.next?.slug}`);
     });
   });
 
@@ -389,11 +394,11 @@ describe("PERALAGAE Product Detail Page (PDP) Suite", () => {
   describe("7. RelatedProducts Component", () => {
     it("renders Related Products section with 4 recommended jewellery items", () => {
       const product = getProductBySlug("solitaire-diamond-pendant-necklace")!;
-      const related = getRelatedProducts(product, { limit: 4 });
+      const related = getRelatedProducts(product, { limit: 4, catalogue: SHOP_PRODUCTS });
 
       render(
         <StorefrontProvider>
-          <RelatedProducts currentProduct={product} limit={4} />
+          <RelatedProducts currentProduct={product} limit={4} initialRelated={related} />
         </StorefrontProvider>
       );
 
@@ -412,6 +417,7 @@ describe("PERALAGAE Product Detail Page (PDP) Suite", () => {
     it("renders complete end-to-end page without errors", () => {
       const product = getProductBySlug("classic-solitaire-diamond-ring")!;
       const adjacent = getAdjacentProducts(product.slug);
+      const related = getRelatedProducts(product, { limit: 4, catalogue: SHOP_PRODUCTS });
 
       render(
         <StorefrontProvider>
@@ -419,6 +425,7 @@ describe("PERALAGAE Product Detail Page (PDP) Suite", () => {
             product={product}
             prevProduct={adjacent.prev}
             nextProduct={adjacent.next}
+            initialRelated={related}
           />
         </StorefrontProvider>
       );

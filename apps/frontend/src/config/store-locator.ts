@@ -20,7 +20,7 @@ export interface StoreLocatorBannerConfig {
 
   /**
    * Target URL or route destination.
-   * Default: "/store-location"
+   * Default: PERALAGAE_STORE_MAPS_URL
    */
   buttonHref: string;
 
@@ -58,13 +58,20 @@ export interface StoreLocatorBannerConfig {
 }
 
 /**
+ * Approved Google Maps destination URL for PERALAGAE Coimbatore Showroom.
+ * Location: Vitamin7 Semantics, 15, 3rd Cross Road, Sathy Rd, Gandhipuram, Coimbatore, Tamil Nadu 641012
+ */
+export const PERALAGAE_STORE_MAPS_URL =
+  "https://www.google.com/maps/dir//Vitamin7+Semantics,+15,+3rd+Cross+Road,+Sathy+Rd,+Gandhipuram,+Coimbatore,+Tamil+Nadu+641012/@12.9400832,80.2029568,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3ba8597a5c957c41:0x6a27ee69ae8a00d4!2m2!1d76.9705987!2d11.0277375?entry=ttu&g_ep=EgoyMDI2MTEwMi4wIKXMDSoASAFQAw%3D%3D";
+
+/**
  * Approved default configuration for PERALAGAE Store Locator Banner.
  */
 export const defaultStoreLocatorConfig: StoreLocatorBannerConfig = {
   heading: "Find Jewelry Shops Near You",
   buttonLabel: "Find Store",
-  buttonHref: "/store-location",
-  isImplemented: false,
+  buttonHref: PERALAGAE_STORE_MAPS_URL,
+  isImplemented: true,
   backgroundColor: "#F8E8F8",
   textColor: "#111111",
   buttonHoverBgColor: "#111111",

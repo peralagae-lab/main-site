@@ -1321,7 +1321,7 @@ export default function AdminNavbarPage() {
                     type="button"
                     onClick={handleSaveTopBar}
                     disabled={!hasTopBarChanges || isSaving}
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2.5 sm:py-2 min-h-[40px] text-xs font-medium text-white bg-[#111111] hover:bg-black rounded transition shadow-sm disabled:opacity-40"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2.5 sm:py-2 min-h-[40px] text-xs font-medium text-white bg-[#111111] hover:bg-[#C5A572] active:bg-[#B3935F] rounded transition shadow-sm disabled:opacity-40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572]"
                   >
                     {isSaving ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Save className="w-3.5 h-3.5" />}
                     <span>Save & Publish Changes</span>
@@ -1536,7 +1536,7 @@ export default function AdminNavbarPage() {
                     type="button"
                     onClick={handleSaveSecondNavbar}
                     disabled={!hasSecondNavbarChanges || isSaving}
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2.5 sm:py-2 min-h-[40px] text-xs font-medium text-white bg-[#111111] hover:bg-black rounded transition shadow-sm disabled:opacity-40"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2.5 sm:py-2 min-h-[40px] text-xs font-medium text-white bg-[#111111] hover:bg-[#C5A572] active:bg-[#B3935F] rounded transition shadow-sm disabled:opacity-40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572]"
                   >
                     {isSaving ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Save className="w-3.5 h-3.5" />}
                     <span>Save & Publish Changes</span>
@@ -1813,7 +1813,7 @@ export default function AdminNavbarPage() {
                     onClick={() => handleSaveHeroSlot("heroImage1")}
                     disabled={!hasHero1Changes || isSaving}
                     data-testid="hero1-save-button"
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2.5 sm:py-2 min-h-[40px] text-xs font-medium text-white bg-[#111111] hover:bg-black rounded transition shadow-sm disabled:opacity-40"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2.5 sm:py-2 min-h-[40px] text-xs font-medium text-white bg-[#111111] hover:bg-[#C5A572] active:bg-[#B3935F] rounded transition shadow-sm disabled:opacity-40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572]"
                   >
                     {isSaving ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Save className="w-3.5 h-3.5" />}
                     <span>Save & Publish Changes</span>
@@ -2084,7 +2084,7 @@ export default function AdminNavbarPage() {
                     onClick={() => handleSaveHeroSlot("heroImage2")}
                     disabled={!hasHero2Changes || isSaving}
                     data-testid="hero2-save-button"
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2.5 sm:py-2 min-h-[40px] text-xs font-medium text-white bg-[#111111] hover:bg-black rounded transition shadow-sm disabled:opacity-40"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2.5 sm:py-2 min-h-[40px] text-xs font-medium text-white bg-[#111111] hover:bg-[#C5A572] active:bg-[#B3935F] rounded transition shadow-sm disabled:opacity-40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572]"
                   >
                     {isSaving ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Save className="w-3.5 h-3.5" />}
                     <span>Save & Publish Changes</span>
@@ -2352,7 +2352,7 @@ export default function AdminNavbarPage() {
                     onClick={() => handleSaveHeroSlot("heroImage3")}
                     disabled={!hasHero3Changes || isSaving}
                     data-testid="hero3-save-button"
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2.5 sm:py-2 min-h-[40px] text-xs font-medium text-white bg-[#111111] hover:bg-black rounded transition shadow-sm disabled:opacity-40"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2.5 sm:py-2 min-h-[40px] text-xs font-medium text-white bg-[#111111] hover:bg-[#C5A572] active:bg-[#B3935F] rounded transition shadow-sm disabled:opacity-40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572]"
                   >
                     {isSaving ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Save className="w-3.5 h-3.5" />}
                     <span>Save & Publish Changes</span>
@@ -2488,7 +2488,7 @@ export default function AdminNavbarPage() {
                 type="button"
                 onClick={handleExecuteNavbarRestore}
                 disabled={isRestoring}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2.5 sm:py-2 min-h-[40px] text-xs font-medium text-white bg-[#111111] hover:bg-black rounded transition shadow-sm"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2.5 sm:py-2 min-h-[40px] text-xs font-medium text-white bg-[#111111] hover:bg-[#C5A572] active:bg-[#B3935F] rounded transition shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572]"
               >
                 {isRestoring ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <RotateCcw className="w-3.5 h-3.5" />}
                 <span>Confirm & Publish</span>
@@ -2564,7 +2564,7 @@ export default function AdminNavbarPage() {
                 type="button"
                 onClick={handleExecuteHeroRestore}
                 disabled={isRestoring}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2.5 sm:py-2 min-h-[40px] text-xs font-medium text-white bg-[#111111] hover:bg-black rounded transition shadow-sm"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2.5 sm:py-2 min-h-[40px] text-xs font-medium text-white bg-[#111111] hover:bg-[#C5A572] active:bg-[#B3935F] rounded transition shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572]"
               >
                 {isRestoring ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <RotateCcw className="w-3.5 h-3.5" />}
                 <span>Confirm & Publish</span>

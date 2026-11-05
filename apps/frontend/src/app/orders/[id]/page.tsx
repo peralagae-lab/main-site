@@ -193,7 +193,7 @@ function CustomerOrderTrackingContent({ params }: { params?: Promise<{ id: strin
           {order.status === "SHIPPED" && (
             <button
               onClick={() => setIsConfirmModalOpen(true)}
-              className="px-5 py-2.5 bg-neutral-900 hover:bg-neutral-800 text-white text-xs font-semibold uppercase tracking-wider rounded-lg transition-colors flex items-center justify-center gap-2 shadow-xs cursor-pointer active:scale-[0.98]"
+              className="px-5 py-2.5 bg-neutral-900 hover:bg-[#C5A572] active:bg-[#B3935F] text-white text-xs font-semibold uppercase tracking-wider rounded-lg transition-colors flex items-center justify-center gap-2 shadow-xs cursor-pointer active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572]"
             >
               <CheckCircle2 className="w-4 h-4 text-emerald-400" />
               <span>Confirm Order Received</span>
@@ -554,7 +554,7 @@ function CustomerOrderTrackingContent({ params }: { params?: Promise<{ id: strin
                 type="button"
                 onClick={handleConfirmDelivery}
                 disabled={isConfirmingDelivery}
-                className="flex-1 py-2.5 bg-neutral-900 hover:bg-neutral-800 disabled:opacity-50 text-white text-xs font-semibold uppercase tracking-wider rounded-lg transition-colors flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
+                className="flex-1 py-2.5 bg-neutral-900 hover:bg-[#C5A572] active:bg-[#B3935F] disabled:opacity-50 text-white text-xs font-semibold uppercase tracking-wider rounded-lg transition-colors flex items-center justify-center gap-1.5 cursor-pointer shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572]"
               >
                 {isConfirmingDelivery ? (
                   <>
@@ -580,7 +580,7 @@ function CustomerOrderTrackingContent({ params }: { params?: Promise<{ id: strin
             <Image src={activePhoto} alt="Dispatch proof" fill className="object-contain" />
             <button
               onClick={() => setActivePhoto(null)}
-              className="absolute top-2 right-2 p-2 bg-black/70 hover:bg-black text-white rounded-full cursor-pointer"
+              className="absolute top-2 right-2 p-2 bg-black/70 hover:bg-[#C5A572] text-white rounded-full cursor-pointer transition-colors"
             >
               <X className="w-5 h-5" />
             </button>

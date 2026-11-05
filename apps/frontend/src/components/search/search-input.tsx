@@ -80,7 +80,7 @@ export function SearchInput({
             onClick={handleClear}
             data-testid="search-clear-button"
             aria-label="Clear search input"
-            className="flex h-8 w-8 items-center justify-center rounded-full text-[#888888] transition-colors hover:bg-black/5 hover:text-[#111111] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#C5A572]"
+            className="flex h-8 w-8 items-center justify-center rounded-full text-[#888888] transition-colors hover:bg-[#C5A572]/15 hover:text-[#C5A572] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#C5A572] cursor-pointer"
           >
             <X className="h-4 w-4 stroke-[1.6]" aria-hidden="true" />
           </button>
@@ -92,7 +92,7 @@ export function SearchInput({
           onClick={onClose}
           data-testid="search-close-button"
           aria-label="Close search overlay"
-          className="flex h-8 w-8 sm:h-8.5 sm:w-8.5 items-center justify-center rounded-full text-[#222222] transition-colors hover:bg-black/5 hover:text-black focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#C5A572]"
+          className="flex h-8 w-8 sm:h-8.5 sm:w-8.5 items-center justify-center rounded-full text-[#222222] transition-colors hover:bg-[#C5A572]/15 hover:text-[#C5A572] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#C5A572] cursor-pointer"
         >
           <X className="h-4.5 w-4.5 stroke-[1.5]" aria-hidden="true" />
         </button>

@@ -13,7 +13,6 @@ async function inspect() {
       materialId: true,
       material: true,
       materials: true,
-      sizes: true,
       isAvailable: true,
       inStock: true,
     },
@@ -27,7 +26,7 @@ async function inspect() {
   console.log("\n=== DB PRODUCTS (" + products.length + ") ===");
   for (const p of products) {
     console.log(
-      `[${p.id}] ${p.name} | materialId: ${p.materialId} | material: "${p.material}" | materials: ${JSON.stringify(p.materials)} | sizes: ${JSON.stringify(p.sizes)} | isAvailable: ${p.isAvailable}`
+      `[${p.id}] ${p.name} | materialId: ${p.materialId} | material: "${p.material}" | materials: ${JSON.stringify(p.materials)} | isAvailable: ${p.isAvailable}`
     );
   }
 

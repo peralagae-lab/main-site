@@ -118,7 +118,11 @@ export class MaterialService {
         orderBy: [{ order: "asc" }, { name: "asc" }],
       }),
       prisma.product.findMany({
-        where: { isAvailable: { not: false } },
+        where: {
+          isAvailable: { not: false },
+          inStock: { not: false },
+          stockCount: { gt: 0 },
+        },
         select: {
           id: true,
           materialId: true,
@@ -156,7 +160,11 @@ export class MaterialService {
         where: { id },
       }),
       prisma.product.findMany({
-        where: { isAvailable: { not: false } },
+        where: {
+          isAvailable: { not: false },
+          inStock: { not: false },
+          stockCount: { gt: 0 },
+        },
         select: {
           id: true,
           materialId: true,
@@ -193,7 +201,11 @@ export class MaterialService {
         where: { slug: slug.toLowerCase().trim() },
       }),
       prisma.product.findMany({
-        where: { isAvailable: { not: false } },
+        where: {
+          isAvailable: { not: false },
+          inStock: { not: false },
+          stockCount: { gt: 0 },
+        },
         select: {
           id: true,
           materialId: true,

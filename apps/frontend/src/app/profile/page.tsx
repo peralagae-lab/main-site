@@ -169,7 +169,7 @@ export default function ProfilePage() {
         <button
           type="button"
           onClick={() => openAuthModal("login", "/profile")}
-          className="px-6 py-3 bg-neutral-900 hover:bg-neutral-800 text-white text-xs font-semibold uppercase tracking-wider rounded-lg transition-colors shadow-xs cursor-pointer"
+          className="px-6 py-3 bg-neutral-900 hover:bg-[#C5A572] active:bg-[#B3935F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] text-white text-xs font-semibold uppercase tracking-wider rounded-lg transition-colors shadow-xs cursor-pointer"
         >
           Sign In
         </button>
@@ -367,7 +367,7 @@ export default function ProfilePage() {
               type="button"
               onClick={handleStartEdit}
               data-testid="edit-profile-button"
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-neutral-900 hover:bg-neutral-800 text-white text-xs font-semibold uppercase tracking-wider rounded-lg transition-all shadow-xs cursor-pointer self-start sm:self-auto active:scale-[0.98]"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-neutral-900 hover:bg-[#C5A572] active:bg-[#B3935F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] text-white text-xs font-semibold uppercase tracking-wider rounded-lg transition-all shadow-xs cursor-pointer self-start sm:self-auto active:scale-[0.98]"
             >
               <Edit3 className="h-3.5 w-3.5" />
               <span>Edit Profile</span>
@@ -584,7 +584,7 @@ export default function ProfilePage() {
                       <button
                         type="button"
                         onClick={handleStartEdit}
-                        className="px-4 py-2 bg-neutral-900 hover:bg-neutral-800 text-white text-xs font-semibold uppercase tracking-wider rounded-lg transition-colors cursor-pointer"
+                        className="px-4 py-2 bg-neutral-900 hover:bg-[#C5A572] active:bg-[#B3935F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] text-white text-xs font-semibold uppercase tracking-wider rounded-lg transition-colors cursor-pointer"
                       >
                         Add Address
                       </button>
@@ -665,7 +665,7 @@ export default function ProfilePage() {
                       <div className="flex items-center gap-2">
                         <Link
                           href={`/orders/${order.id}`}
-                          className="px-3.5 py-2 bg-neutral-900 hover:bg-neutral-800 text-white text-xs font-semibold uppercase tracking-wider rounded-lg transition-colors inline-flex items-center gap-1.5"
+                          className="px-3.5 py-2 bg-neutral-900 hover:bg-[#C5A572] active:bg-[#B3935F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] text-white text-xs font-semibold uppercase tracking-wider rounded-lg transition-colors inline-flex items-center gap-1.5"
                         >
                           <Truck className="h-3 w-3" />
                           <span>Track Order</span>
@@ -685,7 +685,7 @@ export default function ProfilePage() {
                   </p>
                   <Link
                     href="/shop"
-                    className="px-4 py-2 bg-neutral-900 hover:bg-neutral-800 text-white text-xs font-semibold uppercase tracking-wider rounded-lg transition-colors"
+                    className="px-4 py-2 bg-neutral-900 hover:bg-[#C5A572] active:bg-[#B3935F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] text-white text-xs font-semibold uppercase tracking-wider rounded-lg transition-colors"
                   >
                     Explore Catalogue
                   </Link>
@@ -917,7 +917,7 @@ export default function ProfilePage() {
                   type="submit"
                   disabled={isSaving}
                   data-testid="save-profile-changes-button"
-                  className="w-full sm:w-auto px-7 py-3 bg-neutral-900 hover:bg-neutral-800 text-white text-xs font-semibold uppercase tracking-wider rounded-lg transition-colors shadow-xs disabled:opacity-50 cursor-pointer flex items-center justify-center gap-2 active:scale-[0.98]"
+                  className="w-full sm:w-auto px-7 py-3 bg-neutral-900 hover:bg-[#C5A572] active:bg-[#B3935F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] text-white text-xs font-semibold uppercase tracking-wider rounded-lg transition-colors shadow-xs disabled:opacity-50 cursor-pointer flex items-center justify-center gap-2 active:scale-[0.98]"
                 >
                   {isSaving ? (
                     <>

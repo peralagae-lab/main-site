@@ -431,7 +431,7 @@ function AdminOrderDetailContent({ params }: { params?: Promise<{ id: string }> 
                               key={imgIdx}
                               type="button"
                               onClick={() => setZoomedImage(img.url)}
-                              className="relative aspect-square rounded-lg overflow-hidden border border-[#DDDDDD] hover:border-black transition-colors group cursor-pointer"
+                              className="relative aspect-square rounded-lg overflow-hidden border border-[#DDDDDD] hover:border-[#C5A572] transition-colors group cursor-pointer"
                             >
                               <Image
                                 src={img.url}
@@ -646,7 +646,7 @@ function AdminOrderDetailContent({ params }: { params?: Promise<{ id: string }> 
                     type="button"
                     onClick={handleReconcilePayment}
                     disabled={isReconciling}
-                    className="w-full py-2 bg-neutral-900 hover:bg-black disabled:opacity-50 text-white text-[11px] font-medium uppercase tracking-wider rounded-lg transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                    className="w-full py-2 bg-neutral-900 hover:bg-[#C5A572] active:bg-[#B3935F] disabled:opacity-50 text-white text-[11px] font-medium uppercase tracking-wider rounded-lg transition-colors flex items-center justify-center gap-1.5 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572]"
                   >
                     {isReconciling ? (
                       <>
@@ -744,7 +744,7 @@ function AdminOrderDetailContent({ params }: { params?: Promise<{ id: string }> 
                 <label className="block text-xs font-medium text-[#444444] mb-1.5">
                   Attach Shipping & Parcel Photos (No Fixed Limit)
                 </label>
-                <div className="border-2 border-dashed border-[#DDDDDD] hover:border-black rounded-xl p-4 text-center cursor-pointer transition-colors relative">
+                <div className="border-2 border-dashed border-[#DDDDDD] hover:border-[#C5A572] rounded-xl p-4 text-center cursor-pointer transition-colors relative">
                   <input
                     type="file"
                     multiple
@@ -766,7 +766,7 @@ function AdminOrderDetailContent({ params }: { params?: Promise<{ id: string }> 
                         <button
                           type="button"
                           onClick={() => removeSelectedFile(idx)}
-                          className="absolute top-1 right-1 p-0.5 bg-black/70 hover:bg-black text-white rounded-full"
+                          className="absolute top-1 right-1 p-0.5 bg-black/70 hover:bg-[#C5A572] text-white rounded-full transition-colors"
                         >
                           <X className="w-3 h-3" />
                         </button>
@@ -819,7 +819,7 @@ function AdminOrderDetailContent({ params }: { params?: Promise<{ id: string }> 
             />
             <button
               onClick={() => setZoomedImage(null)}
-              className="absolute top-2 right-2 p-2 bg-black/70 hover:bg-black text-white rounded-full"
+              className="absolute top-2 right-2 p-2 bg-black/70 hover:bg-[#C5A572] text-white rounded-full transition-colors"
             >
               <X className="w-5 h-5" />
             </button>

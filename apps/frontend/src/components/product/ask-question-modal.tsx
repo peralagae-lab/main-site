@@ -165,14 +165,14 @@ export function AskQuestionModal({
               <button
                 type="button"
                 onClick={onClose}
-                className="px-5 py-2.5 text-xs font-medium text-[#666666] hover:text-black transition uppercase tracking-wider"
+                className="px-5 py-2.5 text-xs font-medium text-[#666666] hover:text-[#C5A572] transition uppercase tracking-wider cursor-pointer"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="inline-flex items-center gap-2 bg-[#111111] px-6 py-2.5 text-xs font-semibold uppercase tracking-widest text-white transition hover:bg-black disabled:opacity-50"
+                className="inline-flex items-center gap-2 bg-[#111111] px-6 py-2.5 text-xs font-semibold uppercase tracking-widest text-white transition-all duration-200 hover:bg-[#C5A572] active:bg-[#B3935F] disabled:opacity-50 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572]"
               >
                 {isSubmitting ? (
                   <span>Sending...</span>

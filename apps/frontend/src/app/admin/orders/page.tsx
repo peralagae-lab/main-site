@@ -310,7 +310,7 @@ export default function AdminOrdersPage() {
                 {error.toLowerCase().includes("auth") ? (
                   <Link
                     href="/admin/login"
-                    className="px-4 py-2 bg-neutral-900 text-white text-xs font-medium rounded-lg hover:bg-black transition-colors"
+                    className="px-4 py-2 bg-neutral-900 text-white text-xs font-medium rounded-lg hover:bg-[#C5A572] active:bg-[#B3935F] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572]"
                   >
                     Log In to Admin
                   </Link>
@@ -318,7 +318,7 @@ export default function AdminOrdersPage() {
                   <button
                     type="button"
                     onClick={() => fetchOrders()}
-                    className="px-4 py-2 bg-neutral-900 text-white text-xs font-medium rounded-lg hover:bg-black transition-colors"
+                    className="px-4 py-2 bg-neutral-900 text-white text-xs font-medium rounded-lg hover:bg-[#C5A572] active:bg-[#B3935F] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572]"
                   >
                     Retry
                   </button>
@@ -429,7 +429,7 @@ export default function AdminOrdersPage() {
                         <td className="py-4 px-4 text-right whitespace-nowrap">
                           <Link
                             href={`/admin/orders/${order.id}`}
-                            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-neutral-800 bg-white hover:bg-neutral-900 hover:text-white border border-neutral-200 rounded-lg transition-colors shadow-2xs"
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-neutral-800 bg-white hover:bg-[#C5A572] hover:text-white hover:border-[#C5A572] active:bg-[#B3935F] border border-neutral-200 rounded-lg transition-colors shadow-2xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572]"
                           >
                             <Eye className="w-3.5 h-3.5" />
                             <span>View Details</span>

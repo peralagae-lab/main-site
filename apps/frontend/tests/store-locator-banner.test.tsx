@@ -27,7 +27,9 @@ describe("StoreLocatorBanner Component Suite", () => {
     const button = screen.getByTestId("store-locator-cta");
     expect(button).toBeInTheDocument();
     expect(button).toHaveTextContent("Find Store");
-    expect(button).toHaveAttribute("href", "/store-location");
+    expect(button).toHaveAttribute("href", defaultStoreLocatorConfig.buttonHref);
+    expect(button).toHaveAttribute("target", "_blank");
+    expect(button.getAttribute("href")).toContain("google.com/maps");
   });
 
   it("applies the specified background color #F8E8F8 and dark charcoal text color", () => {
@@ -75,14 +77,20 @@ describe("StoreLocatorBanner Component Suite", () => {
     expect(handleButtonClick).toHaveBeenCalledTimes(1);
   });
 
-  it("has accessible aria labels and title attribute indicating pending integration status", () => {
-    render(<StoreLocatorBanner config={defaultStoreLocatorConfig} />);
-
+  it("has accessible aria labels and title attribute reflecting integration status", () => {
+    // When implemented (active route)
+    const { unmount } = render(<StoreLocatorBanner config={defaultStoreLocatorConfig} />);
     const button = screen.getByTestId("store-locator-cta");
-    expect(button).toHaveAttribute("title", "Find Store (Pending Catalogue Integration)");
+    expect(button).toHaveAttribute("title", "Find Store");
     expect(button).toHaveAttribute(
       "aria-label",
       "Find Store: Find Jewelry Shops Near You"
     );
+    unmount();
+
+    // When pending integration
+    render(<StoreLocatorBanner config={{ ...defaultStoreLocatorConfig, isImplemented: false }} />);
+    const pendingButton = screen.getByTestId("store-locator-cta");
+    expect(pendingButton).toHaveAttribute("title", "Find Store (Pending Catalogue Integration)");
   });
 });

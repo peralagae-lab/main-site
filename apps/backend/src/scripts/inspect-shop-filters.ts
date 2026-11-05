@@ -40,16 +40,9 @@ async function main() {
         if (m && typeof m === "string") materialsSet.add(m.trim());
       });
     }
-
-    if (Array.isArray(p.sizes)) {
-      (p.sizes as string[]).forEach((s) => {
-        if (s && typeof s === "string") sizesSet.add(s.trim());
-      });
-    }
   }
 
   console.log("\n=== MATERIALS FOUND IN PRODUCTS ===", Array.from(materialsSet));
-  console.log("\n=== SIZES FOUND IN PRODUCTS ===", Array.from(sizesSet));
   console.log(`\n=== PRICE LIMITS === Min: ₹${Math.min(...prices)}, Max: ₹${Math.max(...prices)}`);
 
   // Also check admin Material definitions

@@ -118,7 +118,7 @@ export function CartTotals({
           href="/checkout"
           onClick={handleCheckoutClick}
           data-testid="proceed-to-checkout-btn"
-          className="w-full py-4 bg-[#111111] hover:bg-black text-white text-xs font-semibold tracking-widest uppercase text-center transition-colors flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black cursor-pointer"
+          className="w-full py-4 bg-[#111111] hover:bg-[#C5A572] active:bg-[#B3935F] text-white text-xs font-semibold tracking-widest uppercase text-center transition-all duration-250 flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] cursor-pointer"
         >
           <Lock className="h-3.5 w-3.5" />
           <span>Proceed to Checkout</span>

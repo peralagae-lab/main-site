@@ -5,14 +5,39 @@
   --background: #ffffff;
   --foreground: #000000;
   --font-jost: "Jost", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --color-gold: #C5A572;
+  --color-gold-hover: #D4B988;
+  --color-gold-active: #B3935F;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-gold: #C5A572;
+  --color-gold-hover: #D4B988;
+  --color-gold-active: #B3935F;
   --font-sans: "Jost", var(--font-jost), var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-jost: "Jost", var(--font-jost), sans-serif;
   --font-mono: var(--font-geist-mono);
+  --breakpoint-3xl: 1920px;
+  --breakpoint-4xl: 2560px;
+}
+
+html {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+  position: relative;
+}
+
+@supports (overflow: clip) {
+  html, body {
+    overflow-x: clip;
+  }
 }
 
 .font-jost,
@@ -240,6 +265,76 @@ body {
 
 .animate-luxury-shimmer {
   animation: luxuryShimmer 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* PERALAGAE Fluid Responsive Container for Full HD, 2K, 4K & TVs */
+.peralagae-container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1280px;
+  padding-left: clamp(1rem, 2.5vw, 2.5rem);
+  padding-right: clamp(1rem, 2.5vw, 2.5rem);
+}
+
+@media (min-width: 1536px) {
+  .peralagae-container {
+    max-width: 1536px;
+    padding-left: clamp(1.75rem, 3.5vw, 3.5rem);
+    padding-right: clamp(1.75rem, 3.5vw, 3.5rem);
+  }
+}
+
+@media (min-width: 1920px) {
+  .peralagae-container {
+    max-width: 1720px;
+    padding-left: clamp(2.25rem, 4vw, 4.5rem);
+    padding-right: clamp(2.25rem, 4vw, 4.5rem);
+  }
+}
+
+@media (min-width: 2560px) {
+  .peralagae-container {
+    max-width: 1920px;
+    padding-left: clamp(3rem, 5vw, 6rem);
+    padding-right: clamp(3rem, 5vw, 6rem);
+  }
+}
+
+/* PERALAGAE Luxury Gold Button & Interactive Styles */
+.btn-gold {
+  background-color: #111111;
+  color: #ffffff;
+  transition: all 250ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-gold:hover {
+  background-color: #C5A572;
+  color: #ffffff;
+}
+.btn-gold:active {
+  background-color: #B3935F;
+}
+
+.btn-gold-outline {
+  background-color: transparent;
+  border: 1px solid #111111;
+  color: #111111;
+  transition: all 250ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-gold-outline:hover {
+  border-color: #C5A572;
+  background-color: #C5A572;
+  color: #ffffff;
+}
+.btn-gold-outline:active {
+  border-color: #B3935F;
+  background-color: #B3935F;
+}
+
+/* Accessible Global Gold Focus Ring */
+:focus-visible {
+  outline: 2px solid #C5A572;
+  outline-offset: 2px;
 }
 
 

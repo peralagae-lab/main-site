@@ -14,8 +14,8 @@ import {
   PanelBottom,
   ShoppingBag,
   Percent,
-  Mail,
   Users,
+  MessageSquare,
 } from "lucide-react";
 import { brandConfig } from "@/config/brand";
 
@@ -76,17 +76,14 @@ export function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
     pathname === "/admin/instagram" || pathname.startsWith("/admin/instagram");
   const isOrdersActive =
     pathname === "/admin/orders" || pathname.startsWith("/admin/orders");
-  const isEmailsActive =
-    pathname === "/admin/emails" || pathname.startsWith("/admin/emails");
   const isSubscribersActive =
     pathname === "/admin/subscribers" || pathname.startsWith("/admin/subscribers");
   const isGstActive =
     pathname === "/admin/gst" || pathname.startsWith("/admin/gst");
+  const isContactActive =
+    pathname === "/admin/contact" || pathname.startsWith("/admin/contact");
   const isFooterActive =
-    pathname === "/admin/footer" ||
-    pathname.startsWith("/admin/footer") ||
-    pathname === "/admin/contact" ||
-    pathname.startsWith("/admin/contact");
+    pathname === "/admin/footer" || pathname.startsWith("/admin/footer");
 
   return (
     <>
@@ -123,7 +120,7 @@ export function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
             onClick={onClose}
             aria-label="Close navigation menu"
             data-testid="admin-sidebar-close-button"
-            className="p-2 sm:p-1.5 -mr-1 text-[#666666] hover:text-[#1A1A1A] hover:bg-[#F5F5F5] rounded transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-black min-w-[40px] min-h-[40px] flex items-center justify-center"
+            className="p-2 sm:p-1.5 -mr-1 text-[#666666] hover:text-[#C5A572] hover:bg-[#C5A572]/10 rounded transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#C5A572] min-w-[40px] min-h-[40px] flex items-center justify-center cursor-pointer"
           >
             <X className="w-5 h-5 stroke-[1.5]" aria-hidden="true" />
           </button>
@@ -136,13 +133,13 @@ export function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
             onClick={onClose}
             className={`flex items-center gap-3 px-3.5 py-2.5 text-xs font-medium uppercase tracking-wider rounded transition-colors duration-150 ${
               isDashboardActive
-                ? "bg-[#F5F5F5] text-[#111111] font-semibold border-l-2 border-[#C5A572]"
-                : "text-[#666666] hover:bg-[#F9F9F9] hover:text-[#111111]"
+                ? "bg-[#C5A572]/15 text-[#111111] font-semibold border-l-2 border-[#C5A572]"
+                : "text-[#666666] hover:bg-[#C5A572]/10 hover:text-[#C5A572]"
             }`}
           >
             <LayoutDashboard
               className={`w-4 h-4 shrink-0 transition-colors ${
-                isDashboardActive ? "text-[#C5A572]" : "text-[#888888]"
+                isDashboardActive ? "text-[#C5A572]" : "text-[#888888] group-hover:text-[#C5A572]"
               }`}
               aria-hidden="true"
             />
@@ -154,13 +151,13 @@ export function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
             onClick={onClose}
             className={`flex items-center gap-3 px-3.5 py-2.5 text-xs font-medium uppercase tracking-wider rounded transition-colors duration-150 ${
               isNavbarActive
-                ? "bg-[#F5F5F5] text-[#111111] font-semibold border-l-2 border-[#C5A572]"
-                : "text-[#666666] hover:bg-[#F9F9F9] hover:text-[#111111]"
+                ? "bg-[#C5A572]/15 text-[#111111] font-semibold border-l-2 border-[#C5A572]"
+                : "text-[#666666] hover:bg-[#C5A572]/10 hover:text-[#C5A572]"
             }`}
           >
             <PanelTop
               className={`w-4 h-4 shrink-0 transition-colors ${
-                isNavbarActive ? "text-[#C5A572]" : "text-[#888888]"
+                isNavbarActive ? "text-[#C5A572]" : "text-[#888888] group-hover:text-[#C5A572]"
               }`}
               aria-hidden="true"
             />
@@ -172,13 +169,13 @@ export function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
             onClick={onClose}
             className={`flex items-center gap-3 px-3.5 py-2.5 text-xs font-medium uppercase tracking-wider rounded transition-colors duration-150 ${
               isCategoriesActive
-                ? "bg-[#F5F5F5] text-[#111111] font-semibold border-l-2 border-[#C5A572]"
-                : "text-[#666666] hover:bg-[#F9F9F9] hover:text-[#111111]"
+                ? "bg-[#C5A572]/15 text-[#111111] font-semibold border-l-2 border-[#C5A572]"
+                : "text-[#666666] hover:bg-[#C5A572]/10 hover:text-[#C5A572]"
             }`}
           >
             <Layers
               className={`w-4 h-4 shrink-0 transition-colors ${
-                isCategoriesActive ? "text-[#C5A572]" : "text-[#888888]"
+                isCategoriesActive ? "text-[#C5A572]" : "text-[#888888] group-hover:text-[#C5A572]"
               }`}
               aria-hidden="true"
             />
@@ -190,13 +187,13 @@ export function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
             onClick={onClose}
             className={`flex items-center gap-3 px-3.5 py-2.5 text-xs font-medium uppercase tracking-wider rounded transition-colors duration-150 ${
               isProductsActive
-                ? "bg-[#F5F5F5] text-[#111111] font-semibold border-l-2 border-[#C5A572]"
-                : "text-[#666666] hover:bg-[#F9F9F9] hover:text-[#111111]"
+                ? "bg-[#C5A572]/15 text-[#111111] font-semibold border-l-2 border-[#C5A572]"
+                : "text-[#666666] hover:bg-[#C5A572]/10 hover:text-[#C5A572]"
             }`}
           >
             <Package
               className={`w-4 h-4 shrink-0 transition-colors ${
-                isProductsActive ? "text-[#C5A572]" : "text-[#888888]"
+                isProductsActive ? "text-[#C5A572]" : "text-[#888888] group-hover:text-[#C5A572]"
               }`}
               aria-hidden="true"
             />
@@ -208,13 +205,13 @@ export function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
             onClick={onClose}
             className={`flex items-center gap-3 px-3.5 py-2.5 text-xs font-medium uppercase tracking-wider rounded transition-colors duration-150 ${
               isOrdersActive
-                ? "bg-[#F5F5F5] text-[#111111] font-semibold border-l-2 border-[#C5A572]"
-                : "text-[#666666] hover:bg-[#F9F9F9] hover:text-[#111111]"
+                ? "bg-[#C5A572]/15 text-[#111111] font-semibold border-l-2 border-[#C5A572]"
+                : "text-[#666666] hover:bg-[#C5A572]/10 hover:text-[#C5A572]"
             }`}
           >
             <ShoppingBag
               className={`w-4 h-4 shrink-0 transition-colors ${
-                isOrdersActive ? "text-[#C5A572]" : "text-[#888888]"
+                isOrdersActive ? "text-[#C5A572]" : "text-[#888888] group-hover:text-[#C5A572]"
               }`}
               aria-hidden="true"
             />
@@ -222,35 +219,17 @@ export function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
           </Link>
 
           <Link
-            href="/admin/emails"
-            onClick={onClose}
-            className={`flex items-center gap-3 px-3.5 py-2.5 text-xs font-medium uppercase tracking-wider rounded transition-colors duration-150 ${
-              isEmailsActive
-                ? "bg-[#F5F5F5] text-[#111111] font-semibold border-l-2 border-[#C5A572]"
-                : "text-[#666666] hover:bg-[#F9F9F9] hover:text-[#111111]"
-            }`}
-          >
-            <Mail
-              className={`w-4 h-4 shrink-0 transition-colors ${
-                isEmailsActive ? "text-[#C5A572]" : "text-[#888888]"
-              }`}
-              aria-hidden="true"
-            />
-            <span>Email Logs</span>
-          </Link>
-
-          <Link
             href="/admin/subscribers"
             onClick={onClose}
             className={`flex items-center gap-3 px-3.5 py-2.5 text-xs font-medium uppercase tracking-wider rounded transition-colors duration-150 ${
               isSubscribersActive
-                ? "bg-[#F5F5F5] text-[#111111] font-semibold border-l-2 border-[#C5A572]"
-                : "text-[#666666] hover:bg-[#F9F9F9] hover:text-[#111111]"
+                ? "bg-[#C5A572]/15 text-[#111111] font-semibold border-l-2 border-[#C5A572]"
+                : "text-[#666666] hover:bg-[#C5A572]/10 hover:text-[#C5A572]"
             }`}
           >
             <Users
               className={`w-4 h-4 shrink-0 transition-colors ${
-                isSubscribersActive ? "text-[#C5A572]" : "text-[#888888]"
+                isSubscribersActive ? "text-[#C5A572]" : "text-[#888888] group-hover:text-[#C5A572]"
               }`}
               aria-hidden="true"
             />
@@ -258,17 +237,35 @@ export function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
           </Link>
 
           <Link
+            href="/admin/contact"
+            onClick={onClose}
+            className={`flex items-center gap-3 px-3.5 py-2.5 text-xs font-medium uppercase tracking-wider rounded transition-colors duration-150 ${
+              isContactActive
+                ? "bg-[#C5A572]/15 text-[#111111] font-semibold border-l-2 border-[#C5A572]"
+                : "text-[#666666] hover:bg-[#C5A572]/10 hover:text-[#C5A572]"
+            }`}
+          >
+            <MessageSquare
+              className={`w-4 h-4 shrink-0 transition-colors ${
+                isContactActive ? "text-[#C5A572]" : "text-[#888888] group-hover:text-[#C5A572]"
+              }`}
+              aria-hidden="true"
+            />
+            <span>Contact</span>
+          </Link>
+
+          <Link
             href="/admin/materials"
             onClick={onClose}
             className={`flex items-center gap-3 px-3.5 py-2.5 text-xs font-medium uppercase tracking-wider rounded transition-colors duration-150 ${
               isMaterialsActive
-                ? "bg-[#F5F5F5] text-[#111111] font-semibold border-l-2 border-[#C5A572]"
-                : "text-[#666666] hover:bg-[#F9F9F9] hover:text-[#111111]"
+                ? "bg-[#C5A572]/15 text-[#111111] font-semibold border-l-2 border-[#C5A572]"
+                : "text-[#666666] hover:bg-[#C5A572]/10 hover:text-[#C5A572]"
             }`}
           >
             <Gem
               className={`w-4 h-4 shrink-0 transition-colors ${
-                isMaterialsActive ? "text-[#C5A572]" : "text-[#888888]"
+                isMaterialsActive ? "text-[#C5A572]" : "text-[#888888] group-hover:text-[#C5A572]"
               }`}
               aria-hidden="true"
             />
@@ -280,13 +277,13 @@ export function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
             onClick={onClose}
             className={`flex items-center gap-3 px-3.5 py-2.5 text-xs font-medium uppercase tracking-wider rounded transition-colors duration-150 ${
               isInstagramActive
-                ? "bg-[#F5F5F5] text-[#111111] font-semibold border-l-2 border-[#C5A572]"
-                : "text-[#666666] hover:bg-[#F9F9F9] hover:text-[#111111]"
+                ? "bg-[#C5A572]/15 text-[#111111] font-semibold border-l-2 border-[#C5A572]"
+                : "text-[#666666] hover:bg-[#C5A572]/10 hover:text-[#C5A572]"
             }`}
           >
             <Instagram
               className={`w-4 h-4 shrink-0 transition-colors ${
-                isInstagramActive ? "text-[#C5A572]" : "text-[#888888]"
+                isInstagramActive ? "text-[#C5A572]" : "text-[#888888] group-hover:text-[#C5A572]"
               }`}
               aria-hidden="true"
             />
@@ -298,13 +295,13 @@ export function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
             onClick={onClose}
             className={`flex items-center gap-3 px-3.5 py-2.5 text-xs font-medium uppercase tracking-wider rounded transition-colors duration-150 ${
               isGstActive
-                ? "bg-[#F5F5F5] text-[#111111] font-semibold border-l-2 border-[#C5A572]"
-                : "text-[#666666] hover:bg-[#F9F9F9] hover:text-[#111111]"
+                ? "bg-[#C5A572]/15 text-[#111111] font-semibold border-l-2 border-[#C5A572]"
+                : "text-[#666666] hover:bg-[#C5A572]/10 hover:text-[#C5A572]"
             }`}
           >
             <Percent
               className={`w-4 h-4 shrink-0 transition-colors ${
-                isGstActive ? "text-[#C5A572]" : "text-[#888888]"
+                isGstActive ? "text-[#C5A572]" : "text-[#888888] group-hover:text-[#C5A572]"
               }`}
               aria-hidden="true"
             />
@@ -316,13 +313,13 @@ export function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
             onClick={onClose}
             className={`flex items-center gap-3 px-3.5 py-2.5 text-xs font-medium uppercase tracking-wider rounded transition-colors duration-150 ${
               isFooterActive
-                ? "bg-[#F5F5F5] text-[#111111] font-semibold border-l-2 border-[#C5A572]"
-                : "text-[#666666] hover:bg-[#F9F9F9] hover:text-[#111111]"
+                ? "bg-[#C5A572]/15 text-[#111111] font-semibold border-l-2 border-[#C5A572]"
+                : "text-[#666666] hover:bg-[#C5A572]/10 hover:text-[#C5A572]"
             }`}
           >
             <PanelBottom
               className={`w-4 h-4 shrink-0 transition-colors ${
-                isFooterActive ? "text-[#C5A572]" : "text-[#888888]"
+                isFooterActive ? "text-[#C5A572]" : "text-[#888888] group-hover:text-[#C5A572]"
               }`}
               aria-hidden="true"
             />

@@ -46,7 +46,7 @@ test.describe("PERALAGAE Store Locator Banner E2E Suite", () => {
     const cta = storeLocator.getByTestId("store-locator-cta");
     await expect(cta).toBeVisible();
     await expect(cta).toHaveText("Find Store");
-    await expect(cta).toHaveAttribute("href", "/store-location");
+    await expect(cta).toHaveAttribute("href", /google\.com\/maps/);
 
     // Verify no horizontal overflow
     const hasHorizontalOverflow = await page.evaluate(() => {

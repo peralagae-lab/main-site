@@ -238,7 +238,7 @@ export function ForgotPasswordForm({
               type="submit"
               disabled={isSubmitting}
               data-testid="forgot-password-submit-button"
-              className="w-full h-11 sm:h-12 bg-[#111111] hover:bg-black active:bg-[#222222] text-white text-xs sm:text-[13px] font-semibold uppercase tracking-[0.08em] transition-colors duration-200 flex items-center justify-center gap-2 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black disabled:opacity-60 disabled:cursor-not-allowed mt-2"
+              className="w-full h-11 sm:h-12 bg-[#111111] hover:bg-[#C5A572] active:bg-[#B3935F] text-white text-xs sm:text-[13px] font-semibold uppercase tracking-[0.08em] transition-all duration-250 flex items-center justify-center gap-2 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] disabled:opacity-60 disabled:cursor-not-allowed mt-2 cursor-pointer"
             >
               {isSubmitting ? (
                 <>
@@ -256,7 +256,7 @@ export function ForgotPasswordForm({
             <button
               type="button"
               onClick={onSwitchToLogin}
-              className="inline-flex items-center gap-1.5 text-xs sm:text-[13px] text-[#666666] hover:text-[#111111] font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-black"
+              className="inline-flex items-center gap-1.5 text-xs sm:text-[13px] text-[#666666] hover:text-[#C5A572] font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#C5A572] cursor-pointer"
             >
               <ArrowLeft className="h-3.5 w-3.5" aria-hidden="true" />
               <span>Back to Sign In</span>
@@ -338,7 +338,7 @@ export function ForgotPasswordForm({
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full h-11 sm:h-12 bg-[#111111] hover:bg-black active:bg-[#222222] text-white text-xs sm:text-[13px] font-semibold uppercase tracking-[0.08em] transition-colors duration-200 flex items-center justify-center gap-2 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black disabled:opacity-60 disabled:cursor-not-allowed mt-2"
+              className="w-full h-11 sm:h-12 bg-[#111111] hover:bg-[#C5A572] active:bg-[#B3935F] text-white text-xs sm:text-[13px] font-semibold uppercase tracking-[0.08em] transition-all duration-250 flex items-center justify-center gap-2 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] disabled:opacity-60 disabled:cursor-not-allowed mt-2 cursor-pointer"
             >
               {isSubmitting ? (
                 <>
@@ -393,7 +393,7 @@ export function ForgotPasswordForm({
           <button
             type="button"
             onClick={onSwitchToLogin}
-            className="w-full h-11 bg-[#111111] hover:bg-black text-white text-xs font-semibold uppercase tracking-[0.08em] transition-colors duration-200 mt-4 rounded-lg focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-black"
+            className="w-full h-11 bg-[#111111] hover:bg-[#C5A572] active:bg-[#B3935F] text-white text-xs font-semibold uppercase tracking-[0.08em] transition-colors duration-200 mt-4 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572]"
           >
             Sign In with New Password
           </button>

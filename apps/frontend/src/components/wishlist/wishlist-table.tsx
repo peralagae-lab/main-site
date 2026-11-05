@@ -138,7 +138,7 @@ export function WishlistTable({
                     <h3 className="text-sm font-medium text-[#111111] mt-0.5">
                       <Link
                         href={`/product/${product.slug}`}
-                        className="hover:underline transition-colors"
+                        className="hover:text-[#C5A572] hover:underline transition-colors"
                       >
                         {product.name}
                       </Link>
@@ -179,10 +179,10 @@ export function WishlistTable({
                         type="button"
                         onClick={() => handleAddToCart(product)}
                         data-testid={`add-to-cart-wishlist-${product.id}`}
-                        className={`inline-flex items-center justify-center min-w-[130px] h-10 px-5 text-xs font-medium tracking-[0.08em] uppercase transition-all duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-black ${
+                        className={`inline-flex items-center justify-center min-w-[130px] h-10 px-5 text-xs font-medium tracking-[0.08em] uppercase transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] cursor-pointer ${
                           isAdded
                             ? "bg-[#2E7D32] text-white hover:bg-[#256829]"
-                            : "bg-[#111111] text-white hover:bg-black active:scale-[0.98]"
+                            : "bg-[#111111] text-white hover:bg-[#C5A572] active:bg-[#B3935F] active:scale-[0.98]"
                         }`}
                       >
                         {isAdded ? (
@@ -298,10 +298,10 @@ export function WishlistTable({
                     type="button"
                     onClick={() => handleAddToCart(product)}
                     data-testid={`add-to-cart-wishlist-mobile-${product.id}`}
-                    className={`w-full flex items-center justify-center h-10 px-4 text-xs font-medium tracking-[0.08em] uppercase transition-all duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-black ${
+                    className={`w-full flex items-center justify-center h-10 px-4 text-xs font-medium tracking-[0.08em] uppercase transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] cursor-pointer ${
                       isAdded
                         ? "bg-[#2E7D32] text-white"
-                        : "bg-[#111111] text-white hover:bg-black active:scale-[0.99]"
+                        : "bg-[#111111] text-white hover:bg-[#C5A572] active:bg-[#B3935F] active:scale-[0.99]"
                     }`}
                   >
                     {isAdded ? (

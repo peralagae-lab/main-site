@@ -136,32 +136,43 @@ describe("PERALAGAE Contact Page Suite", () => {
       });
     });
 
-    it("submits the form and honestly handles unconfigured API without fake success claims", async () => {
+    it("submits the form to the backend API, displays success confirmation, and resets form", async () => {
       render(<ContactForm />);
 
       // Fill valid values
-      fireEvent.change(screen.getByLabelText(/Full Name/i), {
+      const nameInput = screen.getByLabelText(/Full Name/i);
+      const emailInput = screen.getByLabelText(/Email Address/i);
+      const phoneInput = screen.getByLabelText(/Phone Number/i);
+      const messageInput = screen.getByLabelText(/Message/i);
+
+      fireEvent.change(nameInput, {
         target: { value: "Aarav Sharma" },
       });
-      fireEvent.change(screen.getByLabelText(/Email Address/i), {
+      fireEvent.change(emailInput, {
         target: { value: "aarav@example.com" },
       });
-      fireEvent.change(screen.getByLabelText(/Phone Number/i), {
+      fireEvent.change(phoneInput, {
         target: { value: "+91 98765 43210" },
       });
-      fireEvent.change(screen.getByLabelText(/Message/i), {
+      fireEvent.change(messageInput, {
         target: { value: "I would like to schedule an appointment for bespoke earrings." },
       });
 
       const submitButton = screen.getByRole("button", { name: "SEND MESSAGE" });
       fireEvent.click(submitButton);
 
-      // Verifies the unconfigured boundary notice renders with direct email and call links
+      // Verifies genuine success confirmation is displayed
       await waitFor(() => {
-        expect(screen.getByText("Enquiry Captured")).toBeInTheDocument();
-        expect(screen.getByRole("link", { name: /Email: contact@peralagae.com/i })).toBeInTheDocument();
-        expect(screen.getByRole("link", { name: /Call: \+91 98765 43210/i })).toBeInTheDocument();
+        expect(
+          screen.getByText(/Thank you for contacting us. Our jewellery concierge team will respond shortly./i)
+        ).toBeInTheDocument();
       });
+
+      // Verifies form is reset
+      expect(nameInput).toHaveValue("");
+      expect(emailInput).toHaveValue("");
+      expect(phoneInput).toHaveValue("");
+      expect(messageInput).toHaveValue("");
     });
   });
 

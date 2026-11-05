@@ -98,7 +98,7 @@ function ProfileSetupContent() {
         <button
           type="button"
           onClick={() => openAuthModal("login", "/profile/setup")}
-          className="px-6 py-3 bg-neutral-900 hover:bg-neutral-800 text-white text-xs font-semibold uppercase tracking-wider rounded-lg transition-colors shadow-xs cursor-pointer"
+          className="px-6 py-3 bg-neutral-900 hover:bg-[#C5A572] active:bg-[#B3935F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] text-white text-xs font-semibold uppercase tracking-wider rounded-lg transition-colors shadow-xs cursor-pointer"
         >
           Sign In to Peralagae
         </button>
@@ -128,7 +128,7 @@ function ProfileSetupContent() {
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               href={returnUrl && returnUrl.startsWith("/") && !returnUrl.startsWith("/profile/setup") ? returnUrl : "/"}
-              className="px-6 py-3 bg-neutral-900 hover:bg-neutral-800 text-white text-xs font-semibold uppercase tracking-wider rounded-lg transition-colors inline-flex items-center justify-center gap-2"
+              className="px-6 py-3 bg-neutral-900 hover:bg-[#C5A572] active:bg-[#B3935F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] text-white text-xs font-semibold uppercase tracking-wider rounded-lg transition-colors inline-flex items-center justify-center gap-2"
             >
               <span>{returnUrl ? "Continue to Destination" : "Explore Collections"}</span>
               <ArrowRight className="h-4 w-4" />
@@ -526,7 +526,7 @@ function ProfileSetupContent() {
                 type="submit"
                 disabled={isSubmitting || saveSuccess}
                 data-testid="save-profile-button"
-                className="w-full sm:w-auto px-8 py-3 bg-neutral-900 hover:bg-neutral-800 text-white text-xs font-semibold uppercase tracking-wider rounded-lg transition-colors shadow-xs disabled:opacity-50 cursor-pointer flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-8 py-3 bg-neutral-900 hover:bg-[#C5A572] active:bg-[#B3935F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] text-white text-xs font-semibold uppercase tracking-wider rounded-lg transition-colors shadow-xs disabled:opacity-50 cursor-pointer flex items-center justify-center gap-2"
               >
                 {isSubmitting ? (
                   <>

@@ -63,6 +63,10 @@ const server: Server = app.listen(PORT, () => {
     .then(({ StoreDetailsService }) => StoreDetailsService.seedInitialData())
     .catch((err) => logger.warn({ err }, "Initial store details seed failed"));
 
+  import("./services/faq-service.js")
+    .then(({ FaqService }) => FaqService.seedInitialData())
+    .catch((err) => logger.warn({ err }, "Initial FAQ seed failed"));
+
   // Verify SMTP connectivity at startup without crashing application
   import("./services/email/email-service.js")
     .then(({ EmailService }) => EmailService.verifyConnection())

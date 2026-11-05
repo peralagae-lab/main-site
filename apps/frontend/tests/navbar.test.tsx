@@ -147,9 +147,11 @@ describe("PERALAGAE Premium Navbar Component Suite", () => {
         "/#newsletter-section"
       );
 
-      // FAQs is rendered as a static navigation item (no fake route or broken link)
-      expect(screen.queryByRole("link", { name: "FAQs" })).not.toBeInTheDocument();
-      expect(screen.getByText("FAQs")).toBeInTheDocument();
+      // FAQs is rendered as an active link to the dedicated FAQ page
+      expect(screen.getByRole("link", { name: "FAQs" })).toHaveAttribute(
+        "href",
+        "/faq"
+      );
     });
   });
 
@@ -249,16 +251,13 @@ describe("PERALAGAE Premium Navbar Component Suite", () => {
 
       // Switch to CATEGORIES tab
       fireEvent.click(categoriesTab);
-      expect(drawer.getByRole("link", { name: "New Products" })).toBeInTheDocument();
-      expect(drawer.getByRole("link", { name: "Today On Sale" })).toBeInTheDocument();
-      expect(drawer.getByRole("link", { name: "Special Offer!" })).toBeInTheDocument();
-      expect(drawer.getByRole("link", { name: "Necklaces" })).toBeInTheDocument();
-      expect(drawer.getByRole("link", { name: "Rings" })).toBeInTheDocument();
-      expect(drawer.getByRole("link", { name: "Bracelets" })).toBeInTheDocument();
-      expect(drawer.getByRole("link", { name: "Earnings" })).toBeInTheDocument();
-      expect(drawer.getByRole("link", { name: "Charm & Dangles" })).toBeInTheDocument();
-      expect(drawer.getByRole("link", { name: "Watches" })).toBeInTheDocument();
-      expect(drawer.getByRole("link", { name: "Gift Ideas" })).toBeInTheDocument();
+      expect(drawer.getByRole("tab", { name: "Categories" })).toHaveAttribute("aria-selected", "true");
+      expect(drawer.getByRole("navigation", { name: "Mobile Categories Navigation" })).toBeInTheDocument();
+
+      // Ensure template dummy items are completely removed
+      expect(drawer.queryByRole("link", { name: "New Products" })).not.toBeInTheDocument();
+      expect(drawer.queryByRole("link", { name: "Today On Sale" })).not.toBeInTheDocument();
+      expect(drawer.queryByRole("link", { name: "Special Offer!" })).not.toBeInTheDocument();
 
       // Bottom footer controls
       expect(drawer.getByRole("button", { name: /English/i })).toBeInTheDocument();

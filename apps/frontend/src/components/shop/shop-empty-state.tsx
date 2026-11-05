@@ -61,7 +61,7 @@ export function ShopEmptyState({
           type="button"
           onClick={onClearAll}
           suppressHydrationWarning
-          className="mt-6 inline-flex items-center gap-2 px-6 py-2.5 bg-black hover:bg-neutral-800 text-white text-xs font-semibold tracking-wider uppercase transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black cursor-pointer"
+          className="mt-6 inline-flex items-center gap-2 px-6 py-2.5 bg-black hover:bg-[#C5A572] active:bg-[#B3935F] text-white text-xs font-semibold tracking-wider uppercase transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] cursor-pointer"
         >
           <RotateCcw className="h-3.5 w-3.5" />
           <span>{isCategoryOnly ? "View All Jewellery" : "Clear All Filters"}</span>

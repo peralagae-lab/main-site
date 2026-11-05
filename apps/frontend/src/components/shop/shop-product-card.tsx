@@ -112,7 +112,7 @@ export function ShopProductCard({
             <h3 className="mt-1 text-sm sm:text-base lg:text-lg font-medium text-[#111111] leading-snug">
               <Link
                 href={`/product/${product.slug}`}
-                className="hover:underline transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-black"
+                className="hover:text-[#C5A572] hover:underline transition-colors duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#C5A572]"
               >
                 {product.name}
               </Link>
@@ -137,19 +137,14 @@ export function ShopProductCard({
               </p>
             )}
 
-            {/* Metadata (Materials & Sizes) */}
-            <div className="mt-3 flex flex-wrap items-center gap-2 text-[11px] text-[#777777]">
-              {product.material && (
+            {/* Metadata (Materials) */}
+            {product.material && (
+              <div className="mt-3 flex flex-wrap items-center gap-2 text-[11px] text-[#777777]">
                 <span className="bg-neutral-100 px-2 py-0.5 rounded-none">
                   {product.material}
                 </span>
-              )}
-              {product.sizes && product.sizes.length > 0 && (
-                <span className="bg-neutral-100 px-2 py-0.5 rounded-none">
-                  Sizes: {product.sizes.join(", ")}
-                </span>
-              )}
-            </div>
+              </div>
+            )}
           </div>
 
           {/* Action Row */}
@@ -160,12 +155,12 @@ export function ShopProductCard({
               disabled={isOutOfStock}
               aria-label={isOutOfStock ? `${product.name} is out of stock` : `Add ${product.name} to cart`}
               suppressHydrationWarning
-              className={`py-2 sm:py-2.5 px-4 sm:px-6 text-xs font-semibold tracking-wider uppercase transition-colors duration-200 flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black ${
+              className={`py-2 sm:py-2.5 px-4 sm:px-6 text-xs font-semibold tracking-wider uppercase transition-all duration-250 flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] cursor-pointer ${
                 isOutOfStock
                   ? "bg-neutral-200 text-neutral-400 cursor-not-allowed border border-neutral-300"
                   : justAdded
-                  ? "bg-[#111111] text-white"
-                  : "bg-black text-white hover:bg-neutral-800"
+                  ? "bg-[#C5A572] text-white"
+                  : "bg-[#111111] text-white hover:bg-[#C5A572] active:bg-[#B3935F]"
               }`}
             >
               {isOutOfStock ? (
@@ -264,8 +259,8 @@ export function ShopProductCard({
             aria-label={isFavorite ? `Remove ${product.name} from wishlist` : `Add ${product.name} to wishlist`}
             aria-pressed={isFavorite}
             suppressHydrationWarning
-            className={`flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-white shadow-md transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black ${
-              isFavorite ? "text-[#D9383A]" : "text-[#222222] hover:text-[#D9383A]"
+            className={`flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-white shadow-md transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] cursor-pointer ${
+              isFavorite ? "text-[#D9383A]" : "text-[#222222] hover:text-[#C5A572]"
             }`}
           >
             <Heart
@@ -284,12 +279,12 @@ export function ShopProductCard({
             disabled={isOutOfStock}
             aria-label={isOutOfStock ? `${product.name} is out of stock` : `Add ${product.name} to cart`}
             suppressHydrationWarning
-            className={`w-full py-2 sm:py-2.5 px-3 sm:px-4 text-[11px] sm:text-xs font-semibold tracking-[0.08em] uppercase transition-colors duration-200 flex items-center justify-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black ${
+            className={`w-full py-2 sm:py-2.5 px-3 sm:px-4 text-[11px] sm:text-xs font-semibold tracking-[0.08em] uppercase transition-all duration-250 flex items-center justify-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] cursor-pointer ${
               isOutOfStock
                 ? "bg-[#E5E7EB] text-[#9CA3AF] cursor-not-allowed border-t border-[#E5E7EB]"
                 : justAdded
-                ? "bg-[#111111] text-white"
-                : "bg-white/95 text-[#111111] hover:bg-[#111111] hover:text-white border-t border-[#E5E7EB]"
+                ? "bg-[#C5A572] text-white"
+                : "bg-white/95 text-[#111111] hover:bg-[#C5A572] hover:text-white active:bg-[#B3935F] border-t border-[#E5E7EB]"
             }`}
           >
             {isOutOfStock ? (
@@ -315,7 +310,7 @@ export function ShopProductCard({
         <h3 className="text-xs sm:text-[13.5px] font-normal text-[#111111] leading-snug line-clamp-1 truncate mb-1 max-w-full px-1">
           <Link
             href={`/product/${product.slug}`}
-            className="hover:underline transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-black"
+            className="hover:text-[#C5A572] hover:underline transition-colors duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#C5A572]"
           >
             {product.name}
           </Link>

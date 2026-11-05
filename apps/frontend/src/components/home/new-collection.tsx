@@ -255,7 +255,7 @@ export function NewCollectionSection({
       onTouchEnd={handleTouchEnd}
       className={`relative w-full overflow-hidden bg-white pt-10 sm:pt-16 lg:pt-20 pb-14 sm:pb-20 lg:pb-24 scroll-mt-28 lg:scroll-mt-32 ${className}`}
     >
-      <div id="new-collection" className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
+      <div id="new-collection" className="mx-auto max-w-7xl 2xl:max-w-[1536px] 3xl:max-w-[1720px] px-3 sm:px-6 lg:px-8 2xl:px-12">
         {/* 1. SECTION HEADER: Centred heading with flanking horizontal lines and subtitle */}
         <div className="flex flex-col items-center justify-center text-center mb-7 sm:mb-12 lg:mb-14">
           <div className="flex items-center justify-center w-full gap-3 sm:gap-6">
@@ -353,7 +353,7 @@ export function NewCollectionSection({
                 onClick={goToPrevPage}
                 aria-label="Previous products"
                 suppressHydrationWarning
-                className="hidden sm:flex absolute -left-3 sm:-left-5 lg:-left-6 top-1/2 -translate-y-1/2 z-20 h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full bg-white text-[#222222] shadow-md border border-neutral-100 transition-all duration-200 hover:bg-black hover:text-white hover:border-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black"
+                className="hidden sm:flex absolute -left-3 sm:-left-5 lg:-left-6 top-1/2 -translate-y-1/2 z-20 h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full bg-white text-[#222222] shadow-md border border-neutral-100 transition-all duration-250 hover:bg-[#C5A572] hover:text-white hover:border-[#C5A572] active:bg-[#B3935F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] cursor-pointer"
               >
                 <ChevronLeft className="h-5 w-5 stroke-[1.5]" aria-hidden="true" />
               </button>
@@ -366,7 +366,7 @@ export function NewCollectionSection({
                 onClick={goToNextPage}
                 aria-label="Next products"
                 suppressHydrationWarning
-                className="hidden sm:flex absolute -right-3 sm:-right-5 lg:-right-6 top-1/2 -translate-y-1/2 z-20 h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full bg-white text-[#222222] shadow-md border border-neutral-100 transition-all duration-200 hover:bg-black hover:text-white hover:border-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black"
+                className="hidden sm:flex absolute -right-3 sm:-right-5 lg:-right-6 top-1/2 -translate-y-1/2 z-20 h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full bg-white text-[#222222] shadow-md border border-neutral-100 transition-all duration-250 hover:bg-[#C5A572] hover:text-white hover:border-[#C5A572] active:bg-[#B3935F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] cursor-pointer"
               >
                 <ChevronRight className="h-5 w-5 stroke-[1.5]" aria-hidden="true" />
               </button>
@@ -386,7 +386,7 @@ export function NewCollectionSection({
                     className="w-full shrink-0"
                     aria-hidden={pageIdx !== activePage}
                   >
-                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 lg:gap-6">
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 lg:gap-6 2xl:gap-8">
                       {pageProducts.map((product) => (
                         <ProductCard
                           key={product.id}
@@ -417,10 +417,10 @@ export function NewCollectionSection({
                 aria-label={`Go to carousel page ${idx + 1}`}
                 onClick={() => setCurrentPage(idx)}
                 suppressHydrationWarning
-                className={`h-2 w-2 rounded-full transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black ${
+                className={`h-2 rounded-full transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] cursor-pointer ${
                   idx === activePage
-                    ? "bg-[#222222] border border-[#222222]"
-                    : "bg-white border border-[#888888] hover:border-black"
+                    ? "w-6 bg-[#C5A572]"
+                    : "w-2 bg-neutral-300 hover:bg-[#C5A572]/60"
                 }`}
               />
             ))}

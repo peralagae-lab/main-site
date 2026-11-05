@@ -208,12 +208,12 @@ export function ProductInfoPanel({
           type="button"
           onClick={handleAddToCart}
           disabled={isAdding || isOutOfStock}
-          className={`flex-1 flex h-[50px] items-center justify-center px-6 text-xs sm:text-[13.5px] font-semibold tracking-[0.08em] uppercase transition-colors rounded-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-black ${
+          className={`flex-1 flex h-[50px] items-center justify-center px-6 text-xs sm:text-[13.5px] font-semibold tracking-[0.08em] uppercase transition-all duration-250 rounded-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] cursor-pointer ${
             isOutOfStock
               ? "bg-[#CCCCCC] text-[#666666] cursor-not-allowed"
               : addedJustNow
               ? "bg-emerald-700 text-white"
-              : "bg-[#1F1F1F] hover:bg-black text-white"
+              : "bg-[#111111] hover:bg-[#C5A572] active:bg-[#B3935F] text-white"
           }`}
         >
           {isOutOfStock ? "OUT OF STOCK" : addedJustNow ? "Added to Bag" : "ADD TO CART"}
@@ -225,10 +225,10 @@ export function ProductInfoPanel({
         type="button"
         onClick={handleBuyItNow}
         disabled={isOutOfStock}
-        className={`mt-2.5 w-full flex h-[50px] items-center justify-center text-xs sm:text-[13.5px] font-semibold tracking-[0.08em] uppercase transition-colors rounded-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-black ${
+        className={`mt-2.5 w-full flex h-[50px] items-center justify-center text-xs sm:text-[13.5px] font-semibold tracking-[0.08em] uppercase transition-all duration-250 rounded-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] cursor-pointer ${
           isOutOfStock
             ? "bg-[#EEEEEE] text-[#999999] cursor-not-allowed"
-            : "bg-[#E5E5E5] hover:bg-[#DCDCDC] text-[#1A1A1A]"
+            : "bg-[#EAE6DF] hover:bg-[#C5A572] hover:text-white active:bg-[#B3935F] text-[#1A1A1A]"
         }`}
       >
         BUY IT NOW
@@ -239,7 +239,7 @@ export function ProductInfoPanel({
         <button
           type="button"
           onClick={() => toggleWishlist(product)}
-          className="inline-flex items-center gap-2.5 text-[14.5px] sm:text-[15px] text-[#222222] hover:text-black transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-black"
+          className="inline-flex items-center gap-2.5 text-[14.5px] sm:text-[15px] text-[#222222] hover:text-[#C5A572] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#C5A572] cursor-pointer"
         >
           {wishlisted || product.slug.includes("blue-stripes") ? (
             <>
@@ -260,7 +260,7 @@ export function ProductInfoPanel({
         <button
           type="button"
           onClick={() => setIsDeliveryModalOpen(true)}
-          className="inline-flex items-center gap-2 hover:text-black transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-black"
+          className="inline-flex items-center gap-2 hover:text-[#C5A572] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#C5A572] cursor-pointer"
         >
           <RotateCcw className="h-[18px] w-[18px] stroke-[1.6] text-[#222222]" />
           <span>Delivery & Return</span>
@@ -269,7 +269,7 @@ export function ProductInfoPanel({
         <button
           type="button"
           onClick={() => setIsAskModalOpen(true)}
-          className="inline-flex items-center gap-2 hover:text-black transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-black"
+          className="inline-flex items-center gap-2 hover:text-[#C5A572] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#C5A572] cursor-pointer"
         >
           <HelpCircle className="h-[18px] w-[18px] stroke-[1.6] text-[#222222]" />
           <span>Ask a Question</span>

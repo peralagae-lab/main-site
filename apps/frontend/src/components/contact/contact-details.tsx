@@ -1,9 +1,11 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Mail, Phone, MessageCircle } from "lucide-react";
-import { brandConfig } from "@/config/brand";
-import { defaultNavigationConfig } from "@/config/navigation";
+import {
+  fetchPublicStoreDetails,
+  STORE_DETAILS_UPDATED_EVENT,
+} from "@/services/store-details-service";
 
 export interface ContactDetailsProps {
   email?: string;
@@ -21,17 +23,63 @@ export interface ContactDetailsProps {
  *   1. Email (mailto: link)
  *   2. Phone / WhatsApp (tel: and WhatsApp link)
  *
- * Designed with minimal typography and lightweight iconography—completely
- * devoid of boxed card clutter, fabricated opening hours, or fake boutique addresses.
+ * Automatically and dynamically synchronizes with the store details
+ * configured in the website footer.
  */
 export function ContactDetails({
-  email = brandConfig.contactEmail || "contact@peralagae.com",
-  phone = defaultNavigationConfig.utility.phone || "+91 98765 43210",
+  email: initialEmail,
+  phone: initialPhone,
 }: ContactDetailsProps) {
-  // Extract pure phone digits for WhatsApp link
-  const digitsOnly = phone.replace(/\D/g, "");
+  const [currentEmail, setCurrentEmail] = useState<string>(initialEmail || "");
+  const [currentPhone, setCurrentPhone] = useState<string>(initialPhone || "");
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const loadStoreDetails = async () => {
+      try {
+        const data = await fetchPublicStoreDetails();
+        if (isMounted && data) {
+          if (data.email) setCurrentEmail(data.email);
+          if (data.phone) setCurrentPhone(data.phone);
+        }
+      } catch {
+        // Keep fallback
+      }
+    };
+
+    if (!initialEmail || !initialPhone) {
+      loadStoreDetails();
+    }
+
+    const handleUpdate = () => {
+      loadStoreDetails();
+    };
+
+    window.addEventListener(STORE_DETAILS_UPDATED_EVENT, handleUpdate);
+    return () => {
+      isMounted = false;
+      window.removeEventListener(STORE_DETAILS_UPDATED_EVENT, handleUpdate);
+    };
+  }, [initialEmail, initialPhone]);
+
+  // Synchronize when props update
+  useEffect(() => {
+    if (initialEmail) setCurrentEmail(initialEmail);
+  }, [initialEmail]);
+
+  useEffect(() => {
+    if (initialPhone) setCurrentPhone(initialPhone);
+  }, [initialPhone]);
+
+  const activeEmail = currentEmail || "contact@peralagae.com";
+  const activePhone = currentPhone || "+91 98765 43210";
+
+  // Extract pure phone digits for WhatsApp link (e.g. 919876543210)
+  const digitsOnly = activePhone.replace(/\D/g, "");
   const whatsappUrl = `https://wa.me/${digitsOnly}?text=Hello%20PERALAGAE%20Jewellery`;
-  const telHref = defaultNavigationConfig.utility.phoneHref || `tel:${phone.replace(/\s+/g, "")}`;
+  const telDigits = activePhone.replace(/[^\d+]/g, "");
+  const telHref = telDigits ? `tel:${telDigits}` : `tel:${activePhone.replace(/\s+/g, "")}`;
 
   return (
     <div className="flex flex-col justify-start lg:pr-8 space-y-6">
@@ -63,10 +111,10 @@ export function ContactDetails({
               Email
             </span>
             <a
-              href={`mailto:${email}`}
+              href={`mailto:${activeEmail}`}
               className="text-sm sm:text-base font-normal text-[#111111] hover:text-[#C5A572] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#C5A572] rounded-sm"
             >
-              {email}
+              {activeEmail}
             </a>
           </div>
         </div>
@@ -85,7 +133,7 @@ export function ContactDetails({
                 href={telHref}
                 className="text-sm sm:text-base font-normal text-[#111111] hover:text-[#C5A572] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#C5A572] rounded-sm"
               >
-                {phone}
+                {activePhone}
               </a>
               <span className="text-[#CCCCCC] text-xs" aria-hidden="true">
                 |

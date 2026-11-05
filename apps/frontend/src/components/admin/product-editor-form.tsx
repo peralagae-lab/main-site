@@ -57,8 +57,6 @@ interface ProductEditorFormProps {
   mode?: "create" | "edit";
 }
 
-const SUGGESTED_JEWELLERY_SIZES = ["6", "7", "8", "9", "10", "6.5\"", "7\"", "7.5\"", "16\"", "18\"", "20\""];
-
 function slugify(text: string): string {
   return text
     .toLowerCase()
@@ -77,10 +75,9 @@ export function ProductEditorForm({ initialProduct, mode = "create" }: ProductEd
   const [categories, setCategories] = useState<CategoryItem[]>([]);
   const [isLoadingCategories, setIsLoadingCategories] = useState(true);
 
-  // Materials and Sizes from database
+  // Materials from database
   const [dbMaterials, setDbMaterials] = useState<MaterialItem[]>([]);
   const [isLoadingDbMaterials, setIsLoadingDbMaterials] = useState(true);
-  const [dbSizes, setDbSizes] = useState<string[]>([]);
 
   // Form Fields: Basic Information
   const [name, setName] = useState(initialProduct?.name || "");
@@ -146,9 +143,7 @@ export function ProductEditorForm({ initialProduct, mode = "create" }: ProductEd
 
   // Optional Badges & Metadata
   const [materials, setMaterials] = useState<string[]>(initialProduct?.materials || []);
-  const [sizes, setSizes] = useState<string[]>(initialProduct?.sizes || []);
   const [customMaterialInput, setCustomMaterialInput] = useState("");
-  const [customSizeInput, setCustomSizeInput] = useState("");
   const [isHot, setIsHot] = useState<boolean>(Boolean(initialProduct?.isHot));
   const [isNew, setIsNew] = useState<boolean>(Boolean(initialProduct?.isNew));
 
@@ -171,16 +166,6 @@ export function ProductEditorForm({ initialProduct, mode = "create" }: ProductEd
       markDirty();
     }
     setCustomMaterialInput("");
-  };
-
-  const handleAddCustomSize = () => {
-    const trimmed = customSizeInput.trim();
-    if (!trimmed) return;
-    if (!sizes.includes(trimmed)) {
-      setSizes((prev) => [...prev, trimmed]);
-      markDirty();
-    }
-    setCustomSizeInput("");
   };
 
   // UI & Submission State
@@ -404,23 +389,6 @@ export function ProductEditorForm({ initialProduct, mode = "create" }: ProductEd
       isMounted = false;
     };
   }, [initialProduct?.materialId, initialProduct?.material]);
-
-  // Load dynamic sizes from existing products in database
-  useEffect(() => {
-    let isMounted = true;
-    fetchPublicProducts({}, "default", 1, 1)
-      .then((res) => {
-        if (isMounted && res?.availableSizes && res.availableSizes.length > 0) {
-          setDbSizes(res.availableSizes);
-        }
-      })
-      .catch((err) => {
-        console.warn("Could not load dynamic sizes from catalogue API:", err);
-      });
-    return () => {
-      isMounted = false;
-    };
-  }, []);
 
   // Synchronize auto-generated slug when creating product
   const handleNameChange = (val: string) => {
@@ -711,7 +679,6 @@ export function ProductEditorForm({ initialProduct, mode = "create" }: ProductEd
         additionalInfo: additionalInfo.trim() || undefined,
         specs: cleanSpecs,
         materials: combinedMaterials,
-        sizes,
         isHot,
         isNew,
       };
@@ -2056,66 +2023,6 @@ export function ProductEditorForm({ initialProduct, mode = "create" }: ProductEd
                 </div>
               </div>
 
-              {/* Available Sizes */}
-              <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-[#222222] mb-2">
-                  Available Sizes
-                </label>
-                <div className="flex flex-wrap gap-1.5 mb-2.5">
-                  {Array.from(
-                    new Set([
-                      ...dbSizes,
-                      ...sizes,
-                      ...(dbSizes.length === 0 ? SUGGESTED_JEWELLERY_SIZES : []),
-                    ])
-                  ).map((sz) => {
-                    const active = sizes.includes(sz);
-                    return (
-                      <button
-                        key={sz}
-                        type="button"
-                        onClick={() => {
-                          setSizes((prev) =>
-                            active ? prev.filter((s) => s !== sz) : [...prev, sz]
-                          );
-                          markDirty();
-                        }}
-                        className={`px-2.5 py-1.5 rounded text-[11px] font-mono transition-colors border min-h-[32px] cursor-pointer ${
-                          active
-                            ? "bg-[#111111] text-white border-[#111111]"
-                            : "bg-white text-[#555555] border-[#E5E7EB] hover:border-[#C5A572]"
-                        }`}
-                      >
-                        {sz}
-                      </button>
-                    );
-                  })}
-                </div>
-                {/* Custom Size Addition */}
-                <div className="flex items-center gap-2">
-                  <input
-                    type="text"
-                    placeholder={'New size (e.g. 22", 5)...'}
-                    value={customSizeInput}
-                    onChange={(e) => setCustomSizeInput(e.target.value)}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") {
-                        e.preventDefault();
-                        handleAddCustomSize();
-                      }
-                    }}
-                    className="flex-1 px-2.5 py-1.5 text-xs border border-[#D1D5DB] rounded bg-white text-[#111111] focus:outline-none focus:ring-1 focus:ring-[#C5A572]"
-                  />
-                  <button
-                    type="button"
-                    onClick={handleAddCustomSize}
-                    disabled={!customSizeInput.trim()}
-                    className="px-3 py-1.5 bg-[#111111] text-white hover:bg-[#C5A572] disabled:opacity-40 text-xs font-medium rounded transition-colors cursor-pointer"
-                  >
-                    Add
-                  </button>
-                </div>
-              </div>
             </div>
           </div>
 

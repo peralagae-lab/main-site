@@ -213,7 +213,7 @@ export function NewsletterPopup({
             data-testid="newsletter-popup-content"
             aria-labelledby="newsletter-popup-title"
             aria-describedby="newsletter-popup-description"
-            className="newsletter-modal-content pointer-events-auto relative w-full max-w-[440px] flex flex-col overflow-hidden rounded-2xl border border-neutral-200/90 bg-white shadow-2xl focus:outline-none"
+            className="newsletter-modal-content pointer-events-auto relative w-full max-w-[420px] sm:max-w-[680px] flex flex-col sm:flex-row overflow-hidden rounded-2xl border border-neutral-200/90 bg-white shadow-2xl focus:outline-none"
           >
             {/* Minimalist Close Button in Upper-Right Corner */}
             <button
@@ -222,25 +222,25 @@ export function NewsletterPopup({
               disabled={isSubmitting}
               data-testid="newsletter-popup-close-btn"
               aria-label="Close newsletter popup"
-              className="absolute top-3 right-3 z-30 flex h-8 w-8 items-center justify-center rounded-full bg-black/25 hover:bg-black/40 text-white backdrop-blur-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white disabled:opacity-50 cursor-pointer"
+              className="absolute top-3 right-3 z-30 flex h-8 w-8 items-center justify-center rounded-full bg-black/30 hover:bg-black/50 sm:bg-neutral-100 sm:hover:bg-neutral-200 sm:text-[#111111] text-white backdrop-blur-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] disabled:opacity-50 cursor-pointer"
             >
               <X className="h-4 w-4" aria-hidden="true" />
             </button>
 
-            {/* Top Visual Banner — Full 4:3 Aspect Ratio Displaying Complete Model & Floral Diamond Earring */}
-            <div className="relative w-full aspect-[4/3] max-h-[290px] sm:max-h-[330px] flex-none overflow-hidden bg-neutral-100">
+            {/* Vertical Visual Banner — Elegant vertical portrait layout ensuring model & earring are completely visible */}
+            <div className="relative w-full sm:w-1/2 aspect-square sm:aspect-auto min-h-[260px] sm:min-h-[440px] flex-none overflow-hidden bg-neutral-100">
               <Image
                 src="/images/editorial/newsletter-banner.jpg"
                 alt="PERALAGAE Fine Jewellery Collection"
                 fill
                 priority
-                sizes="(max-width: 640px) 100vw, 440px"
-                className="object-cover object-center select-none transition-all duration-300"
+                sizes="(max-width: 640px) 100vw, 340px"
+                className="object-cover object-[center_12%] select-none transition-all duration-300"
               />
             </div>
 
             {/* Content Panel — Clean & Simple */}
-            <div className="relative px-6 py-6 sm:px-8 sm:py-7 flex flex-col justify-center text-center bg-white">
+            <div className="relative w-full sm:w-1/2 px-6 py-6 sm:px-7 sm:py-8 flex flex-col justify-center text-center bg-white">
               {isSuccess ? (
                 /* Success Confirmation State */
                 <div data-testid="newsletter-popup-success" className="py-2 text-center">
@@ -262,7 +262,7 @@ export function NewsletterPopup({
                   <button
                     type="button"
                     onClick={handleClose}
-                    className="mt-5 inline-flex h-11 items-center justify-center rounded-lg bg-neutral-900 px-6 text-xs font-semibold tracking-wider uppercase text-white transition-colors hover:bg-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 cursor-pointer"
+                    className="mt-5 inline-flex h-11 items-center justify-center rounded-lg bg-[#111111] px-6 text-xs font-semibold tracking-wider uppercase text-white transition-all duration-200 hover:bg-[#C5A572] active:bg-[#B3935F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] cursor-pointer"
                   >
                     Continue Shopping
                   </button>
@@ -305,7 +305,7 @@ export function NewsletterPopup({
                         aria-label="Email address"
                         data-testid="newsletter-popup-email-input"
                         disabled={isSubmitting}
-                        className="h-11 w-full rounded-lg border border-neutral-200 bg-neutral-50/60 px-4 text-xs sm:text-sm text-neutral-900 placeholder:text-neutral-400 transition-all focus:border-neutral-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-neutral-900 disabled:opacity-60 text-center"
+                        className="h-11 w-full rounded-lg border border-neutral-200 bg-neutral-50/60 px-4 text-xs sm:text-sm text-neutral-900 placeholder:text-neutral-400 transition-all focus:border-[#C5A572] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#C5A572] disabled:opacity-60 text-center"
                         autoComplete="email"
                         spellCheck="false"
                       />
@@ -325,7 +325,7 @@ export function NewsletterPopup({
                       type="submit"
                       disabled={isSubmitting}
                       data-testid="newsletter-popup-submit-btn"
-                      className="flex h-11 w-full items-center justify-center rounded-lg bg-neutral-900 text-xs font-semibold tracking-wider uppercase text-white transition-all hover:bg-black active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 disabled:cursor-not-allowed disabled:opacity-75 shadow-xs cursor-pointer"
+                      className="flex h-11 w-full items-center justify-center rounded-lg bg-[#111111] text-xs font-semibold tracking-wider uppercase text-white transition-all duration-200 hover:bg-[#C5A572] active:bg-[#B3935F] active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] disabled:cursor-not-allowed disabled:opacity-75 shadow-xs cursor-pointer"
                     >
                       {isSubmitting ? (
                         <span className="flex items-center gap-2">
@@ -345,7 +345,7 @@ export function NewsletterPopup({
                         checked={doNotShowAgain}
                         onChange={(e) => handleToggleDoNotShowAgain(e.target.checked)}
                         data-testid="newsletter-popup-do-not-show-checkbox"
-                        className="h-3.5 w-3.5 rounded border-neutral-300 text-neutral-900 accent-neutral-900 cursor-pointer"
+                        className="h-3.5 w-3.5 rounded border-neutral-300 text-[#C5A572] accent-[#C5A572] cursor-pointer"
                       />
                       <label
                         htmlFor="newsletter-do-not-show"

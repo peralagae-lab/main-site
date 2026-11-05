@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import type { CartItem } from "@/providers/storefront-provider";
 import { getRecommendedProducts } from "@/services/recommendation-service";
-import { SHOP_PRODUCTS, fetchPublicProducts } from "@/services/product-service";
+import { fetchPublicProducts } from "@/services/product-service";
 import type { Product } from "@/types/product";
 import { ShopProductCard } from "@/components/shop/shop-product-card";
 
@@ -16,8 +16,9 @@ export interface CartRecommendationsProps {
  * CartRecommendations Component — PERALAGAE
  *
  * "You May Be Interested In..." section.
- * Renders priority-curated jewellery product recommendations from the actual
- * catalogue that match the categories, materials, and styles in the customer's cart.
+ * Renders priority-curated jewellery product recommendations dynamically from
+ * the production database that match the categories and materials in the customer's cart.
+ * If no eligible products exist, this section hides completely.
  */
 export function CartRecommendations({
   cartItems,
@@ -39,19 +40,11 @@ export function CartRecommendations({
     };
   }, []);
 
-  const fullCatalogue = useMemo(() => {
-    const map = new Map<string, Product>();
-    SHOP_PRODUCTS.forEach((p) => map.set(p.id, p));
-    if (dbProducts && dbProducts.length > 0) {
-      dbProducts.forEach((p) => map.set(p.id, p));
-    }
-    return Array.from(map.values());
-  }, [dbProducts]);
-
-  // Compute deterministic recommendations based on current cart
+  // Compute deterministic recommendations based exclusively on genuine database products
   const recommendations = useMemo(() => {
-    return getRecommendedProducts(cartItems, { limit: 4, catalogue: fullCatalogue });
-  }, [cartItems, fullCatalogue]);
+    if (dbProducts.length === 0) return [];
+    return getRecommendedProducts(cartItems, { limit: 4, catalogue: dbProducts });
+  }, [cartItems, dbProducts]);
 
   if (recommendations.length === 0) {
     return null;

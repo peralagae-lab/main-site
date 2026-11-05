@@ -270,6 +270,7 @@ describe("Product Catalogue Database-Driven API Test Suite", () => {
         .send({
           name: `Heritage Dual Tagged Bangles ${uniqueStamp}`,
           priceInr: 125000,
+          imageUrl: "/uploads/products/bangles-test.jpg",
           inStock: true,
           isNew: true,
           isHot: true,

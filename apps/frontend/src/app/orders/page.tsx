@@ -122,7 +122,7 @@ export default function CustomerOrdersPage() {
         <button
           type="button"
           onClick={() => openAuthModal("login", "/orders")}
-          className="px-6 py-2.5 bg-neutral-900 hover:bg-black text-white text-xs font-medium uppercase tracking-wider rounded-lg transition-colors cursor-pointer"
+          className="px-6 py-2.5 bg-neutral-900 hover:bg-[#C5A572] active:bg-[#B3935F] text-white text-xs font-medium uppercase tracking-wider rounded-lg transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572]"
         >
           Sign In
         </button>
@@ -165,7 +165,7 @@ export default function CustomerOrdersPage() {
             </p>
             <Link
               href="/shop"
-              className="inline-block px-6 py-2.5 bg-neutral-900 hover:bg-black text-white text-xs font-medium uppercase tracking-wider rounded-lg transition-colors"
+              className="inline-block px-6 py-2.5 bg-neutral-900 hover:bg-[#C5A572] active:bg-[#B3935F] text-white text-xs font-medium uppercase tracking-wider rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572]"
             >
               Explore Shop
             </Link>
@@ -274,7 +274,7 @@ export default function CustomerOrdersPage() {
 
                   <Link
                     href={`/orders/${order.id}`}
-                    className="inline-flex items-center gap-1.5 px-4 py-2 bg-neutral-900 hover:bg-black text-white text-xs font-medium uppercase tracking-wider rounded-lg transition-colors cursor-pointer"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 bg-neutral-900 hover:bg-[#C5A572] active:bg-[#B3935F] text-white text-xs font-medium uppercase tracking-wider rounded-lg transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572]"
                   >
                     <span>Track Order & Evidence</span>
                     <ExternalLink className="h-3.5 w-3.5" />

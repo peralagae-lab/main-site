@@ -133,7 +133,7 @@ export function NewsletterSignupForm({
                   : undefined
               }
               suppressHydrationWarning
-              className="w-full bg-white border border-[#CCCCCC] focus:border-[#111111] focus:ring-1 focus:ring-[#111111] rounded-none px-4 sm:px-5 py-3.5 sm:py-4 text-sm sm:text-base text-[#111111] placeholder:text-[#999999] outline-none transition-colors"
+              className="w-full bg-white border border-[#CCCCCC] focus:border-[#C5A572] focus:ring-1 focus:ring-[#C5A572] rounded-none px-4 sm:px-5 py-3.5 sm:py-4 text-sm sm:text-base text-[#111111] placeholder:text-[#999999] outline-none transition-colors"
             />
           </div>
 
@@ -142,7 +142,7 @@ export function NewsletterSignupForm({
             disabled={isSubmitting}
             data-testid="newsletter-submit-button"
             suppressHydrationWarning
-            className="rounded-none bg-[#111111] hover:bg-black text-white px-7 sm:px-9 py-3.5 sm:py-4 text-xs sm:text-sm font-semibold tracking-wider uppercase transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed shrink-0"
+            className="rounded-none bg-[#111111] hover:bg-[#C5A572] active:bg-[#B3935F] text-white px-7 sm:px-9 py-3.5 sm:py-4 text-xs sm:text-sm font-semibold tracking-wider uppercase transition-all duration-250 disabled:opacity-60 disabled:cursor-not-allowed shrink-0 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572]"
           >
             {isSubmitting ? "SUBSCRIBING..." : buttonLabel}
           </button>

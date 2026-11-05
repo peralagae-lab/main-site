@@ -35,7 +35,7 @@ export function CartEmptyState({ className = "" }: CartEmptyStateProps) {
       <div className="mt-8">
         <Link
           href="/shop"
-          className="inline-flex items-center justify-center px-8 py-3.5 bg-[#111111] hover:bg-black text-white text-xs font-semibold uppercase tracking-widest transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black"
+          className="inline-flex items-center justify-center px-8 py-3.5 bg-[#111111] hover:bg-[#C5A572] active:bg-[#B3935F] text-white text-xs font-semibold uppercase tracking-widest transition-all duration-250 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] cursor-pointer"
         >
           Continue Shopping
         </Link>

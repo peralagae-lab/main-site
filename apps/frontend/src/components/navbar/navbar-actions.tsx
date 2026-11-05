@@ -28,7 +28,7 @@ export function SearchButton({ onClick }: { onClick?: () => void }) {
       type="button"
       onClick={onClick}
       aria-label="Search"
-      className="group relative flex h-10 w-10 lg:h-11 lg:w-11 items-center justify-center rounded-full text-[#222222] transition-all duration-200 hover:bg-black hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black"
+      className="group relative flex h-10 w-10 lg:h-11 lg:w-11 items-center justify-center rounded-full text-[#222222] transition-all duration-250 hover:bg-[#C5A572] hover:text-white active:bg-[#B3935F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] focus-visible:ring-offset-2 cursor-pointer"
     >
       <Search className={ICON_CLASS_NAME} strokeWidth={ICON_STROKE_WIDTH} aria-hidden="true" />
     </button>
@@ -77,7 +77,7 @@ export function AccountButton({
         onClick={onClick}
         aria-label="Account"
         data-testid="account-action-button"
-        className="group relative flex h-10 w-10 lg:h-11 lg:w-11 items-center justify-center rounded-full text-[#222222] transition-all duration-200 hover:bg-black hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black cursor-pointer"
+        className="group relative flex h-10 w-10 lg:h-11 lg:w-11 items-center justify-center rounded-full text-[#222222] transition-all duration-250 hover:bg-[#C5A572] hover:text-white active:bg-[#B3935F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] focus-visible:ring-offset-2 cursor-pointer"
       >
         <User className={ICON_CLASS_NAME} strokeWidth={ICON_STROKE_WIDTH} aria-hidden="true" />
       </button>
@@ -92,7 +92,7 @@ export function AccountButton({
         aria-label={`Account (${customer?.fullName})`}
         aria-expanded={isOpen}
         data-testid="account-action-button-authenticated"
-        className="group relative flex h-10 w-10 lg:h-11 lg:w-11 items-center justify-center rounded-full text-[#222222] transition-all duration-200 hover:bg-black hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black cursor-pointer"
+        className="group relative flex h-10 w-10 lg:h-11 lg:w-11 items-center justify-center rounded-full text-[#222222] transition-all duration-250 hover:bg-[#C5A572] hover:text-white active:bg-[#B3935F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] focus-visible:ring-offset-2 cursor-pointer"
       >
         <User className={ICON_CLASS_NAME} strokeWidth={ICON_STROKE_WIDTH} aria-hidden="true" />
         <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-[#C5A572] ring-2 ring-white" />
@@ -180,7 +180,7 @@ export function WishlistButton({
       <Link
         href={href}
         aria-label="Wishlist"
-        className="group relative flex h-10 w-10 lg:h-11 lg:w-11 items-center justify-center rounded-full text-[#222222] transition-all duration-200 hover:bg-black hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black"
+        className="group relative flex h-10 w-10 lg:h-11 lg:w-11 items-center justify-center rounded-full text-[#222222] transition-all duration-250 hover:bg-[#C5A572] hover:text-white active:bg-[#B3935F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] focus-visible:ring-offset-2 cursor-pointer"
       >
         {content}
       </Link>
@@ -192,7 +192,7 @@ export function WishlistButton({
       type="button"
       onClick={onClick}
       aria-label="Wishlist"
-      className="group relative flex h-10 w-10 lg:h-11 lg:w-11 items-center justify-center rounded-full text-[#222222] transition-all duration-200 hover:bg-black hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black"
+      className="group relative flex h-10 w-10 lg:h-11 lg:w-11 items-center justify-center rounded-full text-[#222222] transition-all duration-250 hover:bg-[#C5A572] hover:text-white active:bg-[#B3935F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] focus-visible:ring-offset-2 cursor-pointer"
     >
       {content}
     </button>
@@ -223,7 +223,7 @@ export function CartButton({
       {badgeCount !== undefined && (
         <span
           data-testid="cart-badge"
-          className="absolute top-0.5 right-0.5 flex h-4 min-w-4 lg:h-[18px] lg:min-w-[18px] items-center justify-center rounded-full bg-black px-1 text-[10px] lg:text-[11px] font-semibold leading-none text-white select-none transition-colors group-hover:ring-1 group-hover:ring-white"
+          className="absolute top-0.5 right-0.5 flex h-4 min-w-4 lg:h-[18px] lg:min-w-[18px] items-center justify-center rounded-full bg-black px-1 text-[10px] lg:text-[11px] font-semibold leading-none text-white select-none transition-colors group-hover:bg-[#111111] group-hover:ring-1 group-hover:ring-white"
         >
           {badgeCount}
         </span>
@@ -236,7 +236,7 @@ export function CartButton({
       <Link
         href={href}
         aria-label="Cart"
-        className="group relative flex h-10 w-10 lg:h-11 lg:w-11 items-center justify-center rounded-full text-[#222222] transition-all duration-200 hover:bg-black hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black"
+        className="group relative flex h-10 w-10 lg:h-11 lg:w-11 items-center justify-center rounded-full text-[#222222] transition-all duration-250 hover:bg-[#C5A572] hover:text-white active:bg-[#B3935F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] focus-visible:ring-offset-2 cursor-pointer"
       >
         {content}
       </Link>
@@ -248,7 +248,7 @@ export function CartButton({
       type="button"
       onClick={onClick}
       aria-label="Cart"
-      className="group relative flex h-10 w-10 lg:h-11 lg:w-11 items-center justify-center rounded-full text-[#222222] transition-all duration-200 hover:bg-black hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black"
+      className="group relative flex h-10 w-10 lg:h-11 lg:w-11 items-center justify-center rounded-full text-[#222222] transition-all duration-250 hover:bg-[#C5A572] hover:text-white active:bg-[#B3935F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] focus-visible:ring-offset-2 cursor-pointer"
     >
       {content}
     </button>

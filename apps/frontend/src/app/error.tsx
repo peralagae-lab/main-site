@@ -44,7 +44,7 @@ export default function RootError({ error, reset }: RootErrorProps) {
       <div className="flex flex-col sm:flex-row items-center gap-4">
         <button
           onClick={() => reset()}
-          className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#111111] text-white text-xs uppercase tracking-widest hover:bg-[#333333] transition-colors min-w-[160px]"
+          className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#111111] text-white text-xs uppercase tracking-widest hover:bg-[#C5A572] active:bg-[#B3935F] transition-all duration-200 min-w-[160px] cursor-pointer"
         >
           <RefreshCw className="w-3.5 h-3.5" />
           Try Again
@@ -52,7 +52,7 @@ export default function RootError({ error, reset }: RootErrorProps) {
 
         <Link
           href="/"
-          className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-[#111111] text-[#111111] text-xs uppercase tracking-widest hover:bg-[#111111] hover:text-white transition-colors min-w-[160px]"
+          className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-[#111111] text-[#111111] text-xs uppercase tracking-widest hover:border-[#C5A572] hover:bg-[#C5A572] hover:text-white active:bg-[#B3935F] transition-all duration-200 min-w-[160px] cursor-pointer"
         >
           <Home className="w-3.5 h-3.5" />
           Home

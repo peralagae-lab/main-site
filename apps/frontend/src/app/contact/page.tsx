@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { ContactPageContent } from "@/components/contact/contact-page-content";
 import { brandConfig } from "@/config/brand";
+import { fetchPublicStoreDetails } from "@/services/store-details-service";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: `Contact Us | ${brandConfig.name}`,
@@ -14,6 +17,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ContactPage() {
-  return <ContactPageContent />;
+export default async function ContactPage() {
+  const storeDetails = await fetchPublicStoreDetails();
+  return <ContactPageContent initialStoreDetails={storeDetails} />;
 }

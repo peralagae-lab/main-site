@@ -95,8 +95,8 @@ export const defaultSecondNavbarSettings: SecondNavbarSettings = {
     {
       id: "faqs",
       label: "FAQs",
-      href: "/#faqs",
-      isImplemented: false,
+      href: "/faq",
+      isImplemented: true,
     },
     {
       id: "subscribe",
@@ -425,7 +425,7 @@ export class NavbarService {
    */
   static async updateTopBar(
     updates: TopBarUpdateInput,
-    adminEmail = "admin@peralagae.com",
+    adminEmail = "peralagae@gmail.com",
     customDescription?: string
   ): Promise<NavbarSettings> {
     return runWithLock(() => topBarLock, (p) => { topBarLock = p; }, async () => {
@@ -529,7 +529,7 @@ export class NavbarService {
    */
   static async updateSecondNavbar(
     updates: SecondNavbarUpdateInput,
-    adminEmail = "admin@peralagae.com",
+    adminEmail = "peralagae@gmail.com",
     customDescription?: string
   ): Promise<NavbarSettings> {
     return runWithLock(() => secondNavbarLock, (p) => { secondNavbarLock = p; }, async () => {
@@ -634,7 +634,7 @@ export class NavbarService {
   static async syncPhoneFromStoreDetails(
     phone: string,
     phoneHref: string,
-    adminEmail = "admin@peralagae.com"
+    adminEmail = "peralagae@gmail.com"
   ): Promise<NavbarSettings> {
     return runWithLock(() => secondNavbarLock, (p) => { secondNavbarLock = p; }, async () => {
       const cleanPhone = phone.trim();
@@ -799,7 +799,7 @@ export class NavbarService {
    */
   static async restoreHistory(
     historyId: string,
-    adminEmail = "admin@peralagae.com",
+    adminEmail = "peralagae@gmail.com",
     targetSection?: "top_bar" | "second_navbar" | "full"
   ): Promise<NavbarSettings> {
     const dbRecord = await prisma.navbarHistory.findUnique({ where: { id: historyId } }).catch(() => null);

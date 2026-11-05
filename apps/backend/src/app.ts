@@ -31,6 +31,8 @@ import { createGstRouter } from "./routes/gst.js";
 import { createCartRouter } from "./routes/cart.js";
 import { createEmailRouter } from "./routes/email.js";
 import { createNewsletterRouter } from "./routes/newsletter.js";
+import { createFaqRouter } from "./routes/faq.js";
+import { createContactEnquiryRouter } from "./routes/contact-enquiry.js";
 import { ShippingMediaService } from "./services/shipping-media-service.js";
 import fs from "node:fs";
 
@@ -412,10 +414,13 @@ export function createApp(env: EnvConfig): Application {
   const storeDetailsRouter = createStoreDetailsRouter(env);
   app.use("/api/store-details", storeDetailsRouter);
   app.use("/api/v1/store-details", storeDetailsRouter);
-  app.use("/api/contact", storeDetailsRouter);
-  app.use("/api/v1/contact", storeDetailsRouter);
   app.use("/api/footer", storeDetailsRouter);
   app.use("/api/v1/footer", storeDetailsRouter);
+
+  // Customer Contact Enquiry endpoints (storefront public & admin management)
+  const contactRouter = createContactEnquiryRouter(env);
+  app.use("/api/contact", contactRouter);
+  app.use("/api/v1/contact", contactRouter);
 
   // Cart Management endpoints (storefront customer authenticated)
   const cartRouter = createCartRouter(env);
@@ -431,6 +436,11 @@ export function createApp(env: EnvConfig): Application {
   const newsletterRouter = createNewsletterRouter(env);
   app.use("/api/newsletter", newsletterRouter);
   app.use("/api/v1/newsletter", newsletterRouter);
+
+  // FAQ endpoints (storefront public & admin protected)
+  const faqRouter = createFaqRouter(env);
+  app.use("/api/faqs", faqRouter);
+  app.use("/api/v1/faqs", faqRouter);
 
   // API v1 namespace
   app.use("/api/v1", v1Router);

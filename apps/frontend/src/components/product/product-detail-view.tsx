@@ -13,12 +13,14 @@ export interface ProductDetailViewProps {
   product: Product;
   prevProduct?: Product | null;
   nextProduct?: Product | null;
+  initialRelated?: Product[];
 }
 
 export function ProductDetailView({
   product,
   prevProduct,
   nextProduct,
+  initialRelated,
 }: ProductDetailViewProps) {
   const [activeTab, setActiveTab] = useState<"description" | "reviews">("description");
 
@@ -64,7 +66,7 @@ export function ProductDetailView({
         />
 
         {/* 4. Category-Aware Related Products */}
-        <RelatedProducts currentProduct={product} limit={4} />
+        <RelatedProducts currentProduct={product} limit={4} initialRelated={initialRelated} />
       </div>
 
       {/* 5. Sticky Bottom Action Bar */}

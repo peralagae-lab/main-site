@@ -90,6 +90,11 @@ export function findSectionElement(targetId: string): HTMLElement | null {
     if (element) return element;
   }
 
+  if (cleanId === "faqs" || cleanId === "faq") {
+    element = document.getElementById("faqs") || document.getElementById("faq");
+    if (element) return element;
+  }
+
   return null;
 }
 

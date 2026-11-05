@@ -144,49 +144,6 @@ export class CategoryService {
         logger.info({ count: BASELINE_CATEGORIES.length }, "Baseline categories initialized");
       }
 
-      const productCount = await prisma.product.count();
-      if (productCount === 0) {
-        logger.info("Initializing catalogue products in MongoDB...");
-        const seedProductsPath = path.resolve(process.cwd(), "data", "seed-products.json");
-        let productsData: any[] = [];
-        if (fs.existsSync(seedProductsPath)) {
-          productsData = JSON.parse(fs.readFileSync(seedProductsPath, "utf-8"));
-        }
-
-        const categories = await prisma.category.findMany();
-        const categoryMap = new Map(categories.map((c) => [c.name.toUpperCase(), c.id]));
-
-        for (const prod of productsData) {
-          const categoryId = categoryMap.get(prod.category.toUpperCase()) || null;
-          await prisma.product.upsert({
-            where: { slug: prod.slug },
-            create: {
-              id: prod.id,
-              slug: prod.slug,
-              name: prod.name,
-              categoryId,
-              categoryKey: prod.category,
-              imageUrl: prod.image?.src || "",
-              imageAlt: prod.image?.alt || "",
-              priceInr: prod.priceInr || 0,
-              compareAtPriceInr: prod.compareAtPriceInr ?? null,
-              isHot: Boolean(prod.isHot),
-              isNew: Boolean(prod.isNew),
-              isAvailable: prod.isAvailable !== false,
-              inStock: prod.inStock !== false,
-              stockCount: prod.stockCount || 10,
-              material: prod.material || null,
-              materials: prod.materials || [],
-              sizes: prod.sizes || [],
-              images: prod.images || [],
-              description: prod.description || null,
-            },
-            update: {},
-          });
-        }
-        logger.info({ count: productsData.length }, "Catalogue products initialized in MongoDB");
-      }
-
       isInitialized = true;
     } catch (err) {
       logger.warn({ err }, "Could not complete category seed to MongoDB");

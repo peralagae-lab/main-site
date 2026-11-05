@@ -83,7 +83,7 @@ export function ImageLightboxModal({
           <button
             onClick={() => onSelectIndex((currentIndex - 1 + images.length) % images.length)}
             aria-label="Previous image"
-            className="absolute left-2 sm:left-4 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-black/50 text-white transition hover:bg-black/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+            className="absolute left-2 sm:left-4 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-black/60 text-white transition-all duration-200 hover:bg-[#C5A572] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] cursor-pointer"
           >
             <ChevronLeft className="h-6 w-6" />
           </button>
@@ -104,7 +104,7 @@ export function ImageLightboxModal({
           <button
             onClick={() => onSelectIndex((currentIndex + 1) % images.length)}
             aria-label="Next image"
-            className="absolute right-2 sm:right-4 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-black/50 text-white transition hover:bg-black/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+            className="absolute right-2 sm:right-4 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-black/60 text-white transition-all duration-200 hover:bg-[#C5A572] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] cursor-pointer"
           >
             <ChevronRight className="h-6 w-6" />
           </button>

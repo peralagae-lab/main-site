@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useMemo } from "react";
 import { useStorefront } from "@/providers/storefront-provider";
-import { SHOP_PRODUCTS, fetchPublicProducts } from "@/services/product-service";
+import { fetchPublicProducts } from "@/services/product-service";
 import type { Product } from "@/types/product";
 import { WishlistHero } from "./wishlist-hero";
 import { WishlistTable } from "./wishlist-table";
@@ -17,9 +17,10 @@ export interface WishlistPageContentProps {
  *
  * Primary orchestrator for the /wishlist route.
  * Integrates directly with storefront wishlist and cart states.
+ * All product entities are resolved dynamically from genuine database records.
  */
 export function WishlistPageContent({
-  catalogue = SHOP_PRODUCTS,
+  catalogue,
 }: WishlistPageContentProps) {
   const { wishlistIds, toggleWishlist, addToCart } = useStorefront();
 

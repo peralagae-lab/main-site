@@ -143,10 +143,10 @@ export function ReviewPagination({
           aria-selected={idx === activePage}
           aria-label={`Go to review page ${idx + 1}`}
           onClick={() => onPageSelect(idx)}
-          className={`h-2 w-2 rounded-full transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black ${
+          className={`h-2 w-2 rounded-full transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] ${
             idx === activePage
-              ? "bg-[#222222] border border-[#222222]"
-              : "bg-white border border-[#888888] hover:border-black"
+              ? "bg-[#C5A572] border border-[#C5A572] w-5"
+              : "bg-white border border-[#888888] hover:border-[#C5A572] hover:bg-[#C5A572]/20"
           }`}
         />
       ))}

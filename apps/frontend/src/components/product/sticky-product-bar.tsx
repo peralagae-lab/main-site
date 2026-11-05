@@ -73,10 +73,10 @@ export function StickyProductBar({ product }: StickyProductBarProps) {
         <div className="flex items-center gap-3 flex-none">
           <button
             onClick={handleQuickAdd}
-            className={`flex items-center gap-2 px-6 py-2.5 text-xs font-semibold uppercase tracking-widest transition-all duration-200 ${
+            className={`flex items-center gap-2 px-6 py-2.5 text-xs font-semibold uppercase tracking-widest transition-all duration-250 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] ${
               justAdded
                 ? "bg-emerald-700 text-white"
-                : "bg-[#111111] text-white hover:bg-black active:scale-[0.99]"
+                : "bg-[#111111] text-white hover:bg-[#C5A572] active:bg-[#B3935F] active:scale-[0.99]"
             }`}
           >
             {justAdded ? (

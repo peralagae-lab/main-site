@@ -160,7 +160,11 @@ export function ProductQuickView({ product, isOpen, onClose }: ProductQuickViewP
               <button
                 type="button"
                 onClick={handleAddToCart}
-                className="w-full py-3 px-6 bg-[#111111] text-white hover:bg-black text-xs font-semibold tracking-[0.1em] uppercase transition-colors flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black"
+                className={`w-full py-3 px-6 text-white text-xs font-semibold tracking-[0.1em] uppercase transition-colors flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] ${
+                  justAdded
+                    ? "bg-[#C5A572]"
+                    : "bg-[#111111] hover:bg-[#C5A572] active:bg-[#B3935F]"
+                }`}
               >
                 {justAdded ? (
                   <>
@@ -181,7 +185,7 @@ export function ProductQuickView({ product, isOpen, onClose }: ProductQuickViewP
                 className={`w-full py-2.5 px-6 border text-xs font-medium tracking-[0.08em] uppercase transition-colors flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black ${
                   isFavorite
                     ? "border-[#D9383A] text-[#D9383A] bg-red-50/50"
-                    : "border-neutral-300 text-[#222222] hover:border-black hover:text-black"
+                    : "border-neutral-300 text-[#222222] hover:border-[#C5A572] hover:text-[#C5A572]"
                 }`}
               >
                 <Heart

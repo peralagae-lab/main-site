@@ -84,8 +84,8 @@ export function ProductTabs({
           onClick={() => handleTabClick("description")}
           className={`relative pb-3 text-base sm:text-lg font-medium transition-all ${
             activeTab === "description"
-              ? "text-[#111111] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-[#111111]"
-              : "text-[#888888] hover:text-[#111111]"
+              ? "text-[#111111] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-[#C5A572]"
+              : "text-[#888888] hover:text-[#C5A572]"
           }`}
         >
           Description
@@ -100,8 +100,8 @@ export function ProductTabs({
           onClick={() => handleTabClick("reviews")}
           className={`relative pb-3 text-base sm:text-lg font-medium transition-all ${
             activeTab === "reviews"
-              ? "text-[#111111] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-[#111111]"
-              : "text-[#888888] hover:text-[#111111]"
+              ? "text-[#111111] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-[#C5A572]"
+              : "text-[#888888] hover:text-[#C5A572]"
           }`}
         >
           Reviews ({reviewsList.length})
@@ -216,7 +216,7 @@ export function ProductTabs({
             <button
               type="button"
               onClick={() => setShowReviewForm((prev) => !prev)}
-              className="inline-flex items-center gap-1.5 self-start sm:self-auto text-xs font-semibold uppercase tracking-wider text-[#111111] hover:text-[#555555] transition-colors"
+              className="inline-flex items-center gap-1.5 self-start sm:self-auto text-xs font-semibold uppercase tracking-wider text-[#111111] hover:text-[#C5A572] transition-colors cursor-pointer"
             >
               <MessageSquarePlus className="h-3.5 w-3.5" />
               <span>{showReviewForm ? "Cancel Review" : "Write a Review"}</span>
@@ -295,7 +295,7 @@ export function ProductTabs({
                   <div className="flex justify-end gap-3 pt-1">
                     <button
                       type="submit"
-                      className="bg-[#111111] text-white px-6 py-2.5 text-xs font-semibold tracking-widest uppercase hover:bg-black transition"
+                      className="bg-[#111111] text-white px-6 py-2.5 text-xs font-semibold tracking-widest uppercase hover:bg-[#C5A572] active:bg-[#B3935F] transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572]"
                     >
                       Post Review
                     </button>

@@ -29,7 +29,6 @@ export interface CreateProductPayload {
   materialId?: string | null;
   material?: string;
   materials?: string[];
-  sizes?: string[];
   isHot?: boolean;
   isNew?: boolean;
 }

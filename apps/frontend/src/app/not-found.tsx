@@ -31,13 +31,13 @@ export default function NotFound() {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
           <Link
             href="/shop"
-            className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 bg-[#111111] hover:bg-black text-white text-xs font-semibold uppercase tracking-[0.12em] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black"
+            className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 bg-[#111111] hover:bg-[#C5A572] active:bg-[#B3935F] text-white text-xs font-semibold uppercase tracking-[0.12em] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] cursor-pointer"
           >
             Explore Catalogue
           </Link>
           <Link
             href="/"
-            className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 border border-[#CCCCCC] hover:border-[#111111] text-[#111111] text-xs font-semibold uppercase tracking-[0.12em] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black"
+            className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 border border-[#CCCCCC] hover:border-[#C5A572] hover:text-[#C5A572] text-[#111111] text-xs font-semibold uppercase tracking-[0.12em] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572] cursor-pointer"
           >
             Return Home
           </Link>

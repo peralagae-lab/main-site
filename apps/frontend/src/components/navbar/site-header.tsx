@@ -70,8 +70,8 @@ export function SiteHeader({
         ? sec.links.map((link) => ({
             id: link.id,
             label: link.label,
-            href: link.href,
-            isImplemented: link.isImplemented,
+            href: link.id === "faqs" ? "/faq" : link.href,
+            isImplemented: link.id === "faqs" ? true : link.isImplemented,
           }))
         : config.utility.links,
       showPhone: sec ? sec.showPhone : (config.utility.showPhone ?? true),

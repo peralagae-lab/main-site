@@ -130,7 +130,7 @@ export function InstagramGalleryItemCard({
         target={isExternal ? "_blank" : undefined}
         rel={isExternal ? "noopener noreferrer" : undefined}
         aria-label={`View Instagram post: ${item.altText || "PERALAGAE piece"}`}
-        className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black"
+        className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572]"
       >
         {content}
       </a>
@@ -244,7 +244,7 @@ export function InstagramGallerySection({
               setIsLoading(true);
               loadSection();
             }}
-            className="inline-flex items-center gap-2 px-4 py-2 border border-black text-xs uppercase tracking-widest text-black hover:bg-black hover:text-white transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-2 border border-[#111111] text-xs uppercase tracking-widest text-[#111111] hover:border-[#C5A572] hover:bg-[#C5A572] hover:text-white active:bg-[#B3935F] transition-all duration-200 cursor-pointer"
           >
             <RotateCcw className="w-3.5 h-3.5" />
             Retry Connection
@@ -268,7 +268,7 @@ export function InstagramGallerySection({
       data-testid="instagram-gallery-section"
       className={`w-full bg-white pt-16 sm:pt-20 lg:pt-24 pb-8 sm:pb-10 lg:pb-12 ${className}`}
     >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl 2xl:max-w-[1536px] 3xl:max-w-[1720px] px-4 sm:px-6 lg:px-8 2xl:px-12">
         {/* Exact Section Heading */}
         <h2
           id="instagram-gallery-heading"
@@ -285,7 +285,7 @@ export function InstagramGallerySection({
             target="_blank"
             rel="noopener noreferrer"
             data-testid="instagram-handle-link"
-            className="block text-center text-sm sm:text-base text-[#666666] hover:text-[#111111] transition-colors mb-10 sm:mb-12 lg:mb-14 font-normal"
+            className="block text-center text-sm sm:text-base text-[#666666] hover:text-[#C5A572] transition-colors mb-10 sm:mb-12 lg:mb-14 font-normal"
           >
             {handle}
           </a>

@@ -344,7 +344,7 @@ export default function AdminGstPage() {
                   <button
                     type="submit"
                     disabled={isSaving}
-                    className="w-full sm:w-auto px-6 py-2.5 bg-neutral-900 hover:bg-black text-white text-xs font-medium uppercase tracking-wider rounded-lg transition-colors flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                    className="w-full sm:w-auto px-6 py-2.5 bg-neutral-900 hover:bg-[#C5A572] active:bg-[#B3935F] text-white text-xs font-medium uppercase tracking-wider rounded-lg transition-colors flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A572]"
                   >
                     {isSaving ? (
                       <>

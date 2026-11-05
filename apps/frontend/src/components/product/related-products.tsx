@@ -1,25 +1,68 @@
 "use client";
 
-import React, { useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import type { Product } from "@/types/product";
-import { getRelatedProducts } from "@/services/recommendation-service";
+import { fetchRelatedProducts } from "@/services/product-service";
 import { ProductCard } from "@/components/home/product-card";
 
 export interface RelatedProductsProps {
   currentProduct: Product;
   limit?: number;
+  initialRelated?: Product[];
 }
 
+/**
+ * Related Products Component — PERALAGAE
+ *
+ * Dynamically fetches related fine jewellery products from the MongoDB database
+ * based on actual category/material relationships.
+ * Excludes the current product and any out-of-stock items.
+ * If zero matching products exist, the entire section is cleanly hidden.
+ */
 export function RelatedProducts({
   currentProduct,
   limit = 4,
+  initialRelated,
 }: RelatedProductsProps) {
-  const related = useMemo(
-    () => getRelatedProducts(currentProduct, { limit }),
-    [currentProduct, limit]
-  );
+  const [related, setRelated] = useState<Product[]>(initialRelated || []);
+  const [isLoading, setIsLoading] = useState(!initialRelated);
 
-  if (related.length === 0) {
+  useEffect(() => {
+    if (initialRelated && initialRelated.length > 0) {
+      setRelated(initialRelated);
+      setIsLoading(false);
+      return;
+    }
+
+    let isMounted = true;
+    setIsLoading(true);
+    const identifier = currentProduct.slug || currentProduct.id;
+    if (!identifier) {
+      setIsLoading(false);
+      return;
+    }
+
+    fetchRelatedProducts(identifier, limit)
+      .then((items) => {
+        if (isMounted) {
+          setRelated(items);
+          setIsLoading(false);
+        }
+      })
+      .catch((err) => {
+        console.warn("[RelatedProducts] Failed to fetch related products:", err);
+        if (isMounted) {
+          setRelated([]);
+          setIsLoading(false);
+        }
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [currentProduct.id, currentProduct.slug, limit]);
+
+  if (isLoading || related.length === 0) {
     return null;
   }
 
@@ -58,4 +101,3 @@ export function RelatedProducts({
     </section>
   );
 }
-

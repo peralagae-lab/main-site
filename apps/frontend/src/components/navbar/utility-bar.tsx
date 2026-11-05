@@ -51,7 +51,7 @@ export function UtilityLinks({ links }: { links: UtilityLinkItem[] }) {
 
   return (
     <ul
-      className="flex items-center space-x-6 lg:space-x-8 text-xs lg:text-[13px] text-black"
+      className="flex items-center space-x-6 lg:space-x-8 text-xs lg:text-[13px] font-jost font-medium tracking-[0.02em] text-black"
       role="list"
     >
       {links.map((item) => (
@@ -61,13 +61,13 @@ export function UtilityLinks({ links }: { links: UtilityLinkItem[] }) {
               href={item.href}
               data-testid={item.id === "subscribe" ? "navbar-subscribe-link" : undefined}
               onClick={(e) => handleLinkClick(e, item)}
-              className="text-black transition-opacity hover:opacity-75 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-black"
+              className="text-black font-jost transition-colors duration-200 hover:text-[#C5A572] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#C5A572]"
             >
               {item.label}
             </Link>
           ) : (
             <span
-              className="cursor-default select-none text-black transition-opacity hover:opacity-75"
+              className="cursor-default select-none text-black font-jost transition-colors duration-200 hover:text-[#C5A572]"
               title={`${item.label} (Coming Soon)`}
             >
               {item.label}
@@ -107,18 +107,18 @@ export function UtilityBar({ config }: UtilityBarProps) {
 
   return (
     <div
-      className="w-full border-b border-[#E5E5E5] bg-white text-xs lg:text-[13px] text-black transition-all duration-200"
+      className="w-full border-b border-[#E5E5E5] bg-white text-xs lg:text-[13px] font-jost text-black transition-all duration-200"
       role="region"
       aria-label="Utility navigation and store information"
     >
-      <div className="mx-auto flex min-h-[40px] lg:min-h-[48px] max-w-7xl flex-wrap items-center justify-between gap-x-4 gap-y-2 px-4 sm:px-6 lg:px-8 py-1.5">
+      <div className="mx-auto flex min-h-[40px] lg:min-h-[48px] max-w-7xl 2xl:max-w-[1536px] 3xl:max-w-[1720px] flex-wrap items-center justify-between gap-x-4 gap-y-2 px-4 sm:px-6 lg:px-8 2xl:px-12 py-1.5">
         {/* Left group: Phone and Promotion */}
         <div className="flex flex-wrap items-center gap-x-3 sm:gap-x-5 lg:gap-x-6 gap-y-1">
           {/* 1. Phone Number */}
           {showPhone && (
             <a
               href={config.phoneHref ?? "tel:+919876543210"}
-              className="inline-flex items-center font-normal text-black transition-opacity hover:opacity-75 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-black shrink-0"
+              className="inline-flex items-center font-normal text-black transition-colors duration-200 hover:text-[#C5A572] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#C5A572] shrink-0"
             >
               {config.phone}
             </a>
@@ -146,7 +146,7 @@ export function UtilityBar({ config }: UtilityBarProps) {
                   {config.promotion.linkText && (
                     <Link
                       href={config.promotion.href || "/shop"}
-                      className="font-semibold text-black transition-opacity hover:underline hover:opacity-75 cursor-pointer shrink-0"
+                      className="font-semibold text-black transition-colors duration-200 hover:text-[#C5A572] hover:underline cursor-pointer shrink-0"
                     >
                       {config.promotion.linkText}
                     </Link>
